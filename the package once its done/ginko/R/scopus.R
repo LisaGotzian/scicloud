@@ -34,6 +34,9 @@
 #'     you can use the maximum of 200 per request.
 #' @param myAPIKey Your private Elsevier API key for the server communication.
 #'     You can request one at \url{https://dev.elsevier.com/}.
+#' @param saveToWd a logical parameter whether or not to save the output of the
+#'     function to the working directory. This is especially useful for later
+#'     analysis steps and can be read in by using \code{\link[base]{saveRDS}}.     
 #' @return A data frame containing the DOI numbers and Scopus-IDs of the search
 #'     results, as well as some placeholder columns.
 #' @export
@@ -41,7 +44,8 @@
 #' DOInumbers <- searchScopus('TITLE-ABS-KEY(sustainability) AND PUBYEAR > 2009',
 #'     '1234567890ABCDEF', maxResults = 160, countIncrement = 20)
 #' DOInumbers}
-searchScopus <- function(searchString, myAPIKey, maxResults = 10, countIncrement = 200) {
+searchScopus <- function(searchString, myAPIKey, maxResults = 10, 
+                         countIncrement = 200, saveToWd = TRUE) {
 
 
     #### PHASE I: GET THE DOIs and SCOPUS IDs OF THE SEARCH RESULT ####
@@ -136,7 +140,25 @@ searchScopus <- function(searchString, myAPIKey, maxResults = 10, countIncrement
         # add intermediateSearchResults to searchResults as a new row
         searchResults <- rbind(searchResults, intermediateSearchResults)
 
-
+        # save metaDOInumbers dataFrame to R object file to working directory & global env
+        if (saveToWd == TRUE) {
+          MetaDOInumbersFile <-
+            paste0("metaDOInumbers", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
+          saveRDS(searchResults, file = MetaDOInumbersFile)
+          
+          cat(
+            paste0(
+              "\nThe metaDOInumbers is now in your global environment. 
+              It is also saved as a file in your working directory. 
+              If you work with the same data again, you can skip this 
+              step in future analysis by reading in the file:
+              \n DOInumbers <- readRDS(file= '",
+              MetaDOInumbersFile,
+              "')\n\n"
+            )
+          )
+        }
+        
         # show progress Bar
         utils::setTxtProgressBar(pb, start)
     }
@@ -490,8 +512,21 @@ getScopusMetaData <- function(searchResults, myAPIKey, ordinationFunction = FALS
     })
     # check for redundant entries
     metaMatrix <- unique(metaMatrix)
+    
+    # Draw 5 checks if catching the metadata worked and return the one that's not NA
+    metaMatrixCheck <- vector()
+    n <- nrow(metaMatrix)
+    for (i in 1:5){
+      
+      r <- abs(round(rnorm(1, mean = n/2, sd= n/4)))
+      while(r>n) { r <- abs(round(rnorm(1, mean = n/2, sd= n/4))) } # to not be above n
 
-    cat(paste0("\nIf catching the Metadata worked, this should show you some Journal: \n'", metaMatrix[1, 6],
+      metaMatrixCheck[i] <- metaMatrix[r, 6]
+    }
+    
+    metaMatrixCheckValue <- metaMatrixCheck[which(!is.na(metaMatrixCheck))]
+
+    cat(paste0("\nIf catching the Metadata worked, this should show you some Journal: \n'", metaMatrixCheckValue,
         "'\nIf it didn't work out, check your API key."))
     if (ordinationFunction == TRUE) {
         cat(paste0("\n###################################################################################################\n\n"))
