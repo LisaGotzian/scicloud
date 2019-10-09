@@ -7,9 +7,9 @@
 ordinationCluster(metaMatrix, language = "SMART",
   numberOfClusters = NA, minWordsPerCluster = 5,
   maxWordsPerCluster = 10, stemWords = TRUE, ignoreWords = c(),
-  myAPIKey, p = 0.05, exactPosition = FALSE, dendrogram = TRUE,
-  dendroLabels = "truncated", saveToWd = TRUE, method = "hclust",
-  longMessages = FALSE)
+  myAPIKey = NA, p = 0.05, exactPosition = FALSE,
+  dendrogram = TRUE, dendroLabels = "truncated", saveToWd = TRUE,
+  method = "hclust", longMessages = FALSE)
 }
 \arguments{
 \item{metaMatrix}{placeholder}

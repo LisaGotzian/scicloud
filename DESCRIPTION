@@ -1,5 +1,4 @@
 Package: ginko
-Type: Package
 Title: Cluster And Network Word Analysis Of Scientific Papers
 Version: 0.0.0.9000
 Author: Matthias Nachtmann, Lisa Gotzian, Prabesh Dhakal
@@ -8,9 +7,15 @@ Description: Analyzes large amounts of (scientific) text, usually your own pdf
     files or automatically downloaded abstracts from scopus.com. Analyzes them
     using indicator values and clustering or network analysis. Includes easy-
     to-grasp graphics.
-License: GPL-3
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: 
+    testthat (>= 2.1.0),
+    spelling,
+    knitr,
+    rmarkdown
+Language: en-US
 Imports:
     bipartite (>= 2.11),
     cluster (>= 2.0.7),
@@ -35,4 +40,5 @@ Imports:
     utils (>= 2.5.0),
     vegan (>= 2.5.3),
     xml2 (>= 1.1.1)
+VignetteBuilder: knitr
 RoxygenNote: 6.1.1

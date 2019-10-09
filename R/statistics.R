@@ -687,7 +687,7 @@ processMetaDataMatrix <- function(metaMatrix,
   # the ones that are not authors and puts them into one dataframe called "wordssub".
   # After this, The final command will be "from the big metaMatrix, keep only the words that
   # are also in wordssub". Julius suggests calling this variable "wordleftovers".
-  # The final line in approx. 475: 	datasub1 <- datasub[datasub$words %in% wordssub,]
+  # The final line in approx. 475:  datasub1 <- datasub[datasub$words %in% wordssub,]
   #this line removes the words, that have been removed while creating the "wordsub" variable from the individual list
   
   
@@ -1131,9 +1131,9 @@ calculateModels <- function(processedData,
   # signIndSpeciesValuesInclSubsetRow$subset <- paste0("Cluster ", rep.int(1, wordsPerClusterArm))
   
   # for (i in 2:numberOfClusters) {
-  # 	subset <- signIndSpeciesValues[order(signIndSpeciesValues[,i],decreasing=T)[c(1: wordsPerClusterArm)],]
-  # 	subset$subset <- paste0("Cluster ", rep.int(i, wordsPerClusterArm))
-  # 	signIndSpeciesValuesInclSubsetRow <- rbind(signIndSpeciesValuesInclSubsetRow, subset)
+  #   subset <- signIndSpeciesValues[order(signIndSpeciesValues[,i],decreasing=T)[c(1: wordsPerClusterArm)],]
+  #   subset$subset <- paste0("Cluster ", rep.int(i, wordsPerClusterArm))
+  #   signIndSpeciesValuesInclSubsetRow <- rbind(signIndSpeciesValuesInclSubsetRow, subset)
   # }
   
   # it also determines the optimal amount of words to print per cluster. it checks the maximal indicator values per cluster.
@@ -1399,7 +1399,7 @@ createOrdinationPlot <- function(modeledData,
                                  exactPosition = FALSE,
                                  ordinationFunction = FALSE) {
   # if(colorPalette == "default"){
-  # 	colorPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))
+  #   colorPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))
   # }
   
   Sys.sleep(1)
@@ -1512,10 +1512,10 @@ createOrdinationPlot <- function(modeledData,
     
     # #stacked area chart
     # citationsAreaChart <- ggplot2::ggplot(naFreeData,
-    # 	ggplot2::aes(
-    # 		x=naFreeData$Year,
-    # 		y=as.numeric(naFreeData$CitedBy),
-    # 		fill=naFreeData$Cluster)
+    #   ggplot2::aes(
+    #     x=naFreeData$Year,
+    #     y=as.numeric(naFreeData$CitedBy),
+    #     fill=naFreeData$Cluster)
     # ) +
     #    ggplot2::geom_area()
     
@@ -1525,11 +1525,11 @@ createOrdinationPlot <- function(modeledData,
     
     # #stacked area chart, percentage
     # citationsAreaChartPercent <- ggplot2::ggplot(naFreeData,
-    # 	ggplot2::aes(
-    # 		x=as.numeric(naFreeData$Year),
-    # 		y=as.numeric(naFreeData$citePercent),
-    # 		fill=naFreeData$Cluster
-    # 	)
+    #   ggplot2::aes(
+    #     x=as.numeric(naFreeData$Year),
+    #     y=as.numeric(naFreeData$citePercent),
+    #     fill=naFreeData$Cluster
+    #   )
     # ) +
     #    ggplot2::geom_area()
     
@@ -1624,30 +1624,30 @@ createOrdinationPlot <- function(modeledData,
     # modeledData[[2]] <- cbind(processedData[[2]], "AffiliationComplete"=rep(NA, nrow(modeledData[[2]])))
     
     # for (i in 1:nrow(modeledData[[2]])) {
-    # 	Affiliation <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation"], ", ")))
-    # 	AffiliationCity <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation-City"], ", ")))
-    # 	AffiliationCountry <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation-Country"], ", ")))
+    #   Affiliation <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation"], ", ")))
+    #   AffiliationCity <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation-City"], ", ")))
+    #   AffiliationCountry <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation-Country"], ", ")))
     
     
     
-    # 	intermediateAffiliationComplete <- c()
-    # 	if((length(Affiliation) == length(AffiliationCity))&(length(Affiliation) == length(AffiliationCountry))){
+    #   intermediateAffiliationComplete <- c()
+    #   if((length(Affiliation) == length(AffiliationCity))&(length(Affiliation) == length(AffiliationCountry))){
     
-    # 		for(j in 1:length(Affiliation)){
+    #     for(j in 1:length(Affiliation)){
     
-    # 			currentAffiliation <- paste(Affiliation[j], AffiliationCity[j], AffiliationCountry[j], sep = ", ")
-    # 			if(currentAffiliation == "NA, NA, NA"){currentAffiliation<-NA}
+    #       currentAffiliation <- paste(Affiliation[j], AffiliationCity[j], AffiliationCountry[j], sep = ", ")
+    #       if(currentAffiliation == "NA, NA, NA"){currentAffiliation<-NA}
     
-    # 			intermediateAffiliationComplete <- c(intermediateAffiliationComplete, currentAffiliation)
+    #       intermediateAffiliationComplete <- c(intermediateAffiliationComplete, currentAffiliation)
     
-    # 		}
+    #     }
     
-    # 		modeledData[[2]][i,"AffiliationComplete"] <- paste(intermediateAffiliationComplete, collapse="; ")
+    #     modeledData[[2]][i,"AffiliationComplete"] <- paste(intermediateAffiliationComplete, collapse="; ")
     
     
-    # 	}else{
-    # 		modeledData[[2]][i,"AffiliationComplete"] <- NA
-    # 	}
+    #   }else{
+    #     modeledData[[2]][i,"AffiliationComplete"] <- NA
+    #   }
     # }
     
     
@@ -1669,9 +1669,9 @@ createOrdinationPlot <- function(modeledData,
     
     # for (i in 1:nrow(modeledData[[2]])) {
     
-    # 	latlon = geocode(naFreeData[i,1])
-    # 	modeledData[[2]][i,"Longitude"] <- as.numeric(latlon[1])
-    # 	modeledData[[2]][i,"Latitide"] <- as.numeric(latlon[2])
+    #   latlon = geocode(naFreeData[i,1])
+    #   modeledData[[2]][i,"Longitude"] <- as.numeric(latlon[1])
+    #   modeledData[[2]][i,"Latitide"] <- as.numeric(latlon[2])
     # }
     
     

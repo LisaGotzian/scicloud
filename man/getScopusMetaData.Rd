@@ -31,5 +31,6 @@ takes a Data Frame of DOI numbers and/or Scopus-IDs (like
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
-    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
+    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Prabesh Dhakal,
+    \email{prabesh.dhakal@stud.leuphana.de}
 }

@@ -1,0 +1,19 @@
+---
+title: "How_to_use"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How_to_use}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(ginko)
+```

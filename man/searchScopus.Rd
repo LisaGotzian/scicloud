@@ -5,7 +5,7 @@
 \title{searchScopus}
 \usage{
 searchScopus(searchString, myAPIKey, maxResults = 10,
-  countIncrement = 200)
+  countIncrement = 200, saveToWd = TRUE)
 }
 \arguments{
 \item{searchString}{The search string you want to ask the server. See the
@@ -20,6 +20,10 @@ Scopus does not provide more than 5000 results.}
 \item{countIncrement}{The number of resuts per GET request. A private user
 can't exeed 25 per request. If you are inside an subscribed IP range,
 you can use the maximum of 200 per request.}
+
+\item{saveToWd}{a logical parameter whether or not to save the output of the
+function to the working directory. This is especially useful for later
+analysis steps and can be read in by using \code{\link[base]{saveRDS}}.}
 }
 \value{
 A data frame containing the DOI numbers and Scopus-IDs of the search
@@ -38,5 +42,6 @@ DOInumbers}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
-    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
+    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Prabesh Dhakal,
+    \email{prabesh.dhakal@stud.leuphana.de}
 }
