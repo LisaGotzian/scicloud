@@ -7,7 +7,7 @@ Description: Analyzes large amounts of (scientific) text, usually your own pdf
     files or automatically downloaded abstracts from scopus.com. Analyzes them
     using indicator values and clustering or network analysis. Includes easy-
     to-grasp graphics.
-License: MIT + file LICENSE
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Suggests: 
