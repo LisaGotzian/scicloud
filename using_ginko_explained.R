@@ -11,7 +11,6 @@
 myAPIKey <- "3c7cc08b398980881eee1050d53c5e86"
 
 ################# The ginko magic #####################
-#install_github("LisaGotzian/scientific-wordcloud")
 #library(ginko)
 #install.packages("R.utils")
 library(R.utils)
