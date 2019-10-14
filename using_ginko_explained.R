@@ -88,8 +88,4 @@ MatrixToWork <- metaMatrix
 fix(MatrixToWork) # here, you can fix your matrix make sure to have DOIs everywhere. Be careful, there's no ctrl+Z.
 metaMatrix <- MatrixToWork # this assigns the matrix back to our original matrix.
 
-# Check if you used the latest script.
-#rm(ls)
-# Download it again from the Slack Channel and put it in your working directory.
-source("statistics.R")
 
