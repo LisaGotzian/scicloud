@@ -11,9 +11,11 @@
 myAPIKey <- "3c7cc08b398980881eee1050d53c5e86"
 
 ################# The ginko magic #####################
+#install_github("LisaGotzian/scientific-wordcloud")
 #library(ginko)
-source("./R/statistics.R")
-source("./R/scopus.R")
+#install.packages("R.utils")
+library(R.utils)
+sourceDirectory("./R")
 
 metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE) # Don't give up! Keep running it even if you get errors.
 # The following is the "Let your computer work for 20 min" way. It does exactly the same as the lines below.
