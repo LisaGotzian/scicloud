@@ -12,8 +12,8 @@ myAPIKey <- "3c7cc08b398980881eee1050d53c5e86"
 
 ################# The ginko magic #####################
 #library(ginko)
-source("statistics.R")
-source("scopus.R")
+source("./R/statistics.R")
+source("./R/scopus.R")
 
 metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE) # Don't give up! Keep running it even if you get errors.
 # The following is the "Let your computer work for 20 min" way. It does exactly the same as the lines below.
