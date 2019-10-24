@@ -138,8 +138,7 @@ createTextMatrixFromPDF <-
     #this filters double DOI entries in the PDFcontent The perfect similarity of entries has a huge effect on the models later on in the process
     PDFcontent <-
       subset(PDFcontent,!duplicated(PDFcontent[, "DOI"], incomparables = NA))
-    #PDFcontent <- subset(PDFcontent, !is.na(PDFcontent[, "FullText"])) #doesn't work b/c it finds something
-    
+
     close(pb)
     
     if (saveToWd == TRUE) {
