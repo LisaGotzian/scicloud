@@ -52,7 +52,7 @@ processMetaDataMatrix <- function(metaMatrix,
   #Error handling
   if (any(duplicated(metaMatrix[, "ID"]))) {
     Sys.sleep(1)
-    print("Warning: entries are not having unique ID's, assiging new ones")
+    print("Warning: entries do not have unique IDs, assigning new ones")
     Sys.sleep(1)
     
     metaMatrix[, "ID"] <- 1:length(metaMatrix[, "ID"])
@@ -72,17 +72,12 @@ processMetaDataMatrix <- function(metaMatrix,
       #if a semicolon is in there...
       moritz <- utils::read.csv2(file = moritzFile) #it's a csv2
     }
-  }
-  
-  if (useMoritz == TRUE) {
     if (nrow(moritz) < 10) {
       cat(
-        "Please provide the .csv-file in the following format:\n\nwords;select\nabandon;1\nabbott;0\n...\n(',' instead of ';' is fine as well.)\n\nor just have a list of words you'd like to keep."
+        "Please provide the .csv-file with an appropriate number of words in the following format:\n\nwords;select\nabandon;1\nabbott;0\n...\n(',' instead of ';' is fine as well.)\n\nor just have a list of words you'd like to keep."
       )
     }
   }
-  
-  
   
   
   
@@ -192,8 +187,6 @@ processMetaDataMatrix <- function(metaMatrix,
       
       textBody <-
         tolower(textBody) #at this point the data is a vector with a single element, containing the fulltext of the source
-      
-      
       
       #additional commands using the tm package, to process the words even further
       #these commands
