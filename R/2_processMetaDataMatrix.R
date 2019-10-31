@@ -94,45 +94,10 @@ processMetaDataMatrix <- function(metaMatrix,
   }
   
   #This part checks for results without abstract or fulltext and excludes them
-  textlessIDs <- c()
-  
-  
-  for (j in 1:nrow(metaMatrix)) {
-    if ((nchar(metaMatrix[j, "FullText"], keepNA = FALSE) < 100) &
-        (nchar(metaMatrix[j, "Abstract"], keepNA = FALSE) < 100)) {
-      textlessIDs <- c(textlessIDs, metaMatrix[j, "ID"])
-    }
-    
-    if (longMessages == TRUE) {
-      utils::setTxtProgressBar(pb, j)
-    }
-    
-  }
-  
-  
-  rowsOfTextlessIDs <- c()
-  if (length(textlessIDs) != 0) {
-    for (k in 1:length(textlessIDs)) {
-      intermediateTextlessIDs <-
-        which(grepl(textlessIDs[k], metaMatrix[, "ID"]))
-      rowsOfTextlessIDs <-
-        c(rowsOfTextlessIDs, intermediateTextlessIDs)
-    }
-    
-    metaMatrix <- metaMatrix[-rowsOfTextlessIDs,]
-  }
-  if (longMessages == TRUE) {
-    close(pb)
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
+  # use keepNA = FALSE in nchar(), so that value 2 is returned when it is an empty string
+  # set threshold for string characters in Abstract & FullText > 100 for the row to be included  
+  index <- which(rowSums(nchar(metaMatrix, keepNA = FALSE)[,c("Abstract", "FullText")]) > 104)
+  metaMatrix <- metaMatrix[index,]
   
   if (longMessages == TRUE) {
     Sys.sleep(1)
