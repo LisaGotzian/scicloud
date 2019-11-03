@@ -93,9 +93,9 @@ processMetaDataMatrix <- function(metaMatrix,
                             style = 3)
   }
   
-  #This part checks for results without abstract or fulltext and excludes them
-  # use keepNA = FALSE in nchar(), so that value 2 is returned when it is an empty string
-  # set threshold for string characters in Abstract & FullText > 100 for the row to be included  
+  ### This part checks for results without abstract or fulltext and excludes them
+  ### use keepNA = FALSE in nchar(), so that value 2 is returned when it is an empty string
+  ### set threshold for string characters in Abstract & FullText > 100 for the row to be included  
   index <- which(rowSums(nchar(metaMatrix, keepNA = FALSE)[,c("Abstract", "FullText")]) > 104)
   metaMatrix <- metaMatrix[index,]
   
@@ -109,99 +109,58 @@ processMetaDataMatrix <- function(metaMatrix,
                             style = 3)
   }
   
+  ### This part is to select the non-NA text from either Abstract/FullText columns for all rows 
+  ### use case: either Abstratc or FullText contains non-NA value 
+  ### vectorText is a vector where each vector element is a non-NA text of each row 
+  subMatrix <- metaMatrix[,c("Abstract", "FullText")] 
+  col_idx <- apply(subMatrix, 1, function(x){which(!is.na(x))}) # select non-NA column index
+  all_idx <- c(1:nrow(subMatrix), col_idx) # combine row & col indexes 
+  mat_idx <- matrix(all_idx, nrow = nrow(subMatrix), ncol = ncol(subMatrix), byrow = FALSE)
+  vectorText <- subMatrix[mat_idx] # subsetting non-NA matrix cell 
+  
+  ### save all texts as corpora structure from tm library
+  df <- data.frame(doc_id = metaMatrix[,"ID"], text = vectorText)
+  docs_corpus <- tm::Corpus(tm::DataframeSource(df))
+  
+  ### This part is to pre-processing texts
+  # generic function for matching regex pattern 
+  regf <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+  xregf <- content_transformer(function(x, pattern) gsub(pattern, "", x))
+  
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "\\s?(http)(s?)(://)([^\\.]*)[\\.|/](\\S*)") #remove website URL 
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+@\\S+") # remove email address 
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+\\.com") #remove URL (not start with http)
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "[\r\n\f]+") # remove newline/carriage return
+  docs_corpus <- tm::tm_map(docs_corpus, xregf, "- ") # undo hypen, eg. embar-rassment 
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:cntrl:]]+") # remove other control characters 
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:punct:]]+") # remove punctuaton 
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:digit:]]+") # remove digits
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:blank:]]+") # remove all blank spaces/tab
+
+  docs_corpus <- tm::tm_map(docs_corpus, tm::content_transformer(tolower))
+  docs_corpus <- tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace 
+  docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(language)) # remove stopwords
+  
+  if(stemWords == TRUE){
+    if(language == "SMART"){
+      docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument) 
+    }
+    else{
+      docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument, language == language)
+    }
+  }
+  
+  # keeping wordTableList first, enhance later
   wordTableList <- list()
-  
-  
   for (i in c(1:nrow(metaMatrix))) {
-    try({
-      doc <- c()
-      
-      if ((!is.na(metaMatrix[i, "FullText"])) &
-          (length(metaMatrix[i, "FullText"]) == 1)) {
-        doc <- metaMatrix[i, "FullText"]
-      } else if ((!is.na(metaMatrix[i, "Abstract"])) &
-                 (length(metaMatrix[i, "Abstract"]) == 1)) {
-        doc <- metaMatrix[i, "Abstract"]
-      } else{
-        #print(paste0("Document nr. ", i, "appears to have neither a fulltext nor an abstract."))
-        doc <- NA
-      }
-      
-      textBody <- as.character(doc)
-      textBody <-
-        paste(textBody, collapse = " ")  #takes the vector and pastes it into a single element, seperated by a " "
-      textBody <- gsub("[\r\n]+", " ", textBody)
-      # textBody <- gsub("- ", "-", textBody)
-      textBody <-
-        gsub("[^ -abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-]+",
-             " ",
-             textBody)  ############## Added 10.10.2018: Replace every character with an empty space except for those in the squared brackets
-      
-      textBody <- gsub("- ", "", textBody)  # undo hyphenation
-      textBody <-
-        gsub('\f', " ", textBody) # seems to be definition for page brake or something eg brake from footer/header to text
-      #textBody <- gsub('\', " ", textBody)
-      #punctuations
-      textBody <- gsub("[[:punct:]]", " ", textBody)
-      textBody <- gsub("[0-9]", " ", textBody)
-      textBody <-
-        gsub("", "", textBody)    ############### Added 10.10.2018
-      textBody <- gsub("    ", " ", textBody)
-      textBody <- gsub("   ", " ", textBody)
-      textBody <- gsub("  ", " ", textBody)
-      
-      textBody <-
-        tolower(textBody) #at this point the data is a vector with a single element, containing the fulltext of the source
-      
-      #additional commands using the tm package, to process the words even further
-      #these commands
-      textBody <- gsub("\\|", " ", textBody)
-      textBody <- gsub("@", " ", textBody)
-      textBody <- gsub("/", " ", textBody)
-      
-      textBody <- tm::removeWords(textBody, tm::stopwords(language))
-      
-      #textBody <- tm::removeWords(textBody, "na") #a fix to avoid the conversion of NA into the statistical process
-      #textBody <- tm::removeWords(textBody, ignoreWords) #removal of ignored words is transfered to a later stage to improve the performance
-      
-      if (stemWords == TRUE) {
-        if (language == "SMART") {
-          textBody <- tm::stemDocument(textBody)
-        } else{
-          #this command requires the loaded "SnowballC" package
-          textBody <- tm::stemDocument(textBody, language = language)
-        }
-      }
-      
-      textBody <- tm::stripWhitespace(textBody)
-      
-      
-      
-      words <-
-        strsplit(textBody, " ") #creating a vector with every singe word being one element
-      wordTableList[[i]] <-
-        data.frame(table(words)) #creates a dataframe, that has all the words in col1 and their frequency in col2
-      
-      
-      names(wordTableList)[i] <-
-        as.character(metaMatrix[i, "ID"]) #current workaround to avoid strange truncation behaviour, gives the list entry the actual name of the paper
-      
-      
-      
-      
-      
-      
-      #Progress Bar
-      if (longMessages == TRUE) {
-        utils::setTxtProgressBar(pb, i)
-      }
-    })
+    words <- strsplit(unlist(docs_corpus[[i]][1]), " ") 
+    idx <- grep("tomatch", iconv(words$content, "UTF-8", "ASCII", sub="tomatch")) #issue: e.g certiﬁcation -> f char is recognised as non-ASCII
+    if (length(idx) != 0){
+      words$content <- words$content[-idx] # remove european-letters
+    }
+    wordTableList[[i]] <- data.frame(table(words))
+    names(wordTableList)[i] <- as.character(metaMatrix[i, "ID"])
   }
-  if (longMessages == TRUE) {
-    close(pb)
-  }
-  
-  
   
   #make an x y matrix
   textobject <- c()#<-as.character(wordTableList[[2]][,1])
