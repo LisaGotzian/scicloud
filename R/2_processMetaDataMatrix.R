@@ -124,8 +124,8 @@ processMetaDataMatrix <- function(metaMatrix,
   
   ### This part is to pre-processing texts
   # generic function for matching regex pattern 
-  regf <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
-  xregf <- content_transformer(function(x, pattern) gsub(pattern, "", x))
+  regf <- tm::content_transformer(function(x, pattern) gsub(pattern, " ", x))
+  xregf <- tm::content_transformer(function(x, pattern) gsub(pattern, "", x))
   
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\s?(http)(s?)(://)([^\\.]*)[\\.|/](\\S*)") #remove website URL 
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+@\\S+") # remove email address 
