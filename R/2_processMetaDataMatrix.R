@@ -87,5 +87,5 @@ processMetaDataMatrix <- function(metaMatrix, control = list()){
   tf_idf <- tf_idf /sqrt(rowSums(tf_idf^2)) # normalize doc vector to address bias in long doc
   tf_idf <- tf_idf[, colSums(tf_idf) != 0] # omit non-representative words 
   
-  tf_idf
+  return(tf_idf)
 }
