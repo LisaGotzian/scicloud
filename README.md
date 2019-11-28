@@ -2,7 +2,8 @@
 This R package analyzes large amounts of (scientific) text, usually provided pdf files or automatically downloaded abstracts from scopus.com. It analyzes them using indicator values and clustering or network analysis.
 
 * `PDFs`includes a sample of 20 papers for testing purposes.
-* `the package once its done/ginko` includes all files for the package and will be the only files we work with in the long run.
+* `R` includes all files for the package.
+* `using_ginko_explained.R` is the script that runs all functions if executed.
 * `Methods_Julius.pdf` is a draft from one of Julius Rathgens's papers in which he describes how he used this package for his scientific analysis. The advantage of this draft is his overview from a scientific point of view while also giving insights into the package is supposed to work.
 
 While researching the topic, I stumbled upon the following resources resolving around word analysis:
