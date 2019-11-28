@@ -12,7 +12,7 @@
 #'     or \code{\link[ginko]{createTextMatrixFromPDF}}.
 #' @param control a list of parameters used to determine pre-processing methods. 
 #' Error will be thrown if language & stemWords are not defined. 
-#' e.g. control = list(language = "SMART, stemWords = FALSE)
+#' e.g. control = list(language = "SMART", stemWords = FALSE)
 #' @family ginko functions
 
 processMetaDataMatrix <- function(metaMatrix, control = list()){
@@ -87,5 +87,13 @@ processMetaDataMatrix <- function(metaMatrix, control = list()){
   tf_idf <- tf_idf /sqrt(rowSums(tf_idf^2)) # normalize doc vector to address bias in long doc
   tf_idf <- tf_idf[, colSums(tf_idf) != 0] # omit non-representative words 
   
-  return(tf_idf)
+  processedData <- list()
+  processedData[[1]] <- tf_idf
+  processedData[[2]] <- metaMatrix
+  processedData[[3]] <- as.factor(sort(colnames(tf_idf)))
+
+  names(processedData) <-
+    c("Tf_Idf", "MetaMatrix", "numberOfWords")
+  
+  return(processedData)
 }
