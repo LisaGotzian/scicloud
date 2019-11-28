@@ -13,7 +13,8 @@
 #' @param control a list of parameters used to determine pre-processing methods. 
 #' Error will be thrown if language & stemWords are not defined. 
 #' e.g. control = list(language = "SMART", stemWords = FALSE)
-#' @param keepWordsFile a .csv-file that specifies which words to keep during the analysis. If provided, all other words will be disregarded.
+#' @param ignoreWords a vector of words to be ignored.
+#' @param keepWordsFile path to a .csv-file that specifies which words to keep during the analysis. If provided, all other words will be disregarded.
 #' @family ginko functions
 
 processMetaDataMatrix <- function(metaMatrix, control = list(),
@@ -118,6 +119,9 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   docs_corpus <- tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace 
   docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(control$language)) # remove stopwords
   
+  ignoreWords <- sort(unique(tolower(ignoreWords)))
+  docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, ignoreWords)
+
   if(isTRUE(control$stemWords)){
     if(control$language == "SMART"){
       docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument) 
