@@ -52,7 +52,7 @@ processMetaDataMatrix <- function(metaMatrix,
   #Error handling
   if (any(duplicated(metaMatrix[, "ID"]))) {
     Sys.sleep(1)
-    print("Warning: entries do not have unique IDs, assigning new ones")
+    warning("entries do not have unique IDs, assigning new ones", call. = TRUE)
     Sys.sleep(1)
     
     metaMatrix[, "ID"] <- 1:length(metaMatrix[, "ID"])
@@ -95,8 +95,9 @@ processMetaDataMatrix <- function(metaMatrix,
   
   ### This part checks for results without abstract or fulltext and excludes them
   ### use keepNA = FALSE in nchar(), so that value 2 is returned when it is an empty string
-  ### set threshold for string characters in Abstract & FullText > 100 for the row to be included  
-  index <- which(rowSums(nchar(metaMatrix, keepNA = FALSE)[,c("Abstract", "FullText")]) > 104)
+  ### set threshold for string characters in Abstract & FullText > 100 for the row to be included
+  index <-
+    which(rowSums(nchar(metaMatrix, keepNA = FALSE)[, c("Abstract", "FullText")]) > 104)
   metaMatrix <- metaMatrix[index,]
   
   if (longMessages == TRUE) {
@@ -109,53 +110,84 @@ processMetaDataMatrix <- function(metaMatrix,
                             style = 3)
   }
   
-  ### This part is to select the non-NA text from either Abstract/FullText columns for all rows 
-  ### use case: either Abstratc or FullText contains non-NA value 
-  ### vectorText is a vector where each vector element is a non-NA text of each row 
-  subMatrix <- metaMatrix[,c("Abstract", "FullText")] 
-  col_idx <- apply(subMatrix, 1, function(x){which(!is.na(x))}) # select non-NA column index
-  all_idx <- c(1:nrow(subMatrix), col_idx) # combine row & col indexes 
-  mat_idx <- matrix(all_idx, nrow = nrow(subMatrix), ncol = ncol(subMatrix), byrow = FALSE)
-  vectorText <- subMatrix[mat_idx] # subsetting non-NA matrix cell 
+  ### This part is to select the non-NA text from either Abstract/FullText columns for all rows
+  ### use case: either Abstratc or FullText contains non-NA value
+  ### vectorText is a vector where each vector element is a non-NA text of each row
+  subMatrix <- metaMatrix[, c("Abstract", "FullText")]
+  col_idx <-
+    apply(subMatrix, 1, function(x) {
+      which(!is.na(x))
+    }) # select non-NA column index
+  all_idx <-
+    c(1:nrow(subMatrix), col_idx) # combine row & col indexes
+  mat_idx <-
+    matrix(
+      all_idx,
+      nrow = nrow(subMatrix),
+      ncol = ncol(subMatrix),
+      byrow = FALSE
+    )
+  vectorText <- subMatrix[mat_idx] # subsetting non-NA matrix cell
   
   ### save all texts as corpora structure from tm library
-  df <- data.frame(doc_id = metaMatrix[,"ID"], text = vectorText)
+  df <- data.frame(doc_id = metaMatrix[, "ID"], text = vectorText)
   docs_corpus <- tm::Corpus(tm::DataframeSource(df))
   
   ### This part is to pre-processing texts
-  # generic function for matching regex pattern 
-  regf <- tm::content_transformer(function(x, pattern) gsub(pattern, " ", x))
-  xregf <- tm::content_transformer(function(x, pattern) gsub(pattern, "", x))
+  # generic function for matching regex pattern
+  regf <-
+    tm::content_transformer(function(x, pattern)
+      gsub(pattern, " ", x))
+  xregf <-
+    tm::content_transformer(function(x, pattern)
+      gsub(pattern, "", x))
   
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "\\s?(http)(s?)(://)([^\\.]*)[\\.|/](\\S*)") #remove website URL 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+@\\S+") # remove email address 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+\\.com") #remove URL (not start with http)
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[\r\n\f]+") # remove newline/carriage return
-  docs_corpus <- tm::tm_map(docs_corpus, xregf, "- ") # undo hypen, eg. embar-rassment 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:cntrl:]]+") # remove other control characters 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:punct:]]+") # remove punctuaton 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:digit:]]+") # remove digits
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:blank:]]+") # remove all blank spaces/tab
-
-  docs_corpus <- tm::tm_map(docs_corpus, tm::content_transformer(tolower))
-  docs_corpus <- tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace 
-  docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(language)) # remove stopwords
+  docs_corpus <-
+    tm::tm_map(docs_corpus,
+               regf,
+               "\\s?(http)(s?)(://)([^\\.]*)[\\.|/](\\S*)") #remove website URL
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "\\S+@\\S+") # remove email address
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "\\S+\\.com") #remove URL (not start with http)
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "[\r\n\f]+") # remove newline/carriage return
+  docs_corpus <-
+    tm::tm_map(docs_corpus, xregf, "- ") # undo hypen, eg. embar-rassment
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "[[:cntrl:]]+") # remove other control characters
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "[[:punct:]]+") # remove punctuaton
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "[[:digit:]]+") # remove digits
+  docs_corpus <-
+    tm::tm_map(docs_corpus, regf, "[[:blank:]]+") # remove all blank spaces/tab
   
-  if(stemWords == TRUE){
-    if(language == "SMART"){
-      docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument) 
+  docs_corpus <-
+    tm::tm_map(docs_corpus, tm::content_transformer(tolower))
+  docs_corpus <-
+    tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace
+  docs_corpus <-
+    tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(language)) # remove stopwords
+  
+  if (stemWords == TRUE) {
+    if (language == "SMART") {
+      docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument)
     }
     else{
-      docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument, language == language)
+      docs_corpus <-
+        tm::tm_map(docs_corpus, tm::stemDocument, language == language)
     }
   }
   
   # keeping wordTableList first, enhance later
   wordTableList <- list()
   for (i in c(1:nrow(metaMatrix))) {
-    words <- strsplit(unlist(docs_corpus[[i]][1]), " ") 
-    idx <- grep("tomatch", iconv(words$content, "UTF-8", "ASCII", sub="tomatch")) #issue: e.g certiﬁcation -> f char is recognised as non-ASCII
-    if (length(idx) != 0){
+    words <- strsplit(unlist(docs_corpus[[i]][1]), " ")
+    idx <-
+      grep("tomatch",
+           iconv(words$content, "UTF-8", "ASCII", sub = "tomatch")) #issue: e.g certiﬁcation -> f char is recognised as non-ASCII
+    if (length(idx) != 0) {
       words$content <- words$content[-idx] # remove european-letters
     }
     wordTableList[[i]] <- data.frame(table(words))
