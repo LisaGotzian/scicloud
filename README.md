@@ -5,6 +5,7 @@ This R package analyzes large amounts of (scientific) text, usually provided pdf
 * `R` includes all files for the package.
 * `using_ginko_explained.R` is the script that runs all functions if executed.
 * `Methods_Julius.pdf` is a draft from one of Julius Rathgens's papers in which he describes how he used this package for his scientific analysis. The advantage of this draft is his overview from a scientific point of view while also giving insights into the package is supposed to work.
+* The original paper this code is based on is this paper: *Abson, David & von Wehrden, Henrik & Baumgärtner, Stefan & Fischer, Joern & Hanspach, Jan & Haerdtle, Werner & Heinrichs, Harald & Klein, Alexandra & Lang, Daniel & Martens, Pim & Walmsley, David. (2014). Ecosystem services as a boundary object for sustainability. Ecological Economics. 103. 29–37. 10.1016/j.ecolecon.2014.04.012.*
 
 While researching the topic, I stumbled upon the following resources resolving around word analysis:
 * [Wolfram Alpha's word analysis tool](https://reference.wolfram.com/language/guide/TextAnalysis.html?fbclid=IwAR01lCl9xT627zSyVMBpYitkZ9qLqQtLp3dMVgccdTB6qHNWsaKZXrEJcPU) that did pretty much anything a basic statistician would do with it (filtering and stop words, word count, clustering and posistion analysis)
