@@ -23,4 +23,5 @@ We can update the version number with the use of **use_version()**. There will b
 ## Other useful commands
 + When you add a file that is not part of the package in the project, you need to add the file in .Rbuildignore so that the file is excluded during the package build -> use_build_ignore(files, escape = TRUE)
 + When you want to document more details about the the commit/version update -> use_news_md()
+
 [Reference](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/)
