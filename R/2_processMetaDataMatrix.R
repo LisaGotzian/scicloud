@@ -104,10 +104,15 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   # generic function for matching regex pattern 
   regf <- tm::content_transformer(function(x, pattern) gsub(pattern, " ", x))
   xregf <- tm::content_transformer(function(x, pattern) gsub(pattern, "", x))
+  rmb_regf <- tm::content_transformer(function(x, pattern) gsub(pattern, "\\1", x)) # replace with the first remembered pattern
+  regf_perl <- tm::content_transformer(function(x, pattern) gsub(pattern, " ", x, perl = T))
   
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\s?(http)(s?)(://)([^\\.]*)[\\.|/](\\S*)") #remove website URL 
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+@\\S+") # remove email address 
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+\\.com") #remove URL (not start with http)
+  docs_corpus <- tm::tm_map(docs_corpus, regf_perl, "\\(((?:[^()]++|(?R))*)\\)") # remove string with parenthesis (incl. nested parenthesis)
+  docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "^(.*)References.*$") # remove all references 
+  docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "\\n(.*?)\\n(.*?)[½|¼](.*?)\\n") # remove math equation
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[\r\n\f]+") # remove newline/carriage return
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:digit:]]+") # remove digits
   docs_corpus <- tm::tm_map(docs_corpus, xregf, "- ") # undo hypen, eg. embar-rassment 
