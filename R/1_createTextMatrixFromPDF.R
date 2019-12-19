@@ -86,7 +86,7 @@ createTextMatrixFromPDF <-
       error = function(cond) {
         message(
           paste(
-            "PDF File caused an error while retrieving the full text",
+            "PDF File caused an error while retrieving the full text:",
             intermediateResultFileName
           )
         )
@@ -105,7 +105,8 @@ createTextMatrixFromPDF <-
       
       intermediateResultText <- as.character(intermediateResultText)
       intermediateResultText <-
-        paste(intermediateResultText, collapse = " ")  #takes the vector and pastes it into a single element, seperated by a " "
+        paste(intermediateResultText, collapse = " ")  # takes the vector and pastes it
+      # into a single element, seperated by a " "
       
       # get rid of the path for the filename
       PDFcontent[i, "FileName"] <-
@@ -127,7 +128,8 @@ createTextMatrixFromPDF <-
     }
     
     PDFcontent <-
-      cbind(PDFcontent, "ID" = 1:nrow(PDFcontent)) #assiging a unique id to avoid collisions along the way
+      cbind(PDFcontent, "ID" = 1:nrow(PDFcontent)) # assiging a unique id to avoid
+    # collision along the way
     
     DOIpattern <-
       '\\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])[[:graph:]])+)\\b'
@@ -135,10 +137,11 @@ createTextMatrixFromPDF <-
       stringr::str_extract(PDFcontent[, "FullText"], DOIpattern)
     PDFcontent[, "DOI"] <- DOInumbers
     
-    #this filters double DOI entries in the PDFcontent The perfect similarity of entries has a huge effect on the models later on in the process
+    # this filters double DOI entries in the PDFcontent
+    # the perfect similarity of entries has a huge effect on the models later on in the process
     PDFcontent <-
       subset(PDFcontent,!duplicated(PDFcontent[, "DOI"], incomparables = NA))
-
+    
     close(pb)
     
     if (saveToWd == TRUE) {
@@ -148,7 +151,10 @@ createTextMatrixFromPDF <-
       
       cat(
         paste0(
-          "\nThe metaMatrix is now in your global environment. It is also saved as a file in your working directory. If you work with the same data again, you can skip this step in future analysis by reading in the file:\nmetaMatrix <- readRDS(file= '",
+          "\nThe metaMatrix is now in your global environment.
+          It is also saved as a file in your working directory.
+          If you work with the same data again, you can skip
+          this step in future analysis by reading in the file:\nmetaMatrix <- readRDS(file= '",
           MetaMatrixFile,
           "')\n\n"
         )
