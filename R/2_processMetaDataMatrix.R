@@ -3,18 +3,25 @@
 # output: a tf-idf matrix 
 #############################################################################
 
+
 #' @title processMetaDataMatrix
 #'
-#' @description Constructs a tf-idf matrix. 
+#' @description The second function to the word analysis with ginko. This function
+#'     accepts a \code{metaMatrix} and constructs a tf-idf matrix.
 #'
 #' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
 #' @param metaMatrix metaMatrix created through \code{\link[ginko]{getScopusMetaData}}
-#'     or \code{\link[ginko]{createTextMatrixFromPDF}}.
-#' @param control a list of parameters used to determine pre-processing methods. 
-#' Error will be thrown if language & stemWords are not defined. 
-#' e.g. control = list(language = "SMART", stemWords = FALSE)
+#'     or \code{\link[ginko]{createTextMatrixFromPDF}}. Equations, symbols, all words
+#'     in parentheses and all References are removed.
+#' @param control a list of parameters used to determine pre-processing methods.
+#'     Error will be thrown if language & stemWords are not defined.
+#'     e.g. control = list(language = "SMART", stemWords = FALSE)
 #' @param ignoreWords a vector of words to be ignored.
-#' @param keepWordsFile path to a .csv-file that specifies which words to keep during the analysis. If provided, all other words will be disregarded.
+#' @param keepWordsFile path to a .csv-file that specifies which words to keep
+#'     during the analysis. If provided, all other words will be disregarded.
+#' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
+#'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
+#' \code{[["numberOfWords"]]} is the list of words found in the papers.
 #' @family ginko functions
 
 processMetaDataMatrix <- function(metaMatrix, control = list(),
