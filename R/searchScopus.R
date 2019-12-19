@@ -1,6 +1,6 @@
 #' @title searchScopus
 #'
-#' @description This function accepts an search string in URL format and an
+#' @description This function accepts a search string in URL format and an
 #'     Elsevier API Key and returns the DOI numbers of all search results as
 #'     a vector for further processing.
 #'
@@ -11,8 +11,8 @@
 #'     Scopus API (\url{https://dev.elsevier.com/}) for details.
 #' @param maxResults The maximum amount of accepted search results. Usually,
 #'     Scopus does not provide more than 5000 results.
-#' @param countIncrement The number of resuts per GET request. A private user
-#'     can't exeed 25 per request. If you are inside an subscribed IP range,
+#' @param countIncrement The number of results per GET request. A private user
+#'     can't exeed 25 per request. If you are inside a subscribed IP range,
 #'     you can use the maximum of 200 per request.
 #' @param myAPIKey Your private Elsevier API key for the server communication.
 #'     You can request one at \url{https://dev.elsevier.com/}.
@@ -26,10 +26,11 @@
 #' DOInumbers <- searchScopus('TITLE-ABS-KEY(sustainability) AND PUBYEAR > 2009',
 #'     '1234567890ABCDEF', maxResults = 160, countIncrement = 20)
 #' DOInumbers}
-searchScopus <- function(searchString, myAPIKey, maxResults = 10,
-                         countIncrement = 200, saveToWd = TRUE) {
-  
-  
+searchScopus <- function(searchString,
+                         myAPIKey,
+                         maxResults = 10,
+                         countIncrement = 200,
+                         saveToWd = TRUE) {
   #### PHASE I: GET THE DOIs and SCOPUS IDs OF THE SEARCH RESULT ####
   
   # percent-encode the search string
@@ -46,8 +47,14 @@ searchScopus <- function(searchString, myAPIKey, maxResults = 10,
   
   # a function that returns a custom error message
   errorMessage <- function(cond) {
-    message(paste0("Error in while retrieving the title - DOI: ", intermediateSearchResults[i, "DOI"], ", Scopus-ID: ",
-                   intermediateSearchResults[i, "Scopus-ID"]))
+    message(
+      paste0(
+        "Error in while retrieving the title - DOI: ",
+        intermediateSearchResults[i, "DOI"],
+        ", Scopus-ID: ",
+        intermediateSearchResults[i, "Scopus-ID"]
+      )
+    )
     message("Here's the original error message:")
     message(cond)
     # Choose a return value in case of error
@@ -55,8 +62,14 @@ searchScopus <- function(searchString, myAPIKey, maxResults = 10,
   }
   # a function that returns a custom warning message
   warningMessage <- function(cond) {
-    message(paste0("Warning in while retrieving the title - DOI: ", intermediateSearchResults[i, "DOI"],
-                   ", Scopus-ID: ", intermediateSearchResults[i, "Scopus-ID"]))
+    message(
+      paste0(
+        "Warning in while retrieving the title - DOI: ",
+        intermediateSearchResults[i, "DOI"],
+        ", Scopus-ID: ",
+        intermediateSearchResults[i, "Scopus-ID"]
+      )
+    )
     message("Here's the original warning message:")
     message(cond)
     # Choose a return value in case of warning
@@ -64,36 +77,65 @@ searchScopus <- function(searchString, myAPIKey, maxResults = 10,
   }
   
   while (start < end) {
-    
     # create the url that is sent as a GET request
-    URL <- paste0("http://api.elsevier.com/content/search/scopus?query=", searchString, "&count=", countIncrement,
-                  "&start=", start)
+    URL <-
+      paste0(
+        "http://api.elsevier.com/content/search/scopus?query=",
+        searchString,
+        "&count=",
+        countIncrement,
+        "&start=",
+        start
+      )
     
     # response from the server (stored in JSON format)
-    serverResponse <- httr::GET(URL, httr::add_headers(`X-ELS-APIKey` = myAPIKey, Accept = "application/json"))
+    serverResponse <-
+      httr::GET(URL,
+                httr::add_headers(`X-ELS-APIKey` = myAPIKey, Accept = "application/json"))
     
     # store the JSON content from the response
     JSON <- httr::content(serverResponse)
     
-    # ???
+    # update the current number of results
     start = start + countIncrement
     
-    numberOfEntries = maxResults  #length(JSON$`search-results`$entry)
+    numberOfEntries <-
+      maxResults  #length(JSON$`search-results`$entry)
     # numberOfEntries = length(JSON$`search-results`$entry) # ideally, this should work
     
     # initialize a matrix that stores the results (more efficient this way)
-    intermediateSearchResults <- matrix(NA, nrow = numberOfEntries, ncol = 20)
+    intermediateSearchResults <-
+      matrix(NA, nrow = numberOfEntries, ncol = 20)
     # assign column header names to the matrix where we store the results
-    colnames(intermediateSearchResults) <- c("Title", "Year", "Month", "Day", "Authors", "Journal", "Volume",
-                                             "Issue", "Pages", "CitedBy", "CitationPerYear", "DOI", "Scopus-ID", "Publisher", "Affiliation",
-                                             "Affiliation-City", "Affiliation-Country", "FileName", "Abstract", "FullText")
+    colnames(intermediateSearchResults) <-
+      c(
+        "Title",
+        "Year",
+        "Month",
+        "Day",
+        "Authors",
+        "Journal",
+        "Volume",
+        "Issue",
+        "Pages",
+        "CitedBy",
+        "CitationPerYear",
+        "DOI",
+        "Scopus-ID",
+        "Publisher",
+        "Affiliation",
+        "Affiliation-City",
+        "Affiliation-Country",
+        "FileName",
+        "Abstract",
+        "FullText"
+      )
     
-    # let users what is happening at this stage (assissted with progress bar later)
+    # let users know what is happening at this stage (assissted with progress bar later)
     cat("Accessing DOIs and Scopus IDs of the search result...\n")
     
     # attempt to grab the contents that we are interested in
     for (i in 1:numberOfEntries) {
-      
       # grab the DOI
       intermediateResultDOI <- tryCatch({
         JSON$`search-results`$entry[[i]]$`prism:doi`
@@ -101,21 +143,25 @@ searchScopus <- function(searchString, myAPIKey, maxResults = 10,
       
       # Grab the scopus ID
       intermediateResultScopusID <- tryCatch({
-        intermediateResultScopusID <- JSON$`search-results`$entry[[i]]$`dc:identifier`
-        intermediateResultScopusID <- sub("SCOPUS_ID:", "", intermediateResultScopusID)
+        intermediateResultScopusID <-
+          JSON$`search-results`$entry[[i]]$`dc:identifier`
+        intermediateResultScopusID <-
+          sub("SCOPUS_ID:", "", intermediateResultScopusID)
       }, error = errorMessage, warning = warningMessage)
       
       # store DOI and Scopus ID
-      intermediateSearchResults[i, "DOI"] <- if (length(intermediateResultDOI) > 0) {
-        intermediateResultDOI
-      } else {
-        NA
-      }
-      intermediateSearchResults[i, "Scopus-ID"] <- if (length(intermediateResultScopusID) > 0) {
-        intermediateResultScopusID
-      } else {
-        NA
-      }
+      intermediateSearchResults[i, "DOI"] <-
+        if (length(intermediateResultDOI) > 0) {
+          intermediateResultDOI
+        } else {
+          NA
+        }
+      intermediateSearchResults[i, "Scopus-ID"] <-
+        if (length(intermediateResultScopusID) > 0) {
+          intermediateResultScopusID
+        } else {
+          NA
+        }
       
     }
     
@@ -125,20 +171,21 @@ searchScopus <- function(searchString, myAPIKey, maxResults = 10,
     # save metaDOInumbers dataFrame to R object file to working directory & global env
     if (saveToWd == TRUE) {
       MetaDOInumbersFile <-
-        paste0("metaDOInumbers", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
+        paste0("metaDOInumbers",
+               format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
       saveRDS(searchResults, file = MetaDOInumbersFile)
       
       cat(
         paste0(
-          "\nThe metaDOInumbers is now in your global environment.
-          It is also saved as a file in your working directory.
-          If you work with the same data again, you can skip this
-          step in future analysis by reading in the file:
-          \n DOInumbers <- readRDS(file= '",
+          "\nThe metaDOInumbers is now in your global environment. ",
+          "It is also saved as a file in your working directory. ",
+          "If you work with the same data again, you can skip this ",
+          "step in future analysis by reading in the file:",
+          "\n DOInumbers <- readRDS(file= '",
           MetaDOInumbersFile,
           "')\n\n"
-          )
         )
+      )
     }
     
     # show progress Bar
