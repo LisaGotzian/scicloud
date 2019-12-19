@@ -25,5 +25,17 @@ We can update the version number with the use of **use_version()**. There will b
 + When you want to document more details about the the commit/version update -> use_news_md()
 + In order to remove warnings/messages you can use suppressWarnings(expr) and suppressMessages(expr) respectively
 + In order to avoid a crash of the program due to errors and to rather store those you can use try(expr, silent = TRUE)) or the more sophisticated function tryCatch(expr, ..., finally)
++ More sophisticated error handling based on [ArgumentCheck](https://cran.r-project.org/web/packages/ArgumentCheck/vignettes/ArgumentChecking.html): `ArgumentCheck` allows to collect all errors made instead of stopping after the first encountered error. This gives a more complete picture of errors to the user. A sample process is documented in the beginning of `2_processMetaDataMatrix.R`.
 
-[Reference](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/)
+# Testing the package once it's done
+This protocol is supposed to give guidance when we later check the package against a number of pdfs.
+
+## Step 1: Checking if pdfs got read in correctly
+
+## Step 2: Checking if the words got read in correctly
+The following cases might cause problems when constructing the tf-idf matrix:
+* dual-lingual papers
+* papers with two columns of text (are the paragraphs mixed up, leading to paragraphs being thrown out when throwing out the references)
+* how are equations read in?
+
+[Reference for package development](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/)
