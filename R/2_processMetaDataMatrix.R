@@ -15,7 +15,14 @@
 #'     in parentheses and all References are removed.
 #' @param control a list of parameters used to determine pre-processing methods.
 #'     Error will be thrown if language & stemWords are not defined.
-#'     e.g. control = list(language = "SMART", stemWords = FALSE)
+#'     language: this defines the stopwords to be filtered. the default is
+#'     "english". Look at \code{\link[tm]{stopwords}} for more information.
+#'     stemWords: can be \code{TRUE} of \code{FALSE}. Transforms every word
+#'     to its stem, so variants of the same words are treated equally. Look
+#'     at \code{\link[tm]{stemDocument}} for more information.
+#'     saveToWd: a logical parameter whether or not to save the output of the function to the working directory
+#'     ordinationFunction placeholder
+#'     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE, ordinationFunction = FALSE)
 #' @param ignoreWords a vector of words to be ignored.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
 #'     during the analysis. If provided, all other words will be disregarded.
@@ -49,6 +56,16 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
       if(is.null(control$stemWords))
         ArgumentCheck::addError(
           msg = "Please define the stemWords in control list!",
+          argcheck = Check
+        )
+      if(is.null(control$saveToWd))
+        ArgumentCheck::addError(
+          msg = "Please define the saveToWd in control list!",
+          argcheck = Check
+        )
+      if(is.null(control$ordinationFunction))
+        ArgumentCheck::addError(
+          msg = "Please define the ordinationFunction in control list!",
           argcheck = Check
         )
     }
@@ -126,7 +143,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:cntrl:]]+") # remove other control characters 
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:punct:]]+") # remove punctuaton 
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:blank:]]+") # remove all blank spaces/tab
-
+  
   docs_corpus <- tm::tm_map(docs_corpus, tm::content_transformer(tolower))
   docs_corpus <- tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace 
   docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(control$language)) # remove stopwords
@@ -137,7 +154,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   excludeWords <- unique(unlist(strsplit(excludeWords, ", "))) # split the raw text into vector
   ignoreWords <- append(sort(unique(tolower(ignoreWords))), excludeWords)
   docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, ignoreWords)
-
+  
   if(isTRUE(control$stemWords)){
     if(control$language == "SMART"){
       docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument) 
@@ -166,11 +183,33 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   processedData[[1]] <- tf_idf
   processedData[[2]] <- metaMatrix
   processedData[[3]] <- as.factor(sort(colnames(tf_idf)))
-
+  
   names(processedData) <-
     c("Tf_Idf", "MetaMatrix", "numberOfWords")
   
-  
-  
+  if (isTRUE(control$saveToWd)){
+    processedDataFile <-
+      paste0("processedData", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
+    saveRDS(processedData, file = processedDataFile)
+    
+    if (isTRUE(control$ordinationFunction)){
+      cat(
+        paste0(
+          "\nThe processed Data is now in your global environment. It is also saved as a file in your working directory. If you work with the same data again, you can skip this step in future analysis by reading in the file:\nprocessedMetaMatrix <- readRDS(file= '",
+          processedDataFile,
+          "')\n\n"
+        )
+      )
+    } else {
+      cat(
+        paste0(
+          "Processed Data saved. You can read it in using:\nprocessedMetaMatrix <- readRDS(file= '",
+          processedDataFile,
+          "')\n###################################################################################################\n\n"
+        )
+      )
+      
+    }
+  }
   return(processedData)
 }
