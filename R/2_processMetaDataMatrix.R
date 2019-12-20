@@ -131,7 +131,11 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   docs_corpus <- tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace 
   docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(control$language)) # remove stopwords
   
-  ignoreWords <- sort(unique(tolower(ignoreWords)))
+  # extract authors & publishers' name to be added to the list of ignoreWords 
+  excludeWords <- paste0(paste(metaMatrix[,"Authors"], collapse = ", "), #concatenate authors & publishers as one string
+                         ", ", paste(metaMatrix[,"Publisher"], collapse = ", ")) 
+  excludeWords <- unique(unlist(strsplit(excludeWords, ", "))) # split the raw text into vector
+  ignoreWords <- append(sort(unique(tolower(ignoreWords))), excludeWords)
   docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, ignoreWords)
 
   if(isTRUE(control$stemWords)){
@@ -165,6 +169,8 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
 
   names(processedData) <-
     c("Tf_Idf", "MetaMatrix", "numberOfWords")
+  
+  
   
   return(processedData)
 }
