@@ -40,10 +40,9 @@ searchScopus <- function(searchString,
   searchResults <- NULL
   
   start <- 1
-  end <- maxResults
   
   # initialize the progress bar utility
-  pb <- utils::txtProgressBar(min = start, max = end, style = 3)
+  pb <- utils::txtProgressBar(min = start, max = maxResults, style = 3)
   
   # a function that returns a custom error message
   errorMessage <- function(cond) {
@@ -76,7 +75,7 @@ searchScopus <- function(searchString,
     return(NULL)
   }
   
-  while (start < end) {
+  while (start < maxResults) {
     # create the url that is sent as a GET request
     URL <-
       paste0(
@@ -199,7 +198,7 @@ searchScopus <- function(searchString,
   
   # this ensures that the progress bar always ends with 100% (which might not happen due to possible
   # missmatches between countIncrement and maxResults)
-  utils::setTxtProgressBar(pb, end)
+  utils::setTxtProgressBar(pb, maxResults)
   close(pb)  # close progress bar
   
   return(searchResults)
