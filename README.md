@@ -10,7 +10,7 @@ This R package analyzes large amounts of (scientific) text, usually provided pdf
 While researching the topic, I stumbled upon the following resources resolving around word analysis:
 * [Wolfram Alpha's word analysis tool](https://reference.wolfram.com/language/guide/TextAnalysis.html?fbclid=IwAR01lCl9xT627zSyVMBpYitkZ9qLqQtLp3dMVgccdTB6qHNWsaKZXrEJcPU) that did pretty much anything a basic statistician would do with it (filtering and stop words, word count, clustering and posistion analysis)
 * [paperscape](https://paperscape.org) did an analysis of all papers on arxiv based on who cites whom (that's pretty close to our network approach except for that we take the words into account)
-* [ropensci]/(https://github.com/ropensci/fulltext) extract full texts of scientific publications from various APIs (eg. from Elsevier, but not from Scopus) and from PDFs. Maybe some of their functions will prove useful for us.
+* [ropensci](https://github.com/ropensci/fulltext) extract full texts of scientific publications from various APIs (eg. from Elsevier, but not from Scopus) and from PDFs. Maybe some of their functions will prove useful for us.
 
 ## Internal organisation
 We agreed to work with the following tools:
