@@ -40,7 +40,11 @@
 createTextMatrixFromPDF <-
   function(filepath = "./PDFs/",
            saveToWd = TRUE) {
-    PDFFiles <- paste0(filepath, list.files(path = filepath))
+    # filter out non PDF files
+    allFiles <- list.files(path = filepath)
+    onlyPDFs <- allFiles[grepl(".pdf", allFiles)]
+    PDFFiles <- paste0(filepath, onlyPDFs)
+    
     PDFcontent <- matrix(NA, nrow = length(PDFFiles), ncol = 20)
     colnames(PDFcontent) <-
       c(
@@ -133,8 +137,14 @@ createTextMatrixFromPDF <-
     
     DOIpattern <-
       '\\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])[[:graph:]])+)\\b'
-    DOInumbers <-
-      stringr::str_extract(PDFcontent[, "FullText"], DOIpattern)
+    
+    # Only retrieve the first two pages of the PDFs
+    firstTwoPage <- c()
+    for(i in PDFFiles){
+      # concatenate the two vectors of string (each two pages) retrieve from pdf_text(i)[0:2]  
+      firstTwoPage <- append(firstTwoPage, paste(pdftools::pdf_text(i)[0:2], collapse = ' '))
+    }
+    DOInumbers <- stringr::str_extract(firstTwoPage, DOIpattern)
     PDFcontent[, "DOI"] <- DOInumbers
     
     # this filters double DOI entries in the PDFcontent
@@ -157,8 +167,8 @@ createTextMatrixFromPDF <-
           this step in future analysis by reading in the file:\nmetaMatrix <- readRDS(file= '",
           MetaMatrixFile,
           "')\n\n"
+          )
         )
-      )
     }
     
     return(PDFcontent)
