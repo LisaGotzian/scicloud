@@ -42,10 +42,10 @@ createTextMatrixFromPDF <-
            saveToWd = TRUE) {
     # filter out non PDF files
     allFiles <- list.files(path = filepath)
-    onlyPDFs <- allFiles[grepl(".pdf", allFiles)]
-    PDFFiles <- paste0(filepath, onlyPDFs)
+    PDFs_FileName <- allFiles[grepl(".pdf", allFiles)]
+    PDFs_FullPath <- paste0(filepath, PDFs_FileName)
     
-    PDFcontent <- matrix(NA, nrow = length(PDFFiles), ncol = 20)
+    PDFcontent <- matrix(NA, nrow = length(PDFs_FullPath), ncol = 20)
     colnames(PDFcontent) <-
       c(
         "Title",
@@ -72,17 +72,17 @@ createTextMatrixFromPDF <-
     
     
     start = 1
-    end = length(PDFFiles)
+    end = length(PDFs_FullPath)
     pb <- utils::txtProgressBar(min = start, max = end, style = 3)
     
     for (i in c(start:end)) {
-      intermediateResultFileName <- PDFFiles[i]
+      intermediateResultFileName <- PDFs_FileName[i]
       
       intermediateResultText <- tryCatch({
         reader <-
           tm::readPDF(control = list(text = "-raw")) # using the default
         suppressWarnings(reader(
-          elem = list(uri = intermediateResultFileName),
+          elem = list(uri = PDFs_FullPath[i]),
           language = "en",
           id = "id1"
         ))
@@ -112,10 +112,10 @@ createTextMatrixFromPDF <-
         paste(intermediateResultText, collapse = " ")  # takes the vector and pastes it
       # into a single element, seperated by a " "
       
-      # get rid of the path for the filename
+      # retrieve the filename
       PDFcontent[i, "FileName"] <-
         if (length(intermediateResultFileName) > 0) {
-          gsub("./PDFs/", " ", intermediateResultFileName)
+          intermediateResultFileName
         } else{
           NA
         }
@@ -140,7 +140,7 @@ createTextMatrixFromPDF <-
     
     # Only retrieve the first two pages of the PDFs
     firstTwoPage <- c()
-    for(i in PDFFiles){
+    for(i in PDFs_FullPath){
       # concatenate the two vectors of string (each two pages) retrieve from pdf_text(i)[0:2]  
       firstTwoPage <- append(firstTwoPage, paste(pdftools::pdf_text(i)[0:2], collapse = ' '))
     }
