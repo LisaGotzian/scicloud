@@ -399,33 +399,7 @@ calculateModels <- function(processedData,
   )
   
   if (saveToWd == TRUE) {
-    modeledDataFile <-
-      paste0("modeledData", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-    saveRDS(modeledData, file = modeledDataFile)
-    
-    if (ordinationFunction == FALSE) {
-      cat(
-        paste0(
-          "\nThe modeled Data is now in your global environment.
-          It is also saved as a file in your working directory.
-          If you work with the same data again, you can
-          skip this step in future analysis by reading in the file:\nmodeledData <- readRDS(file= '",
-          modeledDataFile,
-          "')\n\n"
-        )
-      )
-    } else {
-      cat(
-        paste0(
-          "Modeled Data saved. You can read it in using:\nmodeledData <- readRDS(file= '",
-          modeledDataFile,
-          "')\n###############################################################
-          ####################################\n\n"
-        )
-      )
-      
-    }
-    
+    save_data(modeledData, "modeledData", long_msg = !ordinationFunction)
   }
   return(modeledData)
 }

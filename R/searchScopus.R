@@ -169,22 +169,7 @@ searchScopus <- function(searchString,
     
     # save metaDOInumbers dataFrame to R object file to working directory & global env
     if (saveToWd == TRUE) {
-      MetaDOInumbersFile <-
-        paste0("metaDOInumbers",
-               format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-      saveRDS(searchResults, file = MetaDOInumbersFile)
-      
-      cat(
-        paste0(
-          "\nThe metaDOInumbers is now in your global environment. ",
-          "It is also saved as a file in your working directory. ",
-          "If you work with the same data again, you can skip this ",
-          "step in future analysis by reading in the file:",
-          "\n DOInumbers <- readRDS(file= '",
-          MetaDOInumbersFile,
-          "')\n\n"
-        )
-      )
+      save_data(searchResults, "metaDOInumbers")
     }
     
     # show progress Bar

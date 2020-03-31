@@ -155,20 +155,7 @@ createTextMatrixFromPDF <-
     close(pb)
     
     if (saveToWd == TRUE) {
-      MetaMatrixFile <-
-        paste0("metaMatrix", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-      saveRDS(PDFcontent, file = MetaMatrixFile)
-      
-      cat(
-        paste0(
-          "\nThe metaMatrix is now in your global environment.
-          It is also saved as a file in your working directory.
-          If you work with the same data again, you can skip
-          this step in future analysis by reading in the file:\nmetaMatrix <- readRDS(file= '",
-          MetaMatrixFile,
-          "')\n\n"
-          )
-        )
+      save_data(PDFcontent, "metaMatrix")
     }
     
     return(PDFcontent)
