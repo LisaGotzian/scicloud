@@ -29,7 +29,7 @@ save_data <- function(data, data_name, long_msg = TRUE){
   else{
     cat(
       paste0(
-        data_name, "is saved. You can read it using:\n", data_name, " <- readRDS(file= '",
+        data_name, " is saved. You can read it using:\n", data_name, " <- readRDS(file= '",
         file_name,
         "')\n\nTo delete RDS files: run delete_RDS() to select different options from the menu.
         \n###################################################################################\n\n"
