@@ -354,12 +354,12 @@ calculateModels <- function(processedData,
   
   modeledData[[3]] <- representativePapersEasyToOpen
   
-  modeledData[[4]] <- processedData$numberOfWords
+  modeledData[[4]] <- processedData$wordList
   names(modeledData) <-
     c("IndVal",
       "MetaMatrix",
       "RepresentativePapers",
-      "numberOfWords")
+      "wordList")
   
   
   ### save each paper into one new folder

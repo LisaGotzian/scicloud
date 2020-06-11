@@ -30,7 +30,7 @@
 #'     \code{\link{calculateModels}} for the proceeding step
 #' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 #'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
-#' \code{[["numberOfWords"]]} is the list of words found in the papers.
+#' \code{[["wordList"]]} is the list of words found in the papers.
 #' @family ginko functions
 
 processMetaDataMatrix <- function(metaMatrix, control = list(),
@@ -191,7 +191,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   processedData[[3]] <- as.factor(sort(colnames(tf_idf)))
   
   names(processedData) <-
-    c("Tf_Idf", "MetaMatrix", "numberOfWords")
+    c("Tf_Idf", "MetaMatrix", "wordList")
   
   if (isTRUE(control$saveToWd)){
     processedDataFile <-
