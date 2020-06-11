@@ -107,26 +107,21 @@ calculateModels <- function(processedData,
   indSpeciesValues <- c()
   
   if (is.na(numberOfClusters)) {
-    numberOfClusters = 2
-    numberOfSignificantIndicators = 0
-    numberOfSignificantIndicatorsNew = 1
     
     cat("Determining the optimal number of clusters...\n")
     
     
-    while (numberOfSignificantIndicators < numberOfSignificantIndicatorsNew) {
-      numberOfSignificantIndicators <- numberOfSignificantIndicatorsNew
+    numberOfSignificantIndicators <- vector(length = 12)
+    for (cluster in 1:12) {# test up till 12 clusters
       
       cutmodel <-
-        stats::cutree(modelclust, k = numberOfClusters) #assigns a cluster number to every paper
-      #table(cutmodel)
+        stats::cutree(modelclust, k = cluster) #assigns a cluster number to every paper
       indSpeciesValues <-
         labdsv::indval(processedData$Tf_Idf, cutmodel, numitr = 1000)
-      if (longMessages == TRUE) {
         cat(
           paste0(
             "- Number of clusters: ",
-            numberOfClusters,
+            cluster,
             "; significant words (p < ",
             p,
             "): ",
@@ -134,24 +129,16 @@ calculateModels <- function(processedData,
             "\n"
           )
         )
-      }
       
-      
-      numberOfSignificantIndicatorsNew <-
+      numberOfSignificantIndicators[cluster] <-
         length(indSpeciesValues$pval[indSpeciesValues$pval <= p])
       
-      # this if statements corrects the numberOfClusters if we exeeded the maximum of
-      # significant indicators
-      if (numberOfSignificantIndicators < numberOfSignificantIndicatorsNew) {
-        numberOfClusters <- numberOfClusters + 1
-      } else{
-        numberOfClusters <- numberOfClusters - 1
-      }
-      
     }
+
+    ANSWER <- readline("With how many clusters would you like to proceed? Define 'numberOfClusters = YOURANSWER' as an argument to skip this next time.")
     
-    cat(paste0("- the optimal number of clusters is: ", numberOfClusters),
-        "\n")
+    numberOfClusters <- as.numeric(substr(ANSWER, 1, 1))
+
   }
   
   
