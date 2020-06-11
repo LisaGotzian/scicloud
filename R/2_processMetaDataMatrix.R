@@ -12,7 +12,7 @@
 #' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
 #' @param metaMatrix metaMatrix created through \code{\link[ginko]{getScopusMetaData}}
 #'     or \code{\link[ginko]{createTextMatrixFromPDF}}. Equations, symbols, all words
-#'     in parentheses and all References are removed.
+#'     in parentheses and all references are removed.
 #' @param control a list of parameters used to determine pre-processing methods.
 #'     Error will be thrown if language & stemWords are not defined.
 #'     language: this defines the stopwords to be filtered. the default is
@@ -26,6 +26,8 @@
 #' @param ignoreWords a vector of words to be ignored.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
 #'     during the analysis. If provided, all other words will be disregarded.
+#' @seealso \code{\link{createTextMatrixFromPDF}} for the preceding step,
+#'     \code{\link{calculateModels}} for the proceeding step
 #' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 #'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
 #' \code{[["numberOfWords"]]} is the list of words found in the papers.
@@ -164,7 +166,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
     }
   }
   tf <- as.matrix(tm::TermDocumentMatrix(docs_corpus, control = list(removePunctuation = TRUE, stopwords = TRUE)))
-  idf <- log(ncol(tf)/(1 + rowSums(tf != 0))) # add 1 to avoid zero division
+  idf <- log(ncol(tf)/(1 + rowSums(tf != 0))) +1 # add 1 to avoid zero division, see "idf smooth"
   tf_idf <- crossprod(tf, diag(idf)) # tf(t,d)×idf(t,D)  
   colnames(tf_idf) <- rownames(tf)
   tf_idf <- tf_idf /sqrt(rowSums(tf_idf^2)) # normalize doc vector to address bias in long doc

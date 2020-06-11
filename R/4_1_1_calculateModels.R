@@ -91,7 +91,7 @@ calculateModels <- function(processedData,
   }
   
   model <-
-    vegan::decorana(processedData$BinaryWordList, iweigh = 0) #all row sums must be >0 in the community matrix
+    vegan::decorana(processedData$Tf_Idf, iweigh = 0) #all row sums must be >0 in the community matrix
   axisPositions <- vegan::scores(model, display = c("species"))
   
   #plot(model,type="text")
@@ -100,7 +100,7 @@ calculateModels <- function(processedData,
   #cluster
   # replaced agnes by hclust from mclust
   disthclust <-
-    stats::dist(processedData$BinaryWordList, method = "binary")
+    stats::dist(processedData$Tf_Idf, method = "euclidian")
   modelclust <- stats::hclust(disthclust, method = "ward.D")
   indSpeciesValues <- c()
   
@@ -119,7 +119,7 @@ calculateModels <- function(processedData,
         stats::cutree(modelclust, k = numberOfClusters) #assigns a cluster number to every paper
       #table(cutmodel)
       indSpeciesValues <-
-        labdsv::indval(processedData$BinaryWordList, cutmodel, numitr = 1000)
+        labdsv::indval(processedData$Tf_Idf, cutmodel, numitr = 1000)
       if (longMessages == TRUE) {
         cat(
           paste0(
@@ -161,7 +161,7 @@ calculateModels <- function(processedData,
   # Performs a Dufrene-Legendre Indicator Species Analysis that calculates the indicator value
   # (fidelity and relative abundance) of species in clusters or types.
   indSpeciesValues <-
-    labdsv::indval(processedData$BinaryWordList, cutmodel, numitr = 1000)
+    labdsv::indval(processedData$Tf_Idf, cutmodel, numitr = 1000)
   
   # Combines all relevant values for the indicator species analysis (including axis positions)
   combIndSpeciesValues <-
@@ -321,7 +321,7 @@ calculateModels <- function(processedData,
   
   # select said columns (words) from processedData which is a 0-1 matrix of papers and words
   representativePapers <-
-    as.data.frame(processedData$BinaryWordList[, ClusterContent[, 1]])
+    as.data.frame(processedData$Tf_Idf[, ClusterContent[, 1]])
   rownames(representativePapers) <-
     processedData$MetaMatrix[, "FileName"] # take the filenames as row names
   
