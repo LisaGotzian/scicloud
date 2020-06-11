@@ -61,19 +61,18 @@ ordinationCluster <- function(metaMatrix,
   processedMetaMatrix <-
     processMetaDataMatrix(
       metaMatrix,
-      language = language,
+      control = list(language = language,
       stemWords = stemWords,
-      ignoreWords = ignoreWords,
-      ordinationFunction = ordinationFunction,
       saveToWd = saveToWd,
-      longMessages = longMessages
+      ordinationFunction = ordinationFunction),
+      ignoreWords = ignoreWords
     )
   
   if(!is.na(myAPIKey)){
     processedMetaMatrix$MetaMatrix <-
       getScopusMetaData(processedMetaMatrix$MetaMatrix,
                         myAPIKey,
-                        ordinationFunction = TRUE)
+                        ordinationFunction = ordinationFunction)
   }
   
   

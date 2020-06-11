@@ -33,9 +33,10 @@ GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
 ################## Step by step ##################
 # This is the "I want to do it step by step" way. Does exactly the same as the one function above :D
 #metaMatrix <- readRDS(file= 'metaMatrix2019________FILL_IN_HERE_________')
-processedMetaMatrix <- processMetaDataMatrix(metaMatrix, ignoreWords = c("Abstract", "Bulletin", "Editor")
-                                             #, useMoritz = TRUE, moritzFile = "Food_SLR.csv"
-                                             )
+processedMetaMatrix <- processMetaDataMatrix(metaMatrix, list(language = "SMART", stemWords = TRUE, saveToWd = FALSE, ordinationFunction = FALSE)
+                                             #, keepWordsFile = "Food_SLR.csv"
+                                             ,ignoreWords = c("Abstract", "Bulletin", "Editor"))
+
 
 processedMetaMatrix$MetaMatrix <- getScopusMetaData(processedMetaMatrix$MetaMatrix, myAPIKey)
 

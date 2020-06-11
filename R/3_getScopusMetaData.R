@@ -330,7 +330,7 @@ getScopusMetaData <- function(searchResults, myAPIKey, ordinationFunction = FALS
   
   metaMatrixCheckValue <- metaMatrixCheck[which(!is.na(metaMatrixCheck))]
   
-  cat(paste0("\nIf catching the Metadata worked, this should show you some Journal: \n'", metaMatrixCheckValue,
+  cat(paste0("\nIf catching the Metadata worked, this should show you some Journal: \n'", metaMatrixCheckValue[1],
              "'\nIf it didn't work out, check your API key."))
   if (ordinationFunction == TRUE) {
     cat(paste0("\n###################################################################################################\n\n"))

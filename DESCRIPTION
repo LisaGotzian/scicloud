@@ -39,6 +39,7 @@ Imports:
     tm (>= 0.7.5),
     utils (>= 2.5.0),
     vegan (>= 2.5.3),
-    xml2 (>= 1.1.1)
+    xml2 (>= 1.1.1),
+    ArgumentCheck
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
