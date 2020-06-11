@@ -40,6 +40,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   ######## Argument checks
   #* Establish a new 'ArgCheck' object
   Check <- ArgumentCheck::newArgCheck()
+
   
   ## control arguments (the list of arguments we intend the user to define)
   if(!is.list(control)) # if it's not a list, output error
@@ -109,8 +110,9 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   
   ### This part checks for results without abstract or fulltext and excludes them
   ### use keepNA = FALSE in nchar(), so that value 2 is returned when it is an empty string
-  ### set threshold for string characters in Abstract & FullText > 100 for the row to be included  
-  index <- which(rowSums(nchar(metaMatrix, keepNA = FALSE)[,c("Abstract", "FullText")]) > 104)
+  ### set threshold for string characters in Abstract & FullText > 100 for the row to be included
+  index <-
+    which(rowSums(nchar(metaMatrix, keepNA = FALSE)[, c("Abstract", "FullText")]) > 104)
   metaMatrix <- metaMatrix[index,]
   
   ### This part is to select the non-NA text from either Abstract/FullText columns for all rows 
@@ -121,9 +123,10 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   all_idx <- c(1:nrow(subMatrix), col_idx) # combine row & col indexes 
   mat_idx <- matrix(all_idx, nrow = nrow(subMatrix), ncol = ncol(subMatrix), byrow = FALSE)
   vectorText <- subMatrix[mat_idx] # subsetting non-NA matrix cell 
+
   
   ### save all texts as corpora structure from tm library
-  df <- data.frame(doc_id = metaMatrix[,"ID"], text = vectorText)
+  df <- data.frame(doc_id = metaMatrix[, "ID"], text = vectorText)
   docs_corpus <- tm::Corpus(tm::DataframeSource(df))
   
   ### This part is to pre-processing texts
@@ -163,6 +166,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
     }
     else{
       docs_corpus <- tm::tm_map(docs_corpus, tm::stemDocument, control$language)
+
     }
   }
   tf <- as.matrix(tm::TermDocumentMatrix(docs_corpus, control = list(removePunctuation = TRUE, stopwords = TRUE)))
@@ -212,6 +216,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
       )
       
     }
+
   }
   return(processedData)
 }

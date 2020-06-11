@@ -262,28 +262,7 @@ calculateNetwork <- function(processedMetaMatrix,
   )
   
   if (saveToWd == TRUE) {
-    modeledNetworkFile <-
-      paste0("modeledNetwork", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-    saveRDS(networkMatrix, file = modeledNetworkFile)
-    
-    if (ordinationFunction == FALSE) {
-      cat(
-        paste0(
-          "\nThe complete modeled Network Data is now in your global environment. It is also saved as a file in your working directory. If you work with the same data again, you can skip this step in future analysis by reading in the file:\nmodeledNetwork <- readRDS(file= '",
-          modeledNetworkFile,
-          "')\n\n"
-        )
-      )
-    } else {
-      cat(
-        paste0(
-          "Network Data saved. You can read it in using:\nmodeledNetwork <- readRDS(file= '",
-          modeledNetworkFile,
-          "')\n###################################################################################################\n\n"
-        )
-      )
-      
-    }
+    save_data(networkMatrix, "modeledNetwork", long_msg = !ordinationFunction)
   }
   names(networkMatrix) <-
     c(

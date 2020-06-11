@@ -5,7 +5,8 @@
 #'     ordination and cluster models. Each paper is assigned to one cluster
 #'     while each word receives an indicator value with \code{\link[labdsv]{indval}}
 #'     for each cluster, showing how representative word is for a cluster. The top
-#'     representative words will be used in the further process with \code{\link[ginko]{createOrdinationPlot}}.
+#'     representative words will be used in the further process with \code{
+#'     \link[ginko]{createOrdinationPlot}}.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
@@ -92,6 +93,7 @@ calculateModels <- function(processedData,
   
   model <-
     vegan::decorana(processedData$Tf_Idf, iweigh = 0) #all row sums must be >0 in the community matrix
+
   axisPositions <- vegan::scores(model, display = c("species"))
   
   #plot(model,type="text")
@@ -138,7 +140,8 @@ calculateModels <- function(processedData,
       numberOfSignificantIndicatorsNew <-
         length(indSpeciesValues$pval[indSpeciesValues$pval <= p])
       
-      #this if statements corrects the numberOfClusters if we exeeded the maximum of significant indicators
+      # this if statements corrects the numberOfClusters if we exeeded the maximum of
+      # significant indicators
       if (numberOfSignificantIndicators < numberOfSignificantIndicatorsNew) {
         numberOfClusters <- numberOfClusters + 1
       } else{
@@ -172,32 +175,38 @@ calculateModels <- function(processedData,
       axisPositions
     )
   
-  # Only takes the p values that are smaller than the given p value passed as an argument (0.05 per default)
+  # Only takes the p values that are smaller than the given p value passed
+  # as an argument (0.05 per default)
   signIndSpeciesValues <-
-    combIndSpeciesValues[combIndSpeciesValues["indSpeciesValues$pval"] <= p, ]
+    combIndSpeciesValues[combIndSpeciesValues["indSpeciesValues$pval"] <= p,]
   
   
   # #Backup
-  # # this part of the codes adds an additional column to the dataframe that shows in which cluster the most important words are.
+  # # this part of the codes adds an additional column to the dataframe that shows in which
+  # # cluster the most important words are.
   # # this information is useful to assign colors while plotting
   # signIndSpeciesValuesInclSubsetRow <- data.frame()
-  # signIndSpeciesValuesInclSubsetRow <- signIndSpeciesValues[order(signIndSpeciesValues[,1],decreasing=T)[c(1: wordsPerClusterArm)],]
+  # signIndSpeciesValuesInclSubsetRow <-
+  #      signIndSpeciesValues[order(signIndSpeciesValues[,1],decreasing=T)[c(1: wordsPerClusterArm)],]
   # signIndSpeciesValuesInclSubsetRow$subset <- paste0("Cluster ", rep.int(1, wordsPerClusterArm))
   
   # for (i in 2:numberOfClusters) {
-  #   subset <- signIndSpeciesValues[order(signIndSpeciesValues[,i],decreasing=T)[c(1: wordsPerClusterArm)],]
+  #   subset <-
+  #      signIndSpeciesValues[order(signIndSpeciesValues[,i],decreasing=T)[c(1: wordsPerClusterArm)],]
   #   subset$subset <- paste0("Cluster ", rep.int(i, wordsPerClusterArm))
   #   signIndSpeciesValuesInclSubsetRow <- rbind(signIndSpeciesValuesInclSubsetRow, subset)
   # }
   
-  # it also determines the optimal amount of words to print per cluster. it checks the maximal indicator values per cluster.
-  # the smallest of those becomes the benchmark and if one word has a higher indval than this it is also drawn on the plot
+  # it also determines the optimal amount of words to print per cluster.
+  # it checks the maximal indicator values per cluster.
+  # the smallest of those becomes the benchmark and if one word has a higher indval than
+  # this it is also drawn on the plot
   
   
   highestIndValPerCluster <- c()
   for (i in 1:numberOfClusters) {
     highestRankedWord <-
-      signIndSpeciesValues[order(signIndSpeciesValues[, i], decreasing = T)[c(1)], ]
+      signIndSpeciesValues[order(signIndSpeciesValues[, i], decreasing = T)[c(1)],]
     highestIndValPerCluster <-
       c(highestIndValPerCluster, highestRankedWord[, i])
   }
@@ -222,7 +231,7 @@ calculateModels <- function(processedData,
   
   signIndSpeciesValuesInclSubsetRow <-
     signIndSpeciesValues[order(signIndSpeciesValues[, 1], decreasing = T)
-                         [c(1:numberOfWords)], ]
+                         [c(1:numberOfWords)],]
   signIndSpeciesValuesInclSubsetRow$subset <-
     paste0("Cluster ", rep.int(1, numberOfWords))
   
@@ -242,7 +251,7 @@ calculateModels <- function(processedData,
     }
     
     subset <-
-      signIndSpeciesValues[order(signIndSpeciesValues[, i], decreasing = T)[c(1:numberOfWords)], ]
+      signIndSpeciesValues[order(signIndSpeciesValues[, i], decreasing = T)[c(1:numberOfWords)],]
     subset$subset <- paste0("Cluster ", rep.int(i, numberOfWords))
     signIndSpeciesValuesInclSubsetRow <-
       rbind(signIndSpeciesValuesInclSubsetRow, subset)
@@ -335,8 +344,8 @@ calculateModels <- function(processedData,
   
   for (i in 1:nrow(representativePapers)) {
     ClusterOfPaper <- Cluster[i] # the cluster paper i is in
-    representativePapers[i, ] <-
-      as.numeric(representativePapers[i, ]) * #take the 0/1 if the word exists
+    representativePapers[i,] <-
+      as.numeric(representativePapers[i,]) * #take the 0/1 if the word exists
       signIndSpeciesValues[[ClusterOfPaper]] # and multiply it by the indicator species value for
     # said cluster
     
@@ -367,12 +376,16 @@ calculateModels <- function(processedData,
   
   
   ### save each paper into one new folder
-  dir.create("PdfsPerCluster/")
+  if (dir.exists("PdfsPerCluster/"))
+  {
+    warning("The existing paper-cluster folders have been overwritten")
+  }
+  dir.create("PdfsPerCluster/", showWarnings = FALSE)
   for (i in 1:nlevels(as.factor(cutmodel))) {
     dir.create(paste("PdfsPerCluster/", i))
     file.copy(
       paste0("PDFs/", rownames(representativePapersEasyToOpen[representativePapersEasyToOpen[, 2] ==
-                                                                i, ])),
+                                                                i,])),
       to = paste("PdfsPerCluster/", i),
       copy.mode = T
     )
@@ -380,34 +393,13 @@ calculateModels <- function(processedData,
   
   cat(
     paste0(
-      "\nAll PDFs have been copied to different subfolders in the new folder 'PdfsPerCluster' according to the cluster they belong to.\n"
+      "\nAll PDFs have been copied to different subfolders in the new folder 'PdfsPerCluster'
+      according to the cluster they belong to.\n"
     )
   )
   
   if (saveToWd == TRUE) {
-    modeledDataFile <-
-      paste0("modeledData", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-    saveRDS(modeledData, file = modeledDataFile)
-    
-    if (ordinationFunction == FALSE) {
-      cat(
-        paste0(
-          "\nThe modeled Data is now in your global environment. It is also saved as a file in your working directory. If you work with the same data again, you can skip this step in future analysis by reading in the file:\nmodeledData <- readRDS(file= '",
-          modeledDataFile,
-          "')\n\n"
-        )
-      )
-    } else {
-      cat(
-        paste0(
-          "Modeled Data saved. You can read it in using:\nmodeledData <- readRDS(file= '",
-          modeledDataFile,
-          "')\n###################################################################################################\n\n"
-        )
-      )
-      
-    }
-    
+    save_data(modeledData, "modeledData", long_msg = !ordinationFunction)
   }
   return(modeledData)
 }

@@ -121,10 +121,9 @@ createOrdinationPlot <- function(modeledData,
     
     ClusterPercent <- c()
     for (i in 1:nrow(naFreeData)) {
-      intermediateCluster <- as.numeric(naFreeData[i, "Cluster"])
       intermediateSum <-
-        sum(as.numeric(naFreeData$Cluster[naFreeData[, "Year"] == naFreeData[i, "Year"]]))
-      percentage <- intermediateCluster / intermediateSum * 100
+        length(naFreeData$Cluster[naFreeData[, "Year"] == naFreeData[i, "Year"]])
+      percentage <- 1 / intermediateSum * 100
       ClusterPercent <- c(ClusterPercent, percentage)
     }
     naFreeData$ClusterPercent <- ClusterPercent
@@ -134,32 +133,6 @@ createOrdinationPlot <- function(modeledData,
     naFreeData$ClusterString <-
       apply(naFreeData["Cluster"], 1, function(x)
         paste0("Cluster ", x))
-    
-    
-    
-    # #stacked area chart
-    # citationsAreaChart <- ggplot2::ggplot(naFreeData,
-    #   ggplot2::aes(
-    #     x=naFreeData$Year,
-    #     y=as.numeric(naFreeData$CitedBy),
-    #     fill=naFreeData$Cluster)
-    # ) +
-    #    ggplot2::geom_area()
-    
-    
-    
-    
-    
-    # #stacked area chart, percentage
-    # citationsAreaChartPercent <- ggplot2::ggplot(naFreeData,
-    #   ggplot2::aes(
-    #     x=as.numeric(naFreeData$Year),
-    #     y=as.numeric(naFreeData$citePercent),
-    #     fill=naFreeData$Cluster
-    #   )
-    # ) +
-    #    ggplot2::geom_area()
-    
     
     
     
@@ -198,19 +171,19 @@ createOrdinationPlot <- function(modeledData,
     
     
     # paper per cluster per year - stacked bar plot
-    paperPerClusterPerYearStackedBarPlot <-
-      ggplot2::ggplot(
-        naFreeData,
-        ggplot2::aes(
-          x = naFreeData$Year,
-          y = as.numeric(naFreeData$Cluster),
-          fill = naFreeData$ClusterString
-        )
-      ) +
-      ggplot2::labs(x = "Year", y = "Amount of papers") +
-      ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
-      ggplot2::geom_bar(stat = "identity") +
-      ggplot2::theme_classic(base_size = 16)
+    paperPerClusterPerYearStackedBarPlot <- 
+            ggplot2::ggplot(
+              naFreeData,
+              ggplot2::aes(
+				      x = as.numeric(levels(naFreeData$Year))[naFreeData$Year],
+				      y = ..count..,
+				      fill = naFreeData$ClusterString
+			)
+		) +
+		ggplot2::labs(x = "Year", y = "Amount of papers") +
+		ggplot2::guides(fill=ggplot2::guide_legend(title = NULL)) + 
+		ggplot2::geom_bar(width = .9) +
+		ggplot2::theme_classic(base_size = 16)
     
     
     # paper per cluster per year - stacked bar plot, percentage
@@ -227,49 +200,8 @@ createOrdinationPlot <- function(modeledData,
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
       ggplot2::geom_bar(stat = "identity") +
       ggplot2::theme_classic(base_size = 16)
-    
-    # #map experiments
-    
-    # modeledData[[2]] <- cbind(processedData[[2]], "AffiliationComplete"=rep(NA, nrow(modeledData[[2]])))
-    
-    # for (i in 1:nrow(modeledData[[2]])) {
-    #   Affiliation <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation"], ", ")))
-    #   AffiliationCity <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation-City"], ", ")))
-    #   AffiliationCountry <- as.vector(unlist(strsplit(modeledData[[2]][i,"Affiliation-Country"], ", ")))
-    
-    
-    
-    #   intermediateAffiliationComplete <- c()
-    #   if((length(Affiliation) == length(AffiliationCity))&(length(Affiliation) == length(AffiliationCountry))){
-    
-    #     for(j in 1:length(Affiliation)){
-    
-    #       currentAffiliation <- paste(Affiliation[j], AffiliationCity[j], AffiliationCountry[j], sep = ", ")
-    #       if(currentAffiliation == "NA, NA, NA"){currentAffiliation<-NA}
-    
-    #       intermediateAffiliationComplete <- c(intermediateAffiliationComplete, currentAffiliation)
-    
-    #     }
-    
-    #     modeledData[[2]][i,"AffiliationComplete"] <- paste(intermediateAffiliationComplete, collapse="; ")
-    
-    
-    #   }else{
-    #     modeledData[[2]][i,"AffiliationComplete"] <- NA
-    #   }
-    # }
-    
-    # locationMatrix
-    
-    # modeledData[[2]] <- cbind(processedData[[2]], "Longitude"=rep(NA, nrow(modeledData[[2]])))
-    # modeledData[[2]] <- cbind(processedData[[2]], "Latitide"=rep(NA, nrow(modeledData[[2]])))
-    
-    # for (i in 1:nrow(modeledData[[2]])) {
-    
-    #   latlon = geocode(naFreeData[i,1])
-    #   modeledData[[2]][i,"Longitude"] <- as.numeric(latlon[1])
-    #   modeledData[[2]][i,"Latitide"] <- as.numeric(latlon[2])
-    # }
+
+            
     readline("Show next plot?")
     
     graphics::plot(citationsStackedBarPlot)

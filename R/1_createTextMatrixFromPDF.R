@@ -40,8 +40,12 @@
 createTextMatrixFromPDF <-
   function(filepath = "./PDFs/",
            saveToWd = TRUE) {
-    PDFFiles <- paste0(filepath, list.files(path = filepath))
-    PDFcontent <- matrix(NA, nrow = length(PDFFiles), ncol = 20)
+    # filter out non PDF files
+    allFiles <- list.files(path = filepath)
+    PDFs_FileName <- allFiles[grepl(".pdf", allFiles)]
+    PDFs_FullPath <- paste0(filepath, PDFs_FileName)
+    
+    PDFcontent <- matrix(NA, nrow = length(PDFs_FullPath), ncol = 20)
     colnames(PDFcontent) <-
       c(
         "Title",
@@ -68,17 +72,17 @@ createTextMatrixFromPDF <-
     
     
     start = 1
-    end = length(PDFFiles)
+    end = length(PDFs_FullPath)
     pb <- utils::txtProgressBar(min = start, max = end, style = 3)
     
     for (i in c(start:end)) {
-      intermediateResultFileName <- PDFFiles[i]
+      intermediateResultFileName <- PDFs_FileName[i]
       
       intermediateResultText <- tryCatch({
         reader <-
           tm::readPDF(control = list(text = "-raw")) # using the default
         suppressWarnings(reader(
-          elem = list(uri = intermediateResultFileName),
+          elem = list(uri = PDFs_FullPath[i]),
           language = "en",
           id = "id1"
         ))
@@ -86,7 +90,7 @@ createTextMatrixFromPDF <-
       error = function(cond) {
         message(
           paste(
-            "PDF File caused an error while retrieving the full text",
+            "PDF File caused an error while retrieving the full text:",
             intermediateResultFileName
           )
         )
@@ -105,12 +109,13 @@ createTextMatrixFromPDF <-
       
       intermediateResultText <- as.character(intermediateResultText)
       intermediateResultText <-
-        paste(intermediateResultText, collapse = " ")  #takes the vector and pastes it into a single element, seperated by a " "
+        paste(intermediateResultText, collapse = " ")  # takes the vector and pastes it
+      # into a single element, seperated by a " "
       
-      # get rid of the path for the filename
+      # retrieve the filename
       PDFcontent[i, "FileName"] <-
         if (length(intermediateResultFileName) > 0) {
-          gsub("./PDFs/", " ", intermediateResultFileName)
+          intermediateResultFileName
         } else{
           NA
         }
@@ -127,32 +132,30 @@ createTextMatrixFromPDF <-
     }
     
     PDFcontent <-
-      cbind(PDFcontent, "ID" = 1:nrow(PDFcontent)) #assiging a unique id to avoid collisions along the way
+      cbind(PDFcontent, "ID" = 1:nrow(PDFcontent)) # assiging a unique id to avoid
+    # collision along the way
     
     DOIpattern <-
       '\\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])[[:graph:]])+)\\b'
-    DOInumbers <-
-      stringr::str_extract(PDFcontent[, "FullText"], DOIpattern)
+    
+    # Only retrieve the first two pages of the PDFs
+    firstTwoPage <- c()
+    for(i in PDFs_FullPath){
+      # concatenate the two vectors of string (each two pages) retrieve from pdf_text(i)[0:2]  
+      firstTwoPage <- append(firstTwoPage, paste(pdftools::pdf_text(i)[0:2], collapse = ' '))
+    }
+    DOInumbers <- stringr::str_extract(firstTwoPage, DOIpattern)
     PDFcontent[, "DOI"] <- DOInumbers
     
-    #this filters double DOI entries in the PDFcontent The perfect similarity of entries has a huge effect on the models later on in the process
+    # this filters double DOI entries in the PDFcontent
+    # the perfect similarity of entries has a huge effect on the models later on in the process
     PDFcontent <-
       subset(PDFcontent,!duplicated(PDFcontent[, "DOI"], incomparables = NA))
-
+    
     close(pb)
     
     if (saveToWd == TRUE) {
-      MetaMatrixFile <-
-        paste0("metaMatrix", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-      saveRDS(PDFcontent, file = MetaMatrixFile)
-      
-      cat(
-        paste0(
-          "\nThe metaMatrix is now in your global environment. It is also saved as a file in your working directory. If you work with the same data again, you can skip this step in future analysis by reading in the file:\nmetaMatrix <- readRDS(file= '",
-          MetaMatrixFile,
-          "')\n\n"
-        )
-      )
+      save_data(PDFcontent, "metaMatrix")
     }
     
     return(PDFcontent)
