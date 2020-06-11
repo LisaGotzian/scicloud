@@ -65,11 +65,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
           msg = "Please define the saveToWd in control list!",
           argcheck = Check
         )
-      if(is.null(control$ordinationFunction))
-        ArgumentCheck::addError(
-          msg = "Please define the ordinationFunction in control list!",
-          argcheck = Check
-        )
+
     }
   
   ## metaMatrix warnings
@@ -91,6 +87,10 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   
   #* Return errors and warnings (if any)
   ArgumentCheck::finishArgCheck(Check)
+  
+  # define ordinationFunction
+  if(is.null(control$ordinationFunction)) {control$ordinationFunction <- FALSE}
+    
   
   
   # read the keepWordsFile in correctly as a csv or csv2
@@ -207,7 +207,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
         paste0(
           "Processed Data saved. You can read it in using:\nprocessedMetaMatrix <- readRDS(file= '",
           processedDataFile,
-          "')\n###################################################################################################\n\n"
+          "')"
         )
       )
       
