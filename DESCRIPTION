@@ -42,4 +42,4 @@ Imports:
     xml2 (>= 1.1.1),
     ArgumentCheck
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.0
