@@ -26,6 +26,7 @@ We can update the version number with the use of **use_version()**. There will b
 + In order to remove warnings/messages you can use suppressWarnings(expr) and suppressMessages(expr) respectively
 + In order to avoid a crash of the program due to errors and to rather store those you can use try(expr, silent = TRUE)) or the more sophisticated function tryCatch(expr, ..., finally)
 + More sophisticated error handling based on [ArgumentCheck](https://cran.r-project.org/web/packages/ArgumentCheck/vignettes/ArgumentChecking.html): `ArgumentCheck` allows to collect all errors made instead of stopping after the first encountered error. This gives a more complete picture of errors to the user. A sample process is documented in the beginning of `2_processMetaDataMatrix.R`.
++ Update Documentation .Rd files -> Run devtools::document() (or press Ctrl/Cmd + Shift + D in RStudio) to convert roxygen comments to .Rd files. (devtools::document() calls roxygen2::roxygenise() to do the hard work.)
 
 # Testing the package once it's done
 This protocol is supposed to give guidance when we later check the package against a number of pdfs.
