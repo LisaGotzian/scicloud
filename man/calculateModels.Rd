@@ -4,10 +4,18 @@
 \alias{calculateModels}
 \title{calculateModels}
 \usage{
-calculateModels(processedData, numberOfClusters = NA,
-  minWordsPerCluster = 5, maxWordsPerCluster = 10, p = 0.05,
-  dendrogram = TRUE, dendroLabels = "truncated", saveToWd = TRUE,
-  ordinationFunction = FALSE, longMessages = FALSE)
+calculateModels(
+  processedData,
+  numberOfClusters = NA,
+  minWordsPerCluster = 5,
+  maxWordsPerCluster = 10,
+  p = 0.05,
+  dendrogram = TRUE,
+  dendroLabels = "truncated",
+  saveToWd = TRUE,
+  ordinationFunction = FALSE,
+  longMessages = FALSE
+)
 }
 \arguments{
 \item{processedData}{result of \code{\link[ginko]{processMetaDataMatrix}}}
@@ -63,12 +71,13 @@ placeholder}
     \code{\link{mostImportantPaperPerCluster}} and
     \code{\link{inspectGinko}} for a summary of the analysis
 
-Other ginko functions: \code{\link{createOrdinationPlot}},
-  \code{\link{createTextMatrixFromPDF}},
-  \code{\link{inspectGinko}},
-  \code{\link{mostImportantPaperPerCluster}},
-  \code{\link{ordinationCluster}},
-  \code{\link{processMetaDataMatrix}}
+Other ginko functions: 
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{inspectGinko}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},

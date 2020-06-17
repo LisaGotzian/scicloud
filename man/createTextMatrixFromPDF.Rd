@@ -43,12 +43,13 @@ GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
     \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
     future plots) from scopus
 
-Other ginko functions: \code{\link{calculateModels}},
-  \code{\link{createOrdinationPlot}},
-  \code{\link{inspectGinko}},
-  \code{\link{mostImportantPaperPerCluster}},
-  \code{\link{ordinationCluster}},
-  \code{\link{processMetaDataMatrix}}
+Other ginko functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{inspectGinko}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},

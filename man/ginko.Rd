@@ -3,7 +3,6 @@
 \docType{package}
 \name{ginko}
 \alias{ginko}
-\alias{ginko-package}
 \title{ginko: A Package For Word Analysis Of Scientific Papers}
 \description{
 The ginko package provides a word analysis for scientific papers as PDFs.

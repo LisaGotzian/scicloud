@@ -4,9 +4,14 @@
 \alias{calculateNetwork}
 \title{calculateNetwork}
 \usage{
-calculateNetwork(processedMetaMatrix, sortby = "Eigenvector",
-  keep = 0.33, saveToWd = TRUE, ordinationFunction = FALSE,
-  longMessages = FALSE)
+calculateNetwork(
+  processedMetaMatrix,
+  sortby = "Eigenvector",
+  keep = 0.33,
+  saveToWd = TRUE,
+  ordinationFunction = FALSE,
+  longMessages = FALSE
+)
 }
 \arguments{
 \item{processedMetaMatrix}{requires the output of

@@ -4,8 +4,12 @@
 \alias{processMetaDataMatrix}
 \title{processMetaDataMatrix}
 \usage{
-processMetaDataMatrix(metaMatrix, control = list(), ignoreWords = c(),
-  keepWordsFile)
+processMetaDataMatrix(
+  metaMatrix,
+  control = list(),
+  ignoreWords = c(),
+  keepWordsFile
+)
 }
 \arguments{
 \item{metaMatrix}{metaMatrix created through \code{\link[ginko]{getScopusMetaData}}
@@ -41,12 +45,13 @@ The second function to the word analysis with ginko. This function
 \code{\link{createTextMatrixFromPDF}} for the preceding step,
     \code{\link{calculateModels}} for the proceeding step
 
-Other ginko functions: \code{\link{calculateModels}},
-  \code{\link{createOrdinationPlot}},
-  \code{\link{createTextMatrixFromPDF}},
-  \code{\link{inspectGinko}},
-  \code{\link{mostImportantPaperPerCluster}},
-  \code{\link{ordinationCluster}}
+Other ginko functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{inspectGinko}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()}
 }
 \author{
 Jia Yan Ng, \email{jia.y.ng@stud.leuphana.de}

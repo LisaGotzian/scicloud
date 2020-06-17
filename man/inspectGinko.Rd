@@ -21,12 +21,13 @@ placeholder
     \code{\link{createOrdinationPlot}} for the graphics,
     \code{\link{mostImportantPaperPerCluster}}
 
-Other ginko functions: \code{\link{calculateModels}},
-  \code{\link{createOrdinationPlot}},
-  \code{\link{createTextMatrixFromPDF}},
-  \code{\link{mostImportantPaperPerCluster}},
-  \code{\link{ordinationCluster}},
-  \code{\link{processMetaDataMatrix}}
+Other ginko functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()}
 }
 \author{
 Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}

@@ -4,8 +4,11 @@
 \alias{createOrdinationPlot}
 \title{createOrdinationPlot}
 \usage{
-createOrdinationPlot(modeledData, exactPosition = FALSE,
-  ordinationFunction = FALSE)
+createOrdinationPlot(
+  modeledData,
+  exactPosition = FALSE,
+  ordinationFunction = FALSE
+)
 }
 \arguments{
 \item{modeledData}{result of \code{\link[ginko]{calculateModels}}}
@@ -36,12 +39,13 @@ placeholder}
     \code{\link{mostImportantPaperPerCluster}} and
     \code{\link{inspectGinko}} for a summary of the analysis
 
-Other ginko functions: \code{\link{calculateModels}},
-  \code{\link{createTextMatrixFromPDF}},
-  \code{\link{inspectGinko}},
-  \code{\link{mostImportantPaperPerCluster}},
-  \code{\link{ordinationCluster}},
-  \code{\link{processMetaDataMatrix}}
+Other ginko functions: 
+\code{\link{calculateModels}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{inspectGinko}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},

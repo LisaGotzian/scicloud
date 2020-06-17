@@ -25,12 +25,13 @@ placeholder}
     \code{\link{createOrdinationPlot}} for the graphics,
     \code{\link{inspectGinko}} for a summary of the analysis
 
-Other ginko functions: \code{\link{calculateModels}},
-  \code{\link{createOrdinationPlot}},
-  \code{\link{createTextMatrixFromPDF}},
-  \code{\link{inspectGinko}},
-  \code{\link{ordinationCluster}},
-  \code{\link{processMetaDataMatrix}}
+Other ginko functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{inspectGinko}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},

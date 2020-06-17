@@ -4,8 +4,13 @@
 \alias{searchScopus}
 \title{searchScopus}
 \usage{
-searchScopus(searchString, myAPIKey, maxResults = 10,
-  countIncrement = 200, saveToWd = TRUE)
+searchScopus(
+  searchString,
+  myAPIKey,
+  maxResults = 10,
+  countIncrement = 200,
+  saveToWd = TRUE
+)
 }
 \arguments{
 \item{searchString}{The search string you want to ask the server. See the

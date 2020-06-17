@@ -4,12 +4,23 @@
 \alias{ordinationCluster}
 \title{ordinationCluster}
 \usage{
-ordinationCluster(metaMatrix, language = "SMART",
-  numberOfClusters = NA, minWordsPerCluster = 5,
-  maxWordsPerCluster = 10, stemWords = TRUE, ignoreWords = c(),
-  myAPIKey = NA, p = 0.05, exactPosition = FALSE,
-  dendrogram = TRUE, dendroLabels = "truncated", saveToWd = TRUE,
-  method = "hclust", longMessages = FALSE)
+ordinationCluster(
+  metaMatrix,
+  language = "SMART",
+  numberOfClusters = NA,
+  minWordsPerCluster = 5,
+  maxWordsPerCluster = 10,
+  stemWords = TRUE,
+  ignoreWords = c(),
+  myAPIKey = NA,
+  p = 0.05,
+  exactPosition = FALSE,
+  dendrogram = TRUE,
+  dendroLabels = "truncated",
+  saveToWd = TRUE,
+  method = "hclust",
+  longMessages = FALSE
+)
 }
 \arguments{
 \item{metaMatrix}{placeholder}
@@ -56,12 +67,13 @@ The essential wrapper function that runs all steps of the word
 placeholder}
 }
 \seealso{
-Other ginko functions: \code{\link{calculateModels}},
-  \code{\link{createOrdinationPlot}},
-  \code{\link{createTextMatrixFromPDF}},
-  \code{\link{inspectGinko}},
-  \code{\link{mostImportantPaperPerCluster}},
-  \code{\link{processMetaDataMatrix}}
+Other ginko functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{inspectGinko}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{processMetaDataMatrix}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
