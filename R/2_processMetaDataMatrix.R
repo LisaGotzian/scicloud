@@ -1,9 +1,3 @@
-#############################################################################
-# input: metaMatrix with a control list (to determine pre-processing methods)
-# output: a tf-idf matrix 
-#############################################################################
-
-
 #' @title processMetaDataMatrix
 #'
 #' @description The second function to the word analysis with ginko. This function
