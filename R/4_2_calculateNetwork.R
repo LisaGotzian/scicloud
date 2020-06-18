@@ -48,34 +48,31 @@
 
 
 calculateNetwork <- function(processedMetaMatrix,
-                             sortby = "Eigenvector",
+                             sortby = c("Eigenvector","Degree", "Closeness","Betweenness"), 
                              keep = 0.33,
                              saveToWd = TRUE,
                              ordinationFunction = FALSE,
                              longMessages = FALSE) {
+  
+  sortby <- match.arg(sortby) #pick the argument input by user
+  
+  # Argument Checks
+  Check <- ArgumentCheck::newArgCheck()
   if (any(c(
     is.null(processedMetaMatrix[[1]]),
     is.null(processedMetaMatrix[[2]])
   ))) {
-    cat("Make sure to use processedMetaMatrix from processMetaDataMatrix().")
-  } #improve it with tryCatch()
+    ArgumentCheck::addError(
+      msg = "Invalid processedMetaMatrix! Use value from processMetaDataMatrix()", 
+      argcheck = Check
+    )
+  }
   
   # keep has to be numeric between 0 and 1
   if (any(c(!is.numeric(keep), keep > 1, keep < 0))) {
-    cat("Please enter a numeric value between 0 and 1 for 'keep'.")
-  }
-  
-  # sort by the given centralities
-  if (sum(
-    c(
-      sortby == "Eigenvector",
-      sortby == "Degree",
-      sortby == "Closeness",
-      sortby == "Betweenness"
-    )
-  ) != 1) {
-    cat(
-      "Please use one of the possible inputs for 'sortby': 'Eigenvector', 'Degree', 'Closeness', 'Betweenness'. Default is 'Eigenvector'."
+    ArgumentCheck::addError(
+      msg = "'Keep' argument value must be in between 0 and 1", 
+      argcheck = Check
     )
   }
   

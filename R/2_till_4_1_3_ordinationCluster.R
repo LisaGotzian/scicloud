@@ -47,13 +47,17 @@ ordinationCluster <- function(metaMatrix,
                               saveToWd = TRUE,
                               method = "hclust",
                               longMessages = FALSE) {
+  # Argument Checks
+  Check <- ArgumentCheck::newArgCheck()
   if (sum(c(method == "hclust",
             method == "network",
             method == "both")) != 1) {
-    cat(
-      "Please use one of the possible inputs for 'method': 'hclust', 'network' or 'both'. Default is 'hclust'."
-    )
+      ArgumentCheck::addError(
+        msg = "Invalid inputs for 'method'! Valid input: 'hclust', 'network' or 'both'. Default is 'hclust'.", 
+        argcheck = Check
+      )
   }
+  ArgumentCheck::finishArgCheck(Check)
   
   # to change minor things in other functions when running the big function, such as using readline() after the Dendrogram.
   ordinationFunction <-  TRUE

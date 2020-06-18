@@ -51,39 +51,39 @@ calculateModels <- function(processedData,
                             saveToWd = TRUE,
                             ordinationFunction = FALSE,
                             longMessages = FALSE) {
-  # error handling
+  # Argument Checks
+  Check <- ArgumentCheck::newArgCheck()
   # ignore to tiny p values. labdvs::inval only provides three decimal digits
   if (p < 0.001) {
     p <- 0.001
+    ArgumentCheck::addWarning(
+      msg = "p values < 0.001 is not taken into account, it is set to p=0.001", 
+      argcheck = Check
+    )
   }
   
   if (maxWordsPerCluster < minWordsPerCluster) {
-    print("Warning: maxWordsPerCluster < minWordsPerCluster")
-    print(paste0("Adjusting minWordsPerCluster to: ", maxWordsPerCluster))
-    minWordsPerCluster <- maxWordsPerCluster
+    ArgumentCheck::addError(
+      msg = "Invalid maxWordsPerCluster! It is smaller than minWordsPerCluster!", 
+      argcheck = Check
+    )
   }
-  
-  if (length(numberOfClusters) != 1) {
-    print(paste0("numberOfClusters has an invalid value: ", numberOfClusters))
-    print("switching to automatic calculation")
-    numberOfClusters <- NA
-  }
-  
   
   if (!is.na(numberOfClusters)) {
     if (!is.numeric(numberOfClusters)) {
-      print(paste0(
-        "numberOfClusters has an invalid value: ",
-        numberOfClusters
-      ))
-      print("switching to automatic calculation")
-      numberOfClusters <- NA
+      ArgumentCheck::addError(
+        msg = "Invalid numberOfClusters! It is not a numeric input!", 
+        argcheck = Check
+      )
+    }
+    if (length(numberOfClusters) != 1) {
+      ArgumentCheck::addError(
+        msg = "Invalid numberOfClusters! It is not a single value input!", 
+        argcheck = Check
+      )
     }
   }
-  
-  
-  
-  
+  ArgumentCheck::finishArgCheck(Check)
   
   if (longMessages == TRUE) {
     Sys.sleep(1)
