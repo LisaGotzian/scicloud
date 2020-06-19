@@ -9,7 +9,7 @@
 #'     scientific papers as PDF files from a "PDFs" folder you'll have to
 #'     create. It then creates a DocumentTerm matrix
 #'     similar to \code{\link[ginko]{searchScopus}} for further processing.
-#' @param filepath per default, the PDFs are expected to be in a folder named
+#' @param directory per default, the PDFs are expected to be in a folder named
 #'     "PDFs", can be changed ad. lib.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
@@ -38,12 +38,42 @@
 #' }
 #' @export
 createTextMatrixFromPDF <-
-  function(filepath = "./PDFs/",
+  function(directory = "./PDFs/",
            saveToWd = TRUE) {
+    
+    allFiles <- list.files(directory)
     # filter out non PDF files
-    allFiles <- list.files(path = filepath)
     PDFs_FileName <- allFiles[grepl(".pdf", allFiles)]
-    PDFs_FullPath <- paste0(filepath, PDFs_FileName)
+    PDFs_FullPath <- paste0(directory, PDFs_FileName)
+    
+    # Argument Checks
+    Check <- ArgumentCheck::newArgCheck()
+    if (!length(allFiles)){
+      ArgumentCheck::addError(
+        msg = "empty directory",
+        argcheck = Check
+      )
+    }
+    if (!length(PDFs_FileName)){
+      ArgumentCheck::addError(
+        msg = "The directory contains no PDF file(s)",
+        argcheck = Check
+      )
+    }
+    isdir <- file.info(directory)[["isdir"]]
+    if (any(is.na(isdir))){
+      ArgumentCheck::addError(
+        msg ="non-existent directory", 
+        argcheck = Check                      
+      )
+    }
+    if (!(isdir)){
+      ArgumentCheck::addError(
+        msg ="'directory' argument is not a directory path", 
+        argcheck = Check                      
+      )
+    }
+    ArgumentCheck::finishArgCheck(Check)
     
     PDFcontent <- matrix(NA, nrow = length(PDFs_FullPath), ncol = 20)
     colnames(PDFcontent) <-
