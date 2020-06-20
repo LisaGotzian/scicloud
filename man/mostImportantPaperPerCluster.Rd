@@ -10,7 +10,7 @@ mostImportantPaperPerCluster(modeledData)
 \item{modeledData}{result of \code{\link[ginko]{calculateModels}}}
 }
 \value{
-console output of the papers with the hightest citation per year
+console output of the papers with the highest citation per year
     count per cluster.
 }
 \description{

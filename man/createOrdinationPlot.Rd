@@ -14,8 +14,8 @@ createOrdinationPlot(
 \item{modeledData}{result of \code{\link[ginko]{calculateModels}}}
 
 \item{exactPosition}{\code{TRUE} or \code{FALSE}, the plot function tries
-to avoid overlapping labels for the sake of visual siplicity over perfect
-precission. When set to \code{TRUE}, the words position will be marked by
+to avoid overlapping labels for the sake of visual simplicity over perfect
+precision. When set to \code{TRUE}, the words position will be marked by
 a dot and the label will be connected with a line to it.}
 
 \item{ordinationFunction}{for internal use.}

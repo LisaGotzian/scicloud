@@ -23,7 +23,7 @@ You can request one at \url{https://dev.elsevier.com/}.}
 Scopus does not provide more than 5000 results.}
 
 \item{countIncrement}{The number of results per GET request. A private user
-can't exeed 25 per request. If you are inside a subscribed IP range,
+can't exceed 25 per request. If you are inside a subscribed IP range,
 you can use the maximum of 200 per request. Note, that the weekly quota
 for requests is 20,000.}
 

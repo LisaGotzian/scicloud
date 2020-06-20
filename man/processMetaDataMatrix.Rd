@@ -16,7 +16,7 @@ processMetaDataMatrix(
 or \code{\link[ginko]{createTextMatrixFromPDF}}. Equations, symbols, all words
 in parentheses and all references are removed.}
 
-\item{control}{a list of parameters used to determine pre-processing methods.
+\item{control}{a list of parameters used to determine preprocessing methods.
 Error will be thrown if language & stemWords are not defined.
 language: this defines the stopwords to be filtered. the default is
 "english". Look at \code{\link[tm]{stopwords}} for more information.

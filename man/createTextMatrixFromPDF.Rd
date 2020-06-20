@@ -4,10 +4,10 @@
 \alias{createTextMatrixFromPDF}
 \title{createTextMatrixFromPDF}
 \usage{
-createTextMatrixFromPDF(filepath = "./PDFs/", saveToWd = TRUE)
+createTextMatrixFromPDF(directory = "./PDFs/", saveToWd = TRUE)
 }
 \arguments{
-\item{filepath}{per default, the PDFs are expected to be in a folder named
+\item{directory}{per default, the PDFs are expected to be in a folder named
 "PDFs", can be changed ad. lib.}
 
 \item{saveToWd}{a logical parameter whether or not to save the output of the
@@ -41,7 +41,7 @@ GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
     a wrapper of all steps or \code{\link{processMetaDataMatrix}} for the
     next step if you intend to run it step by step,
     \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
-    future plots) from scopus
+    future plots) from Scopus
 
 Other ginko functions: 
 \code{\link{calculateModels}()},
