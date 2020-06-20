@@ -12,7 +12,7 @@
 #' @param maxResults The maximum amount of accepted search results. Usually,
 #'     Scopus does not provide more than 5000 results.
 #' @param countIncrement The number of results per GET request. A private user
-#'     can't exeed 25 per request. If you are inside a subscribed IP range,
+#'     can't exceed 25 per request. If you are inside a subscribed IP range,
 #'     you can use the maximum of 200 per request. Note, that the weekly quota
 #'     for requests is 20,000.
 #' @param myAPIKey Your private Elsevier API key for the server communication.

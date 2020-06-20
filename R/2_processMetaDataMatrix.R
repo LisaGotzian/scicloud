@@ -7,7 +7,7 @@
 #' @param metaMatrix metaMatrix created through \code{\link[ginko]{getScopusMetaData}}
 #'     or \code{\link[ginko]{createTextMatrixFromPDF}}. Equations, symbols, all words
 #'     in parentheses and all references are removed.
-#' @param control a list of parameters used to determine pre-processing methods.
+#' @param control a list of parameters used to determine preprocessing methods.
 #'     Error will be thrown if language & stemWords are not defined.
 #'     language: this defines the stopwords to be filtered. the default is
 #'     "english". Look at \code{\link[tm]{stopwords}} for more information.
@@ -44,7 +44,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
       
     )else{ # if it's a list check if it has been specified correctly
       
-      # Users have to define methods to be used in text pre-processing 
+      # Users have to define methods to be used in text preprocessing 
       if(is.null(control$language))
         ArgumentCheck::addError(
           msg = "Please define which language to be used in control list!",
@@ -123,7 +123,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   df <- data.frame(doc_id = metaMatrix[, "ID"], text = vectorText)
   docs_corpus <- tm::Corpus(tm::DataframeSource(df))
   
-  ### This part is to pre-processing texts
+  ### This part is to preprocessing texts
   # generic function for matching regex pattern 
   regf <- tm::content_transformer(function(x, pattern) gsub(pattern, " ", x))
   xregf <- tm::content_transformer(function(x, pattern) gsub(pattern, "", x))

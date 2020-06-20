@@ -12,7 +12,7 @@
 #'     "Closeness, "Betweenness". The centrality measure to sort the words by,
 #'     default is Eigenvector.
 #' @param keep The argument keep keeps by default 0.33 of all the words, sorted
-#'     by the argument given by \code{sortby}. Can be adjusted. This easies
+#'     by the argument given by \code{sortby}. Can be adjusted. This facilitates
 #'     computations for later use.
 #' @param saveToWd placeholder
 #' @param ordinationFunction placeholder
@@ -29,7 +29,7 @@
 #'     centrality measures & clustering according to three different clustering
 #'     methods, arranged by eigenvector centrality (can be changed)
 #'     $ReducedIncidenceMatrix will return 1/3 of the words arranged by
-#'     eigenvector centrality, to be further processed eg in Gephi or with other
+#'     eigenvector centrality, to be further processed e.g. in Gephi or with other
 #'     clustering functions
 #'     $GlobalMeasures will return the global measurements
 #' @export

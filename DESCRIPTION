@@ -4,7 +4,7 @@ Version: 0.0.1
 Author: Matthias Nachtmann, Lisa Gotzian, Prabesh Dhakal
 Maintainer: Lisa Gotzian <lisa.gotzian@stud.leuphana.de>
 Description: Analyzes large amounts of (scientific) text, usually your own pdf
-    files or automatically downloaded abstracts from scopus.com. Analyzes them
+    files or automatically downloaded abstracts from Scopus.com. Analyzes them
     using indicator values and clustering or network analysis. Includes easy-
     to-grasp graphics.
 License: GPL-3

@@ -9,8 +9,8 @@
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
 #' @param modeledData result of \code{\link[ginko]{calculateModels}}
 #' @param exactPosition \code{TRUE} or \code{FALSE}, the plot function tries
-#'     to avoid overlapping labels for the sake of visual siplicity over perfect
-#'     precission. When set to \code{TRUE}, the words position will be marked by
+#'     to avoid overlapping labels for the sake of visual simplicity over perfect
+#'     precision. When set to \code{TRUE}, the words position will be marked by
 #'     a dot and the label will be connected with a line to it.
 #' @param ordinationFunction for internal use.
 #' @family ginko functions

@@ -9,7 +9,7 @@
 #' @seealso \code{\link{calculateModels}} for the preceding step
 #'     \code{\link{createOrdinationPlot}} for the graphics,
 #'     \code{\link{inspectGinko}} for a summary of the analysis
-#' @return console output of the papers with the hightest citation per year
+#' @return console output of the papers with the highest citation per year
 #'     count per cluster.
 #' @export
 #' @examples \dontrun{

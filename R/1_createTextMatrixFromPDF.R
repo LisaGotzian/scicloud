@@ -19,7 +19,7 @@
 #'     a wrapper of all steps or \code{\link{processMetaDataMatrix}} for the
 #'     next step if you intend to run it step by step,
 #'     \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
-#'     future plots) from scopus
+#'     future plots) from Scopus
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}

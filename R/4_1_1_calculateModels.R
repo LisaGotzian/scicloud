@@ -15,7 +15,7 @@
 #'     NA results in an automatic iteration to determine the optimal amount.
 #' @param minWordsPerCluster minimum number of words to be plotted per cluster.
 #' @param maxWordsPerCluster maximum number of words to be plotted per cluster.
-#'     this is only hapening if the indicator values are higher than the maximum
+#'     this is only happening if the indicator values are higher than the maximum
 #'     value of the weakest cluster arm.
 #' @param p p-Value to determine the significance of individual words. Only
 #'     significant words will be plotted.
