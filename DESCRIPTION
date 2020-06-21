@@ -40,6 +40,7 @@ Imports:
     utils (>= 2.5.0),
     vegan (>= 2.5.3),
     xml2 (>= 1.1.1),
-    ArgumentCheck
+    ArgumentCheck,
+    methods
 VignetteBuilder: knitr
 RoxygenNote: 7.1.0

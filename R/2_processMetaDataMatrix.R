@@ -135,7 +135,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+\\.com") #remove URL (not start with http)
   docs_corpus <- tm::tm_map(docs_corpus, regf_perl, "\\(((?:[^()]++|(?R))*)\\)") # remove string with parenthesis (incl. nested parenthesis)
   docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "^(.*)References.*$") # remove all references 
-  docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "\\n(.*?)\\n(.*?)[½|¼](.*?)\\n") # remove math equation
+  docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "\\n(.*?)\\n(.*?)[\u00BD|\u00BC](.*?)\\n") # remove math equation
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[\r\n\f]+") # remove newline/carriage return
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:digit:]]+") # remove digits
   docs_corpus <- tm::tm_map(docs_corpus, xregf, "- ") # undo hypen, eg. embar-rassment 
