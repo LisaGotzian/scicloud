@@ -38,13 +38,13 @@
 #' }
 #' @export
 createTextMatrixFromPDF <-
-  function(directory = "./PDFs/",
+  function(directory = file.path(".", "PDFs"),
            saveToWd = TRUE) {
     
     allFiles <- list.files(directory)
     # filter out non PDF files
     PDFs_FileName <- allFiles[grepl(".pdf", allFiles)]
-    PDFs_FullPath <- paste0(directory, PDFs_FileName)
+    PDFs_FullPath <- file.path(directory, PDFs_FileName)
     
     # Argument Checks
     Check <- ArgumentCheck::newArgCheck()
