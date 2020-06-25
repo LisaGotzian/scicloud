@@ -100,43 +100,14 @@ createTextMatrixFromPDF <-
         "FullText"
       )
     
+    num_pdf = length(PDFs_FullPath)
+    # set min = 0 to cater the use case when only read 1 PDF file, max must be > min
+    pb <- utils::txtProgressBar(min = 0, max = num_pdf, style = 3) 
     
-    start = 1
-    end = length(PDFs_FullPath)
-    pb <- utils::txtProgressBar(min = start, max = end, style = 3)
-    
-    for (i in c(start:end)) {
+    for (i in c(1:num_pdf)) {
       intermediateResultFileName <- PDFs_FileName[i]
       
-      intermediateResultText <- tryCatch({
-        reader <-
-          tm::readPDF(control = list(text = "-raw")) # using the default
-        suppressWarnings(reader(
-          elem = list(uri = PDFs_FullPath[i]),
-          language = "en",
-          id = "id1"
-        ))
-      },
-      error = function(cond) {
-        message(
-          paste(
-            "PDF File caused an error while retrieving the full text:",
-            intermediateResultFileName
-          )
-        )
-        message("Here's the original error message:")
-        message(cond)
-        # Choose a return value in case of error
-        return(NA)
-      },
-      warning = function(cond) {
-        message(paste("PDF File caused a warning:", intermediateResultFileName))
-        message("Here's the original warning message:")
-        message(cond)
-        # Choose a return value in case of warning
-        return(NULL)
-      })
-      
+      intermediateResultText <- suppressMessages(pdftools::pdf_text(PDFs_FullPath[i]))
       intermediateResultText <- as.character(intermediateResultText)
       intermediateResultText <-
         paste(intermediateResultText, collapse = " ")  # takes the vector and pastes it
@@ -172,7 +143,7 @@ createTextMatrixFromPDF <-
     firstTwoPage <- c()
     for(i in PDFs_FullPath){
       # concatenate the two vectors of string (each two pages) retrieve from pdf_text(i)[0:2]  
-      firstTwoPage <- append(firstTwoPage, paste(pdftools::pdf_text(i)[0:2], collapse = ' '))
+      firstTwoPage <- append(firstTwoPage, paste(suppressMessages(pdftools::pdf_text(i)[0:2]), collapse = ' '))
     }
     DOInumbers <- stringr::str_extract(firstTwoPage, DOIpattern)
     PDFcontent[, "DOI"] <- DOInumbers
