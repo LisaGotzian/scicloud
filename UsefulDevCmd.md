@@ -39,4 +39,4 @@ The following cases might cause problems when constructing the tf-idf matrix:
 * papers with two columns of text (are the paragraphs mixed up, leading to paragraphs being thrown out when throwing out the references)
 * how are equations read in?
 
-[Reference for package development](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/)
+[Reference for package development](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) and by [Hadley Wickham](http://r-pkgs.had.co.nz/)
