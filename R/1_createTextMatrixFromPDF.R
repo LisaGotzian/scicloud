@@ -5,17 +5,17 @@
 
 #' @title createTextMatrixFromPDF
 #'
-#' @description First function of the word analysis with ginko. It takes all
+#' @description First function of the word analysis with scicloud. It takes all
 #'     scientific papers as PDF files from a "PDFs" folder you'll have to
 #'     create. It then creates a DocumentTerm matrix
-#'     similar to \code{\link[ginko]{searchScopus}} for further processing.
+#'     similar to \code{\link[scicloud]{searchScopus}} for further processing.
 #' @param directory per default, the PDFs are expected to be in a folder named
 #'     "PDFs", can be changed ad. lib.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps and can be read in by using \code{\link[base]{saveRDS}}.
-#' @family ginko functions
-#' @seealso \code{\link{ordinationCluster}} for the next step in ginko,
+#' @family scicloud functions
+#' @seealso \code{\link{ordinationCluster}} for the next step in scicloud,
 #'     a wrapper of all steps or \code{\link{processMetaDataMatrix}} for the
 #'     next step if you intend to run it step by step,
 #'     \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
@@ -32,9 +32,9 @@
 #' myAPIKey <- "YOUR API KEY"
 #' # go to https://dev.elsevier.com/user/login to get yours
 #'
-#' GinkoAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey, stemWords = FALSE,
+#' scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey, stemWords = FALSE,
 #'     longMessages = TRUE, saveToWd = TRUE, method = "hclust")
-#' GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
+#' scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
 #' }
 #' @export
 createTextMatrixFromPDF <-
