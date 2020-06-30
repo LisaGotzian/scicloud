@@ -1,28 +1,25 @@
-############ Using the gingko package #############
-# February 20, 2019, Lisa Gotzian
+############ Using the scicloud package #############
+# June 2020, Lisa Gotzian, Jia Yan Ng, Johann Julius Beeck
 
 #################### Prerequesites #######################
 # Welcome to this guide, please make sure you are all set:
-# - you should have a folder "whatevernameyouchoose" where the following things are included:
-# - a folder "PDFs" within this folder that contains all PDFs within your working directory
+# - a folder "PDFs" within your working directory that contains all PDFs
 # - To get Scopus MetaData, please go to Elsevier and get your API key, it is connected to your
 #   mail address. Then you can fill the big MetaMatrix based on the DOI. https://id.elsevier.com/as/yv1lr/resume/as/authorization.ping
 
-myAPIKey <- "3c7cc08b398980881eee1050d53c5e86"
+myAPIKey <- "YourAPIKey"
 
-################# The ginko magic #####################
-#library(ginko)
-#install.packages("R.utils")
-library(R.utils)
-sourceDirectory("./R")
+library(devtools)
+install_github("LisaGotzian/scicloud")
+library(ginko)
 
-metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE) # Don't give up! Keep running it even if you get errors.
+metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE)
 # The following is the "Let your computer work for 20 min" way. It does exactly the same as the lines below.
 # You can also add all arguments I introduced below.
-#metaMatrix <- readRDS(file= 'metaMatrix2019_________FILL_IN_HERE__________')
-GinkoAnalysis <- ordinationCluster(metaMatrix, #myAPIKey = myAPIKey,
-                                   stemWords = TRUE,
-                                   longMessages = FALSE, saveToWd = TRUE, method = "hclust")
+
+GinkoAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
+                                   stemWords = TRUE, numberOfClusters = NA,
+                                   longMessages = TRUE, saveToWd = TRUE, method = "hclust")
 # you can also access the network using modeledData$LocalMeasures
 # other possible methods: "hclust" or "network"
 
@@ -31,30 +28,14 @@ GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
 
 
 ################## Step by step ##################
-# This is the "I want to do it step by step" way. Does exactly the same as the one function above :D
-#metaMatrix <- readRDS(file= 'metaMatrix2019________FILL_IN_HERE_________')
+# This is the "I want to do it step by step" way. Does exactly the same as the one function above.
 processedMetaMatrix <- processMetaDataMatrix(metaMatrix, list(language = "SMART", stemWords = TRUE, saveToWd = FALSE, ordinationFunction = FALSE)
                                              #, keepWordsFile = "Food_SLR.csv"
                                              ,ignoreWords = c("Abstract", "Bulletin", "Editor"))
 
 
 processedMetaMatrix$MetaMatrix <- getScopusMetaData(processedMetaMatrix$MetaMatrix, myAPIKey)
-
-############### Mopdelling the data #####################
-# Here, you can specify certain variables like the number of clusters you want. If you don't
-# specify them, it uses the following:
-# language = "SMART",
-# numberOfClusters = NA, # the significant amount unless you specify it
-# minWordsPerCluster = 5,
-# maxWordsPerCluster = 10,
-# stemWords = TRUE,
-# ignoreWords = c(),
-# p = 0.05,
-# dendrogram = TRUE, # fairly new
-# dendroLabels = "truncated" # broken lines is possible as well with "break"
-
-#processedMetaMatrix <- readRDS(file= 'processedData________FILL_IN_HERE_________')
-modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE)
+modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE, numberOfClusters = NA)
 
 ################# The network approach ##################
 # $LocalMeasures will return the local measurements for both papers and words
@@ -64,11 +45,8 @@ modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE)
 # to be further processed eg in Gephi or with other clustering functions
 # $GlobalMeasures will return the global measurements
 modeledNetwork <- calculateNetwork(processedMetaMatrix, sortby = "Eigenvector", keep = 0.3)
-#modeledNetwork <- readRDS(file= 'modeledNetwork_______FILL_IN_HERE_______')
 
 ######################### The graphics #########################
-#modeledData <- readRDS(file= 'modeledData_______FILL_IN_HERE________')
-modeledData <- readRDS(file= 'modeledData2019_02_14_14_46_46')
 createOrdinationPlot(modeledData) # only works if you used your API key
 
 mostImportantPaperPerCluster(modeledData)
