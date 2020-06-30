@@ -19,10 +19,10 @@ A data frame containing the file name and full text of the pdf, as
     well as scraped DOI numbers from the text and some placeholder columns for later.
 }
 \description{
-First function of the word analysis with ginko. It takes all
+First function of the word analysis with scicloud. It takes all
     scientific papers as PDF files from a "PDFs" folder you'll have to
     create. It then creates a DocumentTerm matrix
-    similar to \code{\link[ginko]{searchScopus}} for further processing.
+    similar to \code{\link[scicloud]{searchScopus}} for further processing.
 }
 \examples{
 \dontrun{
@@ -31,28 +31,30 @@ metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE)
 myAPIKey <- "YOUR API KEY"
 # go to https://dev.elsevier.com/user/login to get yours
 
-GinkoAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey, stemWords = FALSE,
+scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey, stemWords = FALSE,
     longMessages = TRUE, saveToWd = TRUE, method = "hclust")
-GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
+scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
 }
 }
 \seealso{
-\code{\link{ordinationCluster}} for the next step in ginko,
+\code{\link{ordinationCluster}} for the next step in scicloud,
     a wrapper of all steps or \code{\link{processMetaDataMatrix}} for the
     next step if you intend to run it step by step,
     \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
     future plots) from Scopus
 
-Other ginko functions: 
+Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},
-\code{\link{inspectGinko}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
-\code{\link{processMetaDataMatrix}()}
+\code{\link{processMetaDataMatrix}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
 }
-\concept{ginko functions}
+\concept{scicloud functions}

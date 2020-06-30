@@ -1,12 +1,12 @@
 ########################################################################
-# Inspecting the results of the ginko package
+# Inspecting the results of the scicloud package
 ########################################################################
 
-#' @title inspectGinko
+#' @title inspectScicloud
 #'
 #' @description placeholder
 #' @param modeledData placeholder
-#' @family ginko functions
+#' @family scicloud functions
 #' @seealso \code{\link{calculateModels}} or \code{\link{calculateNetwork}}
 #'     for the preceding step,
 #'     \code{\link{createOrdinationPlot}} for the graphics,
@@ -16,7 +16,7 @@
 #' @return placeholder
 #' @export
 
-inspectGinko <- function(modeledData = modeledData) {
+inspectScicloud <- function(modeledData = modeledData) {
   paperCluster <-
     cbind(modeledData$MetaMatrix[, "Cluster"], modeledData$MetaMatrix[, "FileName"])
   colnames(paperCluster) <- c("Cluster", "FileName")
@@ -27,7 +27,7 @@ inspectGinko <- function(modeledData = modeledData) {
   
   cat(
     paste0(
-      "Summary of the ginko analysis\n\nTotal papers: ",
+      "Summary of the scicloud analysis\n\nTotal papers: ",
       length(OriginalPapers),
       ", processed papers: ",
       length(paperCluster[, 2]),
@@ -51,40 +51,40 @@ inspectGinko <- function(modeledData = modeledData) {
   }
   
   
-  GinkoSpecs <- list()
+  scicloudSpecs <- list()
   
   # Which papers are in which cluster?
-  GinkoSpecs[[1]] <- paperCluster
+  scicloudSpecs[[1]] <- paperCluster
   
   cat(
-    "\nThe following additional specs are available:\n- Paper-Cluster-Table: Each paper belongs to one cluster. Use View(GinkoSpecs$paperCluster) to see which paper belongs to which cluster.\n"
+    "\nThe following additional specs are available:\n- Paper-Cluster-Table: Each paper belongs to one cluster. Use View(scicloudSpecs$paperCluster) to see which paper belongs to which cluster.\n"
   )
   
-  GinkoSpecs[[2]] <- modeledData$IndVal
+  scicloudSpecs[[2]] <- modeledData$IndVal
   cat(
-    "- Words-Cluster-Table: Words do not belong to one single cluster. An indicator species analysis shows how representative each word is for each cluster. Use View(GinkoSpecs$IndVal) to view the results of the indicator species analysis.\n"
+    "- Words-Cluster-Table: Words do not belong to one single cluster. An indicator species analysis shows how representative each word is for each cluster. Use View(scicloudSpecs$IndVal) to view the results of the indicator species analysis.\n"
   )
   
   # So which papers have been excluded in step 2? (step 1 will come)
-  GinkoSpecs[[3]] <- excludedPapers
+  scicloudSpecs[[3]] <- excludedPapers
   
   cat(
-    "- excluded Papers: use View(GinkoSpecs$excludedPapers) to see which papers have been excluded, possibly because of a PDF error.\n"
+    "- excluded Papers: use View(scicloudSpecs$excludedPapers) to see which papers have been excluded, possibly because of a PDF error.\n"
   )
   
-  GinkoSpecs[[4]] <- modeledData$RepresentativePapers
+  scicloudSpecs[[4]] <- modeledData$RepresentativePapers
   cat(
-    "- most representative Papers: use View(GinkoSpecs$representativePapers) to see which papers are the most representative ones, weighted with the indicator species values of the words in the paper.\n"
+    "- most representative Papers: use View(scicloudSpecs$representativePapers) to see which papers are the most representative ones, weighted with the indicator species values of the words in the paper.\n"
   )
   
-  GinkoSpecs[[5]] <-
+  scicloudSpecs[[5]] <-
     modeledData$MetaMatrix[, -which(colnames(modeledData$MetaMatrix) == "FullText")]
   # excluding with - doesn't work with ""
   cat(
-    "- Matrix with metadata of the papers: use View(GinkoSpecs$MetaMatrix) to view the original MetaMatrix (without full texts, so it's safe to open)."
+    "- Matrix with metadata of the papers: use View(scicloudSpecs$MetaMatrix) to view the original MetaMatrix (without full texts, so it's safe to open)."
   )
   
-  names(GinkoSpecs) <-
+  names(scicloudSpecs) <-
     c("paperCluster",
       "IndVal",
       "excludedPapers",
@@ -92,5 +92,5 @@ inspectGinko <- function(modeledData = modeledData) {
       "MetaMatrix")
   
   
-  return(GinkoSpecs)
+  return(scicloudSpecs)
 }

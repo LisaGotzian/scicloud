@@ -67,16 +67,18 @@ The essential wrapper function that runs all steps of the word
 placeholder}
 }
 \seealso{
-Other ginko functions: 
+Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},
 \code{\link{createTextMatrixFromPDF}()},
-\code{\link{inspectGinko}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
-\code{\link{processMetaDataMatrix}()}
+\code{\link{processMetaDataMatrix}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
 }
-\concept{ginko functions}
+\concept{scicloud functions}

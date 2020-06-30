@@ -1,18 +1,19 @@
 #' @title getScopusMetaData
 #'
 #' @description takes a Data Frame of DOI numbers and/or Scopus-IDs (like
-#'     \code{\link[ginko]{searchScopus}}) and downloads the abstracts and
+#'     \code{\link[scicloud]{searchScopus}}) and downloads the abstracts and
 #'     titles matching those numbers and returning a matrix containing both.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Prabesh Dhakal,
 #'     \email{prabesh.dhakal@@stud.leuphana.de}
 #' @param searchResults a Data Frame produced by the functions
-#'     \code{\link[ginko]{searchScopus}} or
-#'     \code{\link[ginko]{createTextMatrixFromPDF}}
+#'     \code{\link[scicloud]{searchScopus}} or
+#'     \code{\link[scicloud]{createTextMatrixFromPDF}}
 #' @param myAPIKey Your private Elsevier API key for the server communication.
 #'     You can request one at \url{https://dev.elsevier.com/user/login}
 #' @param ordinationFunction FALSE by default
+#' @family scicloud functions
 #' @return A data frame with all meta data of the articles provided to the function
 #'
 #' @examples

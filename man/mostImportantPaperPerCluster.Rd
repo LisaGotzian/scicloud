@@ -7,7 +7,7 @@
 mostImportantPaperPerCluster(modeledData)
 }
 \arguments{
-\item{modeledData}{result of \code{\link[ginko]{calculateModels}}}
+\item{modeledData}{result of \code{\link[scicloud]{calculateModels}}}
 }
 \value{
 console output of the papers with the highest citation per year
@@ -23,18 +23,20 @@ placeholder}
 \seealso{
 \code{\link{calculateModels}} for the preceding step
     \code{\link{createOrdinationPlot}} for the graphics,
-    \code{\link{inspectGinko}} for a summary of the analysis
+    \code{\link{inspectScicloud}} for a summary of the analysis
 
-Other ginko functions: 
+Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},
 \code{\link{createTextMatrixFromPDF}()},
-\code{\link{inspectGinko}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
 \code{\link{ordinationCluster}()},
-\code{\link{processMetaDataMatrix}()}
+\code{\link{processMetaDataMatrix}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
 }
-\concept{ginko functions}
+\concept{scicloud functions}

@@ -12,8 +12,8 @@ processMetaDataMatrix(
 )
 }
 \arguments{
-\item{metaMatrix}{metaMatrix created through \code{\link[ginko]{getScopusMetaData}}
-or \code{\link[ginko]{createTextMatrixFromPDF}}. Equations, symbols, all words
+\item{metaMatrix}{metaMatrix created through \code{\link[scicloud]{getScopusMetaData}}
+or \code{\link[scicloud]{createTextMatrixFromPDF}}. Equations, symbols, all words
 in parentheses and all references are removed.}
 
 \item{control}{a list of parameters used to determine preprocessing methods.
@@ -38,22 +38,24 @@ returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 \code{[["wordList"]]} is the list of words found in the papers.
 }
 \description{
-The second function to the word analysis with ginko. This function
+The second function to the word analysis with scicloud This function
     accepts a \code{metaMatrix} and constructs a tf-idf matrix.
 }
 \seealso{
 \code{\link{createTextMatrixFromPDF}} for the preceding step,
     \code{\link{calculateModels}} for the proceeding step
 
-Other ginko functions: 
+Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},
 \code{\link{createTextMatrixFromPDF}()},
-\code{\link{inspectGinko}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
-\code{\link{ordinationCluster}()}
+\code{\link{ordinationCluster}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Jia Yan Ng, \email{jia.y.ng@stud.leuphana.de}
 }
-\concept{ginko functions}
+\concept{scicloud functions}

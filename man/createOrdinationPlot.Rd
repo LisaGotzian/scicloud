@@ -11,7 +11,7 @@ createOrdinationPlot(
 )
 }
 \arguments{
-\item{modeledData}{result of \code{\link[ginko]{calculateModels}}}
+\item{modeledData}{result of \code{\link[scicloud]{calculateModels}}}
 
 \item{exactPosition}{\code{TRUE} or \code{FALSE}, the plot function tries
 to avoid overlapping labels for the sake of visual simplicity over perfect
@@ -25,10 +25,10 @@ a graphic based on the calculated model and some additional barplot
     to deepen the understanding of the dataset.
 }
 \description{
-The fourth function to the word analysis with ginko. It creates
+The fourth function to the word analysis with scicloud. It creates
     five different plots that set the results in context to the years
     published and more. To show meaningful graphics, the use of
-    \code{\link[ginko]{getScopusMetaData}} is recommended.
+    \code{\link[scicloud]{getScopusMetaData}} is recommended.
 }
 \examples{
 \dontrun{
@@ -37,18 +37,20 @@ placeholder}
 \seealso{
 \code{\link{calculateModels}} for the preceding step,
     \code{\link{mostImportantPaperPerCluster}} and
-    \code{\link{inspectGinko}} for a summary of the analysis
+    \code{\link{inspectScicloud}} for a summary of the analysis
 
-Other ginko functions: 
+Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createTextMatrixFromPDF}()},
-\code{\link{inspectGinko}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
-\code{\link{processMetaDataMatrix}()}
+\code{\link{processMetaDataMatrix}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
 }
-\concept{ginko functions}
+\concept{scicloud functions}

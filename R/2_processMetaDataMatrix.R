@@ -1,11 +1,11 @@
 #' @title processMetaDataMatrix
 #'
-#' @description The second function to the word analysis with ginko. This function
+#' @description The second function to the word analysis with scicloud This function
 #'     accepts a \code{metaMatrix} and constructs a tf-idf matrix.
 #'
 #' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
-#' @param metaMatrix metaMatrix created through \code{\link[ginko]{getScopusMetaData}}
-#'     or \code{\link[ginko]{createTextMatrixFromPDF}}. Equations, symbols, all words
+#' @param metaMatrix metaMatrix created through \code{\link[scicloud]{getScopusMetaData}}
+#'     or \code{\link[scicloud]{createTextMatrixFromPDF}}. Equations, symbols, all words
 #'     in parentheses and all references are removed.
 #' @param control a list of parameters used to determine preprocessing methods.
 #'     Error will be thrown if language & stemWords are not defined.
@@ -25,7 +25,7 @@
 #' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 #'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
 #' \code{[["wordList"]]} is the list of words found in the papers.
-#' @family ginko functions
+#' @family scicloud functions
 
 processMetaDataMatrix <- function(metaMatrix, control = list(),
                                   ignoreWords = c(),

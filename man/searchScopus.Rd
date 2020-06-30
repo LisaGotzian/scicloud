@@ -46,8 +46,20 @@ DOInumbers <- searchScopus('TITLE-ABS-KEY(sustainability) AND PUBYEAR > 2009',
     '1234567890ABCDEF', maxResults = 160, countIncrement = 20)
 DOInumbers}
 }
+\seealso{
+Other scicloud functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()}
+}
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Prabesh Dhakal,
     \email{prabesh.dhakal@stud.leuphana.de}
 }
+\concept{scicloud functions}

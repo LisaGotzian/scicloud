@@ -8,8 +8,8 @@ getScopusMetaData(searchResults, myAPIKey, ordinationFunction = FALSE)
 }
 \arguments{
 \item{searchResults}{a Data Frame produced by the functions
-\code{\link[ginko]{searchScopus}} or
-\code{\link[ginko]{createTextMatrixFromPDF}}}
+\code{\link[scicloud]{searchScopus}} or
+\code{\link[scicloud]{createTextMatrixFromPDF}}}
 
 \item{myAPIKey}{Your private Elsevier API key for the server communication.
 You can request one at \url{https://dev.elsevier.com/user/login}}
@@ -21,7 +21,7 @@ A data frame with all meta data of the articles provided to the function
 }
 \description{
 takes a Data Frame of DOI numbers and/or Scopus-IDs (like
-    \code{\link[ginko]{searchScopus}}) and downloads the abstracts and
+    \code{\link[scicloud]{searchScopus}}) and downloads the abstracts and
     titles matching those numbers and returning a matrix containing both.
 }
 \examples{
@@ -29,8 +29,20 @@ takes a Data Frame of DOI numbers and/or Scopus-IDs (like
     processedMetaMatrix$MetaMatrix <- getScopusMetaData(processedMetaMatrix$MetaMatrix, myAPIKey)
     }
 }
+\seealso{
+Other scicloud functions: 
+\code{\link{calculateModels}()},
+\code{\link{createOrdinationPlot}()},
+\code{\link{createTextMatrixFromPDF}()},
+\code{\link{inspectScicloud}()},
+\code{\link{mostImportantPaperPerCluster}()},
+\code{\link{ordinationCluster}()},
+\code{\link{processMetaDataMatrix}()},
+\code{\link{searchScopus}()}
+}
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Prabesh Dhakal,
     \email{prabesh.dhakal@stud.leuphana.de}
 }
+\concept{scicloud functions}

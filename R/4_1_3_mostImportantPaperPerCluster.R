@@ -4,11 +4,11 @@
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param modeledData result of \code{\link[ginko]{calculateModels}}
-#' @family ginko functions
+#' @param modeledData result of \code{\link[scicloud]{calculateModels}}
+#' @family scicloud functions
 #' @seealso \code{\link{calculateModels}} for the preceding step
 #'     \code{\link{createOrdinationPlot}} for the graphics,
-#'     \code{\link{inspectGinko}} for a summary of the analysis
+#'     \code{\link{inspectScicloud}} for a summary of the analysis
 #' @return console output of the papers with the highest citation per year
 #'     count per cluster.
 #' @export

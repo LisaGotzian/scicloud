@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(ginko)
+library(scicloud)
 ```
 ### Prerequisite
 Finish running `metaMatrix` function and provide its output as one of the inputs to this function

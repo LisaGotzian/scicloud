@@ -18,7 +18,7 @@ calculateModels(
 )
 }
 \arguments{
-\item{processedData}{result of \code{\link[ginko]{processMetaDataMatrix}}}
+\item{processedData}{result of \code{\link[scicloud]{processMetaDataMatrix}}}
 
 \item{numberOfClusters}{integer or NA; an integer forces the number of clusters,
 NA results in an automatic iteration to determine the optimal amount.}
@@ -53,13 +53,13 @@ list of two entries. First entry contains all the information to
     paper to allow additional statistical analyses.
 }
 \description{
-The third function to the word analysis with ginko. It takes the
-    output of \code{\link[ginko]{processMetaDataMatrix}} and calculates
+The third function to the word analysis with scicloud. It takes the
+    output of \code{\link[scicloud]{processMetaDataMatrix}} and calculates
     ordination and cluster models. Each paper is assigned to one cluster
     while each word receives an indicator value with \code{\link[labdsv]{indval}}
     for each cluster, showing how representative word is for a cluster. The top
     representative words will be used in the further process with \code{
-    \link[ginko]{createOrdinationPlot}}.
+    \link[scicloud]{createOrdinationPlot}}.
 }
 \examples{
 \dontrun{
@@ -69,18 +69,20 @@ placeholder}
 \code{\link{processMetaDataMatrix}} for the preceding step,
     \code{\link{createOrdinationPlot}} for the graphics,
     \code{\link{mostImportantPaperPerCluster}} and
-    \code{\link{inspectGinko}} for a summary of the analysis
+    \code{\link{inspectScicloud}} for a summary of the analysis
 
-Other ginko functions: 
+Other scicloud functions: 
 \code{\link{createOrdinationPlot}()},
 \code{\link{createTextMatrixFromPDF}()},
-\code{\link{inspectGinko}()},
+\code{\link{getScopusMetaData}()},
+\code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
-\code{\link{processMetaDataMatrix}()}
+\code{\link{processMetaDataMatrix}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
 }
-\concept{ginko functions}
+\concept{scicloud functions}

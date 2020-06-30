@@ -27,7 +27,7 @@
 #'     the function to the working directory. This is especially useful for
 #'     later analysis steps and can be read in by using \code{\link[base]{saveRDS}}.
 #' @param longMessages by default \code{FALSE} to keep the output short.
-#' @family ginko functions
+#' @family scicloud functions
 #' @return placeholder
 #' @export
 #' @examples \dontrun{

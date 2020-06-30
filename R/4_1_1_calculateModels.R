@@ -1,16 +1,16 @@
 #' @title calculateModels
 #'
-#' @description The third function to the word analysis with ginko. It takes the
-#'     output of \code{\link[ginko]{processMetaDataMatrix}} and calculates
+#' @description The third function to the word analysis with scicloud. It takes the
+#'     output of \code{\link[scicloud]{processMetaDataMatrix}} and calculates
 #'     ordination and cluster models. Each paper is assigned to one cluster
 #'     while each word receives an indicator value with \code{\link[labdsv]{indval}}
 #'     for each cluster, showing how representative word is for a cluster. The top
 #'     representative words will be used in the further process with \code{
-#'     \link[ginko]{createOrdinationPlot}}.
+#'     \link[scicloud]{createOrdinationPlot}}.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param processedData result of \code{\link[ginko]{processMetaDataMatrix}}
+#' @param processedData result of \code{\link[scicloud]{processMetaDataMatrix}}
 #' @param numberOfClusters integer or NA; an integer forces the number of clusters,
 #'     NA results in an automatic iteration to determine the optimal amount.
 #' @param minWordsPerCluster minimum number of words to be plotted per cluster.
@@ -31,8 +31,8 @@
 #' @seealso \code{\link{processMetaDataMatrix}} for the preceding step,
 #'     \code{\link{createOrdinationPlot}} for the graphics,
 #'     \code{\link{mostImportantPaperPerCluster}} and
-#'     \code{\link{inspectGinko}} for a summary of the analysis
-#' @family ginko functions
+#'     \code{\link{inspectScicloud}} for a summary of the analysis
+#' @family scicloud functions
 
 #' @return list of two entries. First entry contains all the information to
 #'     generate the ordination/cluster plot. Entry two is an updated version

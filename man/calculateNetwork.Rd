@@ -15,7 +15,7 @@ calculateNetwork(
 }
 \arguments{
 \item{processedMetaMatrix}{requires the output of
-\code{\link[ginko]{processMetaDataMatrix}}.}
+\code{\link[scicloud]{processMetaDataMatrix}}.}
 
 \item{sortby}{allows the following possible inputs: "Eigenvector", "Degree",
 "Closeness, "Betweenness". The centrality measure to sort the words by,
@@ -45,11 +45,11 @@ output:
 }
 \description{
 This function is an alternative to
-    \code{\link[ginko]{calculateModels}} and clusters based on network theory.
+    \code{\link[scicloud]{calculateModels}} and clusters based on network theory.
 }
 \seealso{
 \code{\link{processMetaDataMatrix}} for the preceding step,
-    \code{\link{inspectGinko}} for a summary of the analysis
+    \code{\link{inspectScicloud}} for a summary of the analysis
 }
 \author{
 Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Julius Rathgens,

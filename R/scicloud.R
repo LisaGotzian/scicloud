@@ -1,9 +1,9 @@
 ########################################################################
 # Package help
 ########################################################################
-#' ginko: A Package For Word Analysis Of Scientific Papers
+#' scicloud: A Package For Word Analysis Of Scientific Papers
 #'
-#' The ginko package provides a word analysis for scientific papers as PDFs.
+#' The scicloud package provides a word analysis for scientific papers as PDFs.
 #' It analyzes them using indicator values and clustering or network analysis.
 #' Includes easy-to-grasp graphics.
 #'
@@ -15,12 +15,12 @@
 #'     To acquire your API key, go to \url{https://dev.elsevier.com/user/login}.
 #' See examples on how to use the package.
 #'
-#' @section Ginko functions:
-#' The ginko functions are built in the following order:
+#' @section scicloud functions:
+#' The scicloud functions are built in the following order:
 #' \enumerate{
 #'     \item \code{\link{createTextMatrixFromPDF}}
 #'     \item \code{\link{ordinationCluster}}
-#'     \item \code{\link{inspectGinko}}
+#'     \item \code{\link{inspectScicloud}}
 #' }
 #' The wrapper function \code{\link{ordinationCluster}} can also be done step
 #'     by step:
@@ -43,13 +43,13 @@
 #' # Don't give up! Keep running it even if you get errors.
 #'
 #' # metaMatrix <- readRDS(file= 'metaMatrix2019_______FILL_IN_HERE________')
-#' GinkoAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
+#' scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
 #'                            stemWords = FALSE, longMessages = FALSE,
 #'                            saveToWd = TRUE, method = "hclust")
 #'
-#' GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
+#' scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
 #'                                    }
 #'
 #' @docType package
-#' @name ginko
+#' @name scicloud
 NULL

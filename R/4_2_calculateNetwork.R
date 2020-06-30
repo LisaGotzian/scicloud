@@ -5,9 +5,9 @@
 #' @title calculateNetwork
 #'
 #' @description This function is an alternative to
-#'     \code{\link[ginko]{calculateModels}} and clusters based on network theory.
+#'     \code{\link[scicloud]{calculateModels}} and clusters based on network theory.
 #' @param processedMetaMatrix requires the output of
-#'     \code{\link[ginko]{processMetaDataMatrix}}.
+#'     \code{\link[scicloud]{processMetaDataMatrix}}.
 #' @param sortby allows the following possible inputs: "Eigenvector", "Degree",
 #'     "Closeness, "Betweenness". The centrality measure to sort the words by,
 #'     default is Eigenvector.
@@ -18,7 +18,7 @@
 #' @param ordinationFunction placeholder
 #' @param longMessages placeholder
 #' @seealso \code{\link{processMetaDataMatrix}} for the preceding step,
-#'     \code{\link{inspectGinko}} for a summary of the analysis
+#'     \code{\link{inspectScicloud}} for a summary of the analysis
 #'
 #' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
 #'     \email{julius.rathgens@@leuphana.de}
