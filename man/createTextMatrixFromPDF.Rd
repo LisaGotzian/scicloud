@@ -4,7 +4,7 @@
 \alias{createTextMatrixFromPDF}
 \title{createTextMatrixFromPDF}
 \usage{
-createTextMatrixFromPDF(directory = "./PDFs/", saveToWd = TRUE)
+createTextMatrixFromPDF(directory = file.path(".", "PDFs"), saveToWd = TRUE)
 }
 \arguments{
 \item{directory}{per default, the PDFs are expected to be in a folder named
