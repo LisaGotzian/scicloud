@@ -1,7 +1,7 @@
-Package: ginko
+Package: scicloud
 Title: Cluster And Network Word Analysis Of Scientific Papers
 Version: 0.0.1
-Author: Matthias Nachtmann, Lisa Gotzian, Prabesh Dhakal
+Author: Matthias Nachtmann, Lisa Gotzian, Jia Yan Ng, Johann Julius Beeck, Henrik von Wehrden, Prabesh Dhakal
 Maintainer: Lisa Gotzian <lisa.gotzian@stud.leuphana.de>
 Description: Analyzes large amounts of (scientific) text, usually your own pdf
     files or automatically downloaded abstracts from Scopus.com. Analyzes them
