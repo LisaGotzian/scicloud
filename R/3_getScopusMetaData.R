@@ -134,8 +134,7 @@ getScopusMetaData <- function(searchResults, myAPIKey, ordinationFunction = FALS
     
     # retrieve the FULL NAME OF AUTHORS
     intermediateResultAuthors <- tryCatch({
-      intermediateResultAuthors <- sapply(JSON$`abstracts-retrieval-response`$authors$author, function(x) x$`ce:surname`)
-      intermediateResultAuthors <- paste(intermediateResultAuthors, collapse = ", ")
+      intermediateResultAuthors <- JSON$`abstracts-retrieval-response`$coredata$`dc:creator`$author[[1]]$`preferred-name`$`ce:surname`
     }, error = errorMessage, warning = warningMessage)
     
     # retrieve the (INSTITUTIONAL) AFFILIATION OF THE AUTHORS
