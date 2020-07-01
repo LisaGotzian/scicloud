@@ -47,12 +47,6 @@ mostImportantPaperPerCluster <- function(modeledData) {
         newSubset2[order(as.numeric(newSubset2[, "CitationPerYear"]), decreasing =
                            T)[c(1:paperPerCluster)], ]
       
-      # # Sort by column index [1] then [3]
-      # dataframe[
-      # order( dataframe[,1], dataframe[,3] ),
-      # ]
-      
-      
       
       
       

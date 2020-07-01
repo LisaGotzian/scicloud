@@ -25,9 +25,6 @@
 createOrdinationPlot <- function(modeledData,
                                  exactPosition = FALSE,
                                  ordinationFunction = FALSE) {
-  # if(colorPalette == "default"){
-  #   colorPalette = grDevices::colorRampPalette(RColorBrewer::brewer.pal(9, "Set1"))
-  # }
   
   Sys.sleep(1)
   cat("Creating graphic\n")
@@ -56,8 +53,6 @@ createOrdinationPlot <- function(modeledData,
       ) +
       ggplot2::labs(x = "DCA 1", y = "DCA 2") +
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
-      #ggplot2::scale_x_continuous(breaks=c(seq(-100,100,0.5))) +
-      #ggplot2::scale_y_continuous(breaks=c(seq(-100,100,0.5))) +
       ggplot2::theme_classic(base_size = 16)
     
     
@@ -78,8 +73,6 @@ createOrdinationPlot <- function(modeledData,
       ) +
       ggplot2::labs(x = "DCA 1", y = "DCA 2") +
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
-      #ggplot2::scale_x_continuous(breaks=c(seq(-100,100,0.5))) +
-      #ggplot2::scale_y_continuous(breaks=c(seq(-100,100,0.5))) +
       ggplot2::theme_classic(base_size = 16)
   }
   
@@ -98,7 +91,6 @@ createOrdinationPlot <- function(modeledData,
     naFreeData1 <-
       subset(modeledData$MetaMatrix,!is.na(modeledData$MetaMatrix[, "Year"]))
     naFreeData2 <- subset(naFreeData1,!is.na(naFreeData1[, "CitedBy"]))
-    #naFreeData <- as.data.frame(naFreeData1) # to only have the years
     naFreeData <- as.data.frame(naFreeData2)
     
     citePercent <- c()
@@ -136,14 +128,13 @@ createOrdinationPlot <- function(modeledData,
     
     
     
-    
     #citations per year - stacked bar plot
     citationsStackedBarPlot <- ggplot2::ggplot(
       naFreeData,
       ggplot2::aes(
-        x = naFreeData$Year,
-        y = as.numeric(naFreeData$CitedBy),
-        fill = naFreeData$ClusterString
+        x = Year,
+        y = as.numeric(CitedBy),
+        fill = ClusterString
       )
     ) +
       ggplot2::labs(x = "Year", y = "Citations") +
@@ -158,9 +149,9 @@ createOrdinationPlot <- function(modeledData,
     citationsStackedBarPlotPercent <- ggplot2::ggplot(
       naFreeData,
       ggplot2::aes(
-        x = naFreeData$Year,
-        y = as.numeric(naFreeData$citePercent),
-        fill = naFreeData$ClusterString
+        x = Year,
+        y = as.numeric(citePercent),
+        fill = ClusterString
       )
     ) +
       ggplot2::labs(x = "Year", y = "Citations [%]") +
@@ -177,7 +168,7 @@ createOrdinationPlot <- function(modeledData,
               ggplot2::aes(
 				      x = as.numeric(levels(naFreeData$Year))[naFreeData$Year],
 				      y = ..count..,
-				      fill = naFreeData$ClusterString
+				      fill = ClusterString
 			)
 		) +
 		ggplot2::labs(x = "Year", y = "Amount of papers") +
@@ -191,9 +182,9 @@ createOrdinationPlot <- function(modeledData,
       ggplot2::ggplot(
         naFreeData,
         ggplot2::aes(
-          x = naFreeData$Year,
-          y = as.numeric(naFreeData$ClusterPercent),
-          fill = naFreeData$ClusterString
+          x = Year,
+          y = as.numeric(ClusterPercent),
+          fill = ClusterString
         )
       ) +
       ggplot2::labs(x = "Year", y = "Amount of papers [%]") +

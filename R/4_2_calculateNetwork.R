@@ -94,10 +94,6 @@ calculateNetwork <- function(processedMetaMatrix,
                          weight.column = FALSE,
                          return = TRUE)
   
-  ###### Generating two weighted one-mode networks
-  #wordNetwork <- projecting_tm(snaTnet, method="sum") #took forever, abandoned
-  #paperNetwork <- projecting_tm(snaTnet, method="sum") #switch order in edgelist
-  
   
   ###### Calculating local measures
   if (longMessages == TRUE) {
@@ -116,8 +112,6 @@ calculateNetwork <- function(processedMetaMatrix,
   if (longMessages == TRUE) {
     utils::setTxtProgressBar(pb, 1)
   }
-  #nodedegreeTM <- degree_tm(snaTnet, measure = "degree")
-  # the same result, so one is taken out
   
   # Betweenness
   nodeBetweenness <- igraph::betweenness(snaIncidence)
@@ -158,9 +152,6 @@ calculateNetwork <- function(processedMetaMatrix,
                                 style = 3)
     
     # mind the order
-    #reinforcementTM <- reinforcement_tm(snaTnet) #took forever, abandoned
-    #clusterTM <- clustering_tm(snaTnet) #took forever, abandoned
-    #clusteringLocalTM <- clustering_local_tm(snaTnet) #took forever, abandoned
     utils::setTxtProgressBar(pb, 1)
   }
   clusterWalktrap <-
@@ -173,7 +164,6 @@ calculateNetwork <- function(processedMetaMatrix,
     utils::setTxtProgressBar(pb, 2)
   }
   
-  #clusterEdgeBetweenness <- cluster_edge_betweenness(snaIncidence) #took forever, abandoned
   clusterInfomap <-
     igraph::membership(igraph::cluster_infomap(snaIncidence))
   if (longMessages == TRUE) {

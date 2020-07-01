@@ -96,8 +96,6 @@ calculateModels <- function(processedData,
 
   axisPositions <- vegan::scores(model, display = c("species"))
   
-  #plot(model,type="text")
-  #write.table(cbind(rownames(processedData[[1]]),c(1:351)),"numberstest.txt")
   
   #cluster
   # replaced agnes by hclust from mclust
@@ -166,28 +164,6 @@ calculateModels <- function(processedData,
   # as an argument (0.05 per default)
   signIndSpeciesValues <-
     combIndSpeciesValues[combIndSpeciesValues["indSpeciesValues$pval"] <= p,]
-  
-  
-  # #Backup
-  # # this part of the codes adds an additional column to the dataframe that shows in which
-  # # cluster the most important words are.
-  # # this information is useful to assign colors while plotting
-  # signIndSpeciesValuesInclSubsetRow <- data.frame()
-  # signIndSpeciesValuesInclSubsetRow <-
-  #      signIndSpeciesValues[order(signIndSpeciesValues[,1],decreasing=T)[c(1: wordsPerClusterArm)],]
-  # signIndSpeciesValuesInclSubsetRow$subset <- paste0("Cluster ", rep.int(1, wordsPerClusterArm))
-  
-  # for (i in 2:numberOfClusters) {
-  #   subset <-
-  #      signIndSpeciesValues[order(signIndSpeciesValues[,i],decreasing=T)[c(1: wordsPerClusterArm)],]
-  #   subset$subset <- paste0("Cluster ", rep.int(i, wordsPerClusterArm))
-  #   signIndSpeciesValuesInclSubsetRow <- rbind(signIndSpeciesValuesInclSubsetRow, subset)
-  # }
-  
-  # it also determines the optimal amount of words to print per cluster.
-  # it checks the maximal indicator values per cluster.
-  # the smallest of those becomes the benchmark and if one word has a higher indval than
-  # this it is also drawn on the plot
   
   
   highestIndValPerCluster <- c()
@@ -302,9 +278,6 @@ calculateModels <- function(processedData,
   }
   
   
-  # colnames(processedData[[2]])
-  # modeledData[[2]] <- cbind(processedData[[2]], as.numeric(Cluster))
-  # colnames(modeledData[[2]]) <- c(colnames(processedData[[2]]), "Cluster")
   modeledData[[2]] <-
     cbind(processedData$MetaMatrix, "Cluster" = Cluster)
   
@@ -362,7 +335,7 @@ calculateModels <- function(processedData,
       "wordList")
   
   
-  ### save each paper into one new folder
+  ## save each paper into one new folder
   if (dir.exists("PdfsPerCluster/"))
   {
     warning("The existing paper-cluster folders have been overwritten")
