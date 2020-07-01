@@ -8,7 +8,7 @@
 2. Restart R Session (Cmd+Shift+F10/ Ctrl+Shift+F10 for Windows)
 3. Build and Reload (Cmd+Shift+B /Ctrl+Shift+B for Windows)
 4. Check Package (Cmd+Shift+E/Ctrl+Shift+E for Windows)
-5. Document Package (if any) - (Cmd+Shift+D/Ctrl+Shift+D for Windows) 
+5. Document Package (if any) - (Cmd+Shift+D/Ctrl+Shift+D for Windows). If you have written a new function, you need to use `#' @export` in the documentation of your function
 + We can **document the usage of our function/provide examples to the users** by using **Vignettes**. You can find an example document under ./scientific-wordcloud/vignettes folder. The documents are in R markdown format which can be rendered into html with "knitr". We can create the .Rmd file under vignettes folder directly with the use of **use_vignette("file_name")**
 
 ## Before every commit

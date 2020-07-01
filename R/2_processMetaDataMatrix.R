@@ -26,6 +26,8 @@
 #'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
 #' \code{[["wordList"]]} is the list of words found in the papers.
 #' @family scicloud functions
+#' @export
+
 
 processMetaDataMatrix <- function(metaMatrix, control = list(),
                                   ignoreWords = c(),
