@@ -166,14 +166,14 @@ createOrdinationPlot <- function(modeledData,
             ggplot2::ggplot(
               naFreeData,
               ggplot2::aes(
-				      x = as.numeric(levels(naFreeData$Year))[naFreeData$Year],
-				      y = ..count..,
+				      x = Year,
 				      fill = ClusterString
 			)
 		) +
 		ggplot2::labs(x = "Year", y = "Amount of papers") +
 		ggplot2::guides(fill=ggplot2::guide_legend(title = NULL)) + 
 		ggplot2::geom_bar(width = .9) +
+    ggplot2::scale_x_discrete()+
 		ggplot2::theme_classic(base_size = 16)
     
     
@@ -211,3 +211,4 @@ createOrdinationPlot <- function(modeledData,
     
   } # end of if-metadata-there-loop
 }
+
