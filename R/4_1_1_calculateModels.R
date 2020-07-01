@@ -336,16 +336,15 @@ calculateModels <- function(processedData,
   
   
   ## save each paper into one new folder
-  if (dir.exists("PdfsPerCluster/"))
-  {
+  if (dir.exists("PdfsPerCluster/")){
     warning("The existing paper-cluster folders have been overwritten")
   }
+  dir.create("PdfsPerCluster/", showWarnings = FALSE)
   for (i in 1:nlevels(as.factor(cutmodel))) {
-    dir.create(paste("PdfsPerCluster/", i), showWarnings = FALSE)
+    dir.create(paste0("PdfsPerCluster/", i), showWarnings = TRUE)
     file.copy(
-      paste0("PDFs/", rownames(representativePapersEasyToOpen[representativePapersEasyToOpen[, 2] ==
-                                                                i,])),
-      to = paste("PdfsPerCluster/", i),
+      c(paste0("PDFs/", rownames(representativePapersEasyToOpen[representativePapersEasyToOpen[, 2] ==i,]))),
+      to = paste0("PdfsPerCluster/", i),
       copy.mode = T
     )
   }
