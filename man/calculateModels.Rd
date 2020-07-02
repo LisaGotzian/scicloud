@@ -14,68 +14,116 @@ calculateModels(
   dendroLabels = "truncated",
   generateWordlist = FALSE,
   saveToWd = TRUE,
-  ordinationFunction = FALSE,
-  longMessages = FALSE
+  longMessages = FALSE,
+  ordinationFunction = FALSE
 )
 }
 \arguments{
-\item{processedData}{result of \code{\link[scicloud]{processMetaDataMatrix}}}
+\item{processedData}{result of \code{\link{processMetaDataMatrix}}}
 
-\item{numberOfClusters}{integer or NA; an integer forces the number of clusters,
-NA results in an automatic iteration to determine the optimal amount.}
+\item{numberOfClusters}{integer or NA; \cr
+an integer sets the number of clusters manually \cr
+for NA, the function automatically calculates results for 1 till 12 clusters}
 
-\item{minWordsPerCluster}{minimum number of words to be plotted per cluster.}
+\item{minWordsPerCluster}{minimum number of words to be plotted per cluster
+in \code{\link{createOrdinationPlot}}.}
 
-\item{maxWordsPerCluster}{maximum number of words to be plotted per cluster.
-this is only happening if the indicator values are higher than the maximum
-value of the weakest cluster arm.}
+\item{maxWordsPerCluster}{maximum number of words to be plotted per cluster
+in \code{\link{createOrdinationPlot}}.}
 
-\item{p}{p-Value to determine the significance of individual words. Only
-significant words will be plotted.}
+\item{p}{the p-value that sets the significance level of individual words for
+the indicator species analysis. Only significant words will be plotted
+in \code{\link{createOrdinationPlot}}.}
 
-\item{dendrogram}{shows a dendrogram of the calculated cluster if set to \code{TRUE}.}
+\item{dendrogram}{logical, whether or not to show a dendrogram of the calculated
+clusters.}
 
-\item{dendroLabels}{allows "truncated" or "break" to either truncate the
-labels of the dendrogram leaves or put a line break. Line breaks are not
-recommend for a large number of PDFs.}
+\item{dendroLabels}{allows "truncated" or "break". This either truncates the
+labels of the dendrogram leaves or puts a line break. Line breaks are not
+recommended for a large number of PDFs.}
 
-\item{generateWordlist}{if set to \code{TRUE}, it generates a wordlist in
-your working directory. The list contains all significant words that the
-indicator species analysis deemed significant to describe your paper
-clusters. To work with the new wordlist, read it in using
-\code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster}}.}
+\item{generateWordlist}{logical, if set to \code{TRUE}, it generates a wordlist
+called "scicloudWordlist.csv" in your working directory. The list
+contains all significant words from the indicator species analysis
+that are representative for the respective paper clusters. To work with the
+new wordlist, read it in using \code{keepWordsFile} as an argument
+to \code{\link{processMetaDataMatrix}} or \code{\link{ordinationCluster}}.}
 
-\item{saveToWd}{a logical parameter whether or not to save the output of the
-function to the working directory. This is especially useful for later
+\item{saveToWd}{logical, whether or not to save the output
+to the working directory. This is especially useful for later
 analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
 
-\item{ordinationFunction}{placeholder}
+\item{longMessages}{logical, whether or not to give detailed updates.}
 
-\item{longMessages}{placeholder}
+\item{ordinationFunction}{internal variable}
 }
 \value{
-list of two entries. First entry contains all the information to
-    generate the ordination/cluster plot. Entry two is an updated version
-    of the metaMatrix, which now included the assigned cluster number per
-    paper to allow additional statistical analyses.
+Returns a list with the following components:
+\itemize{
+    \item \code{IndVal}: the results of the indicator species analysis.
+    \item \code{metaMatrix}: the metaMatrix that has been processed by
+    \code{\link{processMetaDataMatrix}} including a cluster column for each paper
+    \item \code{RepresentativePapers}: a dataframe of the most representative
+    papers of each publication community. Papers are representative if they contain
+    the highest number of significant words.
+    \item \code{wordList}: a list of all words that have been used in the analysis.
+    }
 }
 \description{
-The third function to the word analysis with scicloud. It takes the
-    output of \code{\link[scicloud]{processMetaDataMatrix}} and calculates
-    ordination and cluster models. Each paper is assigned to one cluster
-    while each word receives an indicator value with \code{\link[labdsv]{indval}}
-    for each cluster, showing how representative word is for a cluster. The top
-    representative words will be used in the further process with \code{
-    \link[scicloud]{createOrdinationPlot}}.
+The fourth function to the word analysis with scicloud.
+    It takes the cleaned data from \code{\link{processMetaDataMatrix}}
+    and calculates clusters using \code{\link[stats]{hclust}}. The clusters
+    are publication communities based on the words used in the papers.
+    To then identify the words relevant to the communities, it runs an
+    indicator species analysis.
+    
+    Each word receives an indicator species value by \code{\link[labdsv]{indval}}
+    for each cluster, showing how representative a word is for a cluster. The top
+    representative words will be used in the further process for \code{
+    \link{createOrdinationPlot}}.
 }
 \examples{
-\dontrun{ placeholder }
+\dontrun{
+
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
+
+
+# instead of ordinationCluster(), we can also run this
+# workflow step by step.
+
+# 1) pull article metadata from scopus
+metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
+
+# 2) process the full texts
+processedMetaMatrix <- processMetaDataMatrix(
+          metaMatrix,
+          list(language = "SMART",
+          stemWords = TRUE,
+          saveToWd = FALSE),
+          ignoreWords = c("Abstract", "Bulletin", "Editor"))
+                                  
+# 3) run the cluster analysis to determine publication communities
+modeledData <- calculateModels(processedMetaMatrix)
+
+# 4) visualize the results
+createOrdinationPlot(modeledData)
+
+# 5) a list of the most important papers per cluster
+mostImportantPaperPerCluster(modeledData)
+
+# 6) a summary of the analysis
+scicloudSpecs <- inspectScicloud(modeledData)
+    }
 }
 \seealso{
-\code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
-    \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
-    \code{\link[scicloud]{mostImportantPaperPerCluster}} and
-    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
+\itemize{
+    \item \code{\link{processMetaDataMatrix}} for the preceding step
+    \item \code{\link{createOrdinationPlot}} for the next step and
+    \item \code{\link{mostImportantPaperPerCluster}} for the next step
+    \item \code{\link{inspectScicloud}} for a summary of the analysis
+    }
 
 Other scicloud functions: 
 \code{\link{createOrdinationPlot}()},

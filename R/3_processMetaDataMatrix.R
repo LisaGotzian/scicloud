@@ -1,34 +1,71 @@
 #' @title processMetaDataMatrix
 #'
-#' @description The second function to the word analysis with scicloud This function
-#'     accepts a \code{metaMatrix} and constructs a tf-idf matrix.
+#' @description The third function to the word analysis with scicloud. This function
+#'     accepts a \code{metaMatrix} filled with metadata and constructs a tf-idf matrix.
 #'
 #' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
-#' @param metaMatrix metaMatrix created through \code{\link[scicloud]{getScopusMetaData}}
-#'     or \code{\link[scicloud]{createTextMatrixFromPDF}}. Equations, symbols, all words
+#' @param metaMatrix metaMatrix created through \code{\link{getScopusMetaData}}
+#'     or \code{\link{createTextMatrixFromPDF}}. Equations, symbols, all words
 #'     in parentheses and all references are removed.
 #' @param control a list of parameters used to determine preprocessing methods.
-#'     Error will be thrown if language & stemWords are not defined.
-#'     language: this defines the stopwords to be filtered. the default is
-#'     "english". Look at \code{\link[tm]{stopwords}} for more information.
-#'     stemWords: can be \code{TRUE} of \code{FALSE}. Transforms every word
+#'     Error will be thrown if language & stemWords are not defined.\cr
+#'     \strong{language}: this defines the stopwords to be filtered. the default is
+#'     "english". Look at \code{\link[tm]{stopwords}} for more information.\cr
+#'     \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
 #'     to its stem, so variants of the same words are treated equally. Look
-#'     at \code{\link[tm]{stemDocument}} for more information.
-#'     saveToWd: a logical parameter whether or not to save the output of the function to the working directory
-#'     ordinationFunction placeholder
-#'     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE, ordinationFunction = FALSE)
+#'     at \code{\link[tm]{stemDocument}} for more information.\cr
+#'     \strong{saveToWd}: a logical parameter whether or not to save the output of the function to the working directory\cr
+#'     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE)
 #' @param ignoreWords a vector of words to be ignored.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
 #'     during the analysis. Accepts 0/1 behind each word or takes the words
 #'     as they are and disregards all other words of the analysis. A template
 #'     for this can be generated with \code{generateWordlist} in
-#'     \code{\link[scicloud]{ordinationCluster}} or \code{\link[scicloud]{calculateModels}}.
-#' @seealso \code{\link[scicloud]{createTextMatrixFromPDF}} for the preceding step,
-#'     \code{\link[scicloud]{calculateModels}} for the proceeding step
+#'     \code{\link{ordinationCluster}} or \code{\link{calculateModels}}.
+#' @seealso \itemize{
+#'     \item \code{\link{createTextMatrixFromPDF}} and \code{\link{getScopusMetaData}}
+#'     for the preceding steps
+#'     \item \code{\link{calculateModels}} for the proceeding step
+#'     }
 #' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
-#'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
+#'     term matrix, \code{[["metaMatrix"]]} as passed to the function and
 #' \code{[["wordList"]]} is the list of all words found in the papers.
 #' @family scicloud functions
+#' @examples 
+#' \dontrun{
+#' 
+#' ### The normal workflow of scicloud
+#' myAPIKey <- "YOUR_API_KEY"
+#' metaMatrix <- createTextMatrixFromPDF()
+#' 
+#' 
+#' # instead of ordinationCluster(), we can also run this
+#' # workflow step by step.
+#' 
+#' # 1) pull article metadata from scopus
+#' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
+#' 
+#' # 2) process the full texts
+#' processedMetaMatrix <- processMetaDataMatrix(
+#'           metaMatrix,
+#'           list(language = "SMART",
+#'           stemWords = TRUE,
+#'           saveToWd = FALSE),
+#'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
+#'                                   
+#' # 3) run the cluster analysis to determine publication communities
+#' modeledData <- calculateModels(processedMetaMatrix)
+#' 
+#' # 4) visualize the results
+#' createOrdinationPlot(modeledData)
+#' 
+#' # 5) a list of the most important papers per cluster
+#' mostImportantPaperPerCluster(modeledData)
+#' 
+#' # 6) a summary of the analysis
+#' scicloudSpecs <- inspectScicloud(modeledData)
+#' 
+#' }
 #' @export
 
 
@@ -203,7 +240,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   processedData[[3]] <- as.factor(sort(colnames(tf_idf)))
   
   names(processedData) <-
-    c("Tf_Idf", "MetaMatrix", "wordList")
+    c("Tf_Idf", "metaMatrix", "wordList")
   
   if (isTRUE(control$saveToWd)){
     save_data(processedData, "processedData", long_msg = !control$ordinationFunction)

@@ -4,22 +4,63 @@
 \alias{inspectScicloud}
 \title{inspectScicloud}
 \usage{
-inspectScicloud(modeledData = modeledData)
+inspectScicloud(modeledData)
 }
 \arguments{
-\item{modeledData}{placeholder}
+\item{modeledData}{result of \code{\link{ordinationCluster}} or \code{\link{ordinationCluster}}}
 }
 \value{
-placeholder
+A summary of the analysis is printed into the console. It gives
+    insights into the total number of papers and words used.
+    The returned object contains:
+    \itemize{
+    \item \code{paperCluster}: a paper-cluster table. Each paper
+    belongs to one cluster. Use \code{View(scicloudSpecs$paperCluster)} to see
+    which paper belongs to which cluster.
+    \item \code{IndVal}: a words-cluster table. Words do not
+    belong to one single cluster. An indicator species analysis shows how
+    representative each word is for each cluster. Use \code{View(scicloudSpecs$IndVal)}
+    to view the results of the indicator species analysis.
+    \item \code{excludedPapers}: the excluded papers. Use 
+    \code{View(scicloudSpecs$excludedPapers)} to see which papers have
+    been excluded, possibly because of a PDF error.
+    \item \code{representativePapers}: the most representative papers. Use 
+    \code{View(scicloudSpecs$representativePapers)} to see which papers
+    are the most representative ones, weighted with the indicator species
+    values of the words in the paper.
+    \item \code{metaMatrix}: matrix with metadata of the papers. Use
+    \code{View(scicloudSpecs$metaMatrix)} to view the original
+    metaMatrix (without full texts, so it's safe to open).
+    }
 }
 \description{
-placeholder
+The last function to the word analysis with scicloud. It
+    takes modeledData and returns a summary of the scicloudAnalysis.
+}
+\examples{
+\dontrun{
+
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
+
+
+# run the analysis, see ordinationCluster()
+# for more arguments
+scicloudAnalysis <- ordinationCluster(metaMatrix,
+                           myAPIKey = myAPIKey)
+
+# inspect the analysis
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
+}
 }
 \seealso{
-\code{\link[scicloud]{calculateModels}} or \code{\link[scicloud]{calculateNetwork}}
-    for the preceding step,
-    \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
-    \code{\link[scicloud]{mostImportantPaperPerCluster}}
+\itemize{
+    \item \code{\link{calculateModels}} for the preceding step
+    \item \code{\link{createOrdinationPlot}} for the graphics
+    \item \code{\link{mostImportantPaperPerCluster}} for the most cited
+    papers per cluster
+    }
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

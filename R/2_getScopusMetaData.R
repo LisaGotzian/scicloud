@@ -1,31 +1,66 @@
 #' @title getScopusMetaData
 #'
-#' @description takes a Data Frame of DOI numbers and/or Scopus-IDs (like
-#'     \code{\link[scicloud]{searchScopus}}) and downloads the abstracts and
-#'     titles matching those numbers and returning a matrix containing both.
+#' @description The second function to the word analysis with scicloud. This
+#'     function accepts a dataframe of DOI numbers and/or Scopus-IDs.
+#'     It downloads article metadata like title, author and year and returns
+#'     the input dataframe filled with that metadata.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Prabesh Dhakal,
 #'     \email{prabesh.dhakal@@stud.leuphana.de}
-#' @param searchResults a Data Frame produced by the functions
-#'     \code{\link[scicloud]{searchScopus}} or
-#'     \code{\link[scicloud]{createTextMatrixFromPDF}}
-#' @param myAPIKey Your private Elsevier API key for the server communication.
-#'     You can request one at \url{https://dev.elsevier.com/user/login}
-#' @param ordinationFunction FALSE by default
+#' @param metaMatrix a dataframe generated
+#'     either from PDFs with \code{\link{createTextMatrixFromPDF}} or by
+#'     searching scopus with \code{\link{searchScopus}}
+#' @param myAPIKey your private Elsevier API key for communicating with the
+#'     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
+#' @param ordinationFunction internal variable
 #' @family scicloud functions
-#' @return A data frame with all meta data of the articles provided to the function
+#' @return A dataframe with metadata of all articles provided to the function.
+#' @seealso \itemize{
+#'     \item \code{\link{createTextMatrixFromPDF}} or \code{\link{searchScopus}}
+#'     for the preceding steps
+#'     \item \code{\link{processMetaDataMatrix}} for the proceeding step
+#'     }
 #'
 #' @examples
 #' \dontrun{
-#'     processedMetaMatrix$MetaMatrix <- getScopusMetaData(processedMetaMatrix$MetaMatrix, myAPIKey)
+#' 
+#' ### The normal workflow of scicloud
+#' myAPIKey <- "YOUR_API_KEY"
+#' metaMatrix <- createTextMatrixFromPDF()
+#' 
+#' 
+#' # instead of ordinationCluster(), we can also run this
+#' # workflow step by step.
+#' 
+#' # 1) pull article metadata from scopus
+#' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
+#' 
+#' # 2) process the full texts
+#' processedMetaMatrix <- processMetaDataMatrix(
+#'           metaMatrix,
+#'           list(language = "SMART",
+#'           stemWords = TRUE,
+#'           saveToWd = FALSE),
+#'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
+#'                                              
+#' # 3) run the cluster analysis to determine publication communities
+#' modeledData <- calculateModels(processedMetaMatrix)
+#' 
+#' # 4) visualize the results
+#' createOrdinationPlot(modeledData)
+#' 
+#' # 5) a list of the most important papers per cluster
+#' mostImportantPaperPerCluster(modeledData)
+#' 
+#' # 6) a summary of the analysis
+#' scicloudSpecs <- inspectScicloud(modeledData)
 #'     }
 #' @export
-getScopusMetaData <- function(searchResults, myAPIKey, ordinationFunction = FALSE) {
+getScopusMetaData <- function(metaMatrix, myAPIKey,
+                              ordinationFunction = FALSE) {
   
   #### PHASE II: GET METADATA OF THE RESOURCES FOR WHICH WE COULD GET THE DOIs/SCOPUS IDs ####
-  metaMatrix <- searchResults
-  
   
   # a function that returns a custom error message
   errorMessage <- function(cond) {
@@ -45,8 +80,7 @@ getScopusMetaData <- function(searchResults, myAPIKey, ordinationFunction = FALS
     # Choose a return value in case of warning
     return(NULL)
   }
-  # start <- 1 # has already been set above ## remove this line
-  
+
   # get a new end value as our result matrix might have been smaller than we intended
   start <- 1
   end <- nrow(metaMatrix)

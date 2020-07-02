@@ -7,7 +7,7 @@
 delete_RDS()
 }
 \value{
-
+placeholder
 }
 \description{
 delete RDS files from current working directory. Users can
@@ -17,7 +17,7 @@ delete RDS files from current working directory. Users can
      Option 3: Keep only the selected data type of RDS files, delete all others
 }
 \seealso{
-
+placeholder
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

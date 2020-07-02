@@ -49,13 +49,13 @@ ordinationCluster(
 
 \item{dendroLabels}{placeholder}
 
-\item{generateWordlist}{if set to \code{TRUE}, it generates a wordlist in
+\item{generateWordlist}{logical, if set to \code{TRUE}, it generates a wordlist in
 your working directory. The list contains all significant words that the
 indicator species analysis deemed significant to describe your paper
 clusters. You can now add a 0/1 behind each word or delete rows you
 don't consider important to the analysis. To re-run the analysis with
 the new wordlist, read it in using \code{keepWordsFile} as an argument
-to \code{\link[scicloud]{ordinationCluster}}.}
+to \code{\link{ordinationCluster}}.}
 
 \item{keepWordsFile}{path to a .csv-file that specifies which words to keep
 during the analysis. Accepts 0/1 behind each word or takes the words
@@ -78,13 +78,30 @@ The essential wrapper function that runs all steps of the word
 }
 \examples{
 \dontrun{
+
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
+
+
+# run the analysis
+scicloudAnalysis <- ordinationCluster(metaMatrix,
+                           myAPIKey = myAPIKey)
+
+# inspect the analysis
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
+
+
+### Workflow for generating a wordlist to revise the words
 scicloudAnalysis <- ordinationCluster(metaMatrix, 
                                       generateWordlist = TRUE,
                                       stemWords = TRUE, numberOfClusters = 4)
 scicloudAnalysis <- ordinationCluster(metaMatrix,
                                       keepWordsFile = "YourFile.csv",
                                       stemWords = TRUE, numberOfClusters = 4)
-                                      }
+# inspect the analysis
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
+}
 }
 \seealso{
 Other scicloud functions: 

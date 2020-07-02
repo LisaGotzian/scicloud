@@ -7,23 +7,59 @@
 mostImportantPaperPerCluster(modeledData)
 }
 \arguments{
-\item{modeledData}{result of \code{\link[scicloud]{calculateModels}}}
+\item{modeledData}{result of \code{\link{calculateModels}}}
 }
 \value{
-console output of the papers with the highest citation per year
-    count per cluster.
+This function returns a console output of the papers with the
+    highest citation count per year per cluster. The citations were fetched
+    from the scopus API by \code{\link{getScopusMetaData}}.
 }
 \description{
-placeholder
+The sixth function to the word analysis with scicloud. It takes
+    \code{modeledData} and outputs a list of the most cited papers per
+    cluster into the console.
 }
 \examples{
 \dontrun{
-placeholder}
+
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
+
+
+# instead of ordinationCluster(), we can also run this
+# workflow step by step.
+
+# 1) pull article metadata from scopus
+metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
+
+# 2) process the full texts
+processedMetaMatrix <- processMetaDataMatrix(
+          metaMatrix,
+          list(language = "SMART",
+          stemWords = TRUE,
+          saveToWd = FALSE),
+          ignoreWords = c("Abstract", "Bulletin", "Editor"))
+                                  
+# 3) run the cluster analysis to determine publication communities
+modeledData <- calculateModels(processedMetaMatrix)
+
+# 4) visualize the results
+createOrdinationPlot(modeledData)
+
+# 5) a list of the most important papers per cluster
+mostImportantPaperPerCluster(modeledData)
+
+# 6) a summary of the analysis
+scicloudSpecs <- inspectScicloud(modeledData)
+    }
 }
 \seealso{
-\code{\link[scicloud]{calculateModels}} for the preceding step
-    \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
-    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
+\itemize{
+    \item \code{\link{calculateModels}} for the preceding step
+    \item \code{\link{createOrdinationPlot}} for the graphics
+    \item \code{\link{inspectScicloud}} for a summary of the analysis
+    }
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

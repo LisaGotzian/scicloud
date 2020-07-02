@@ -15,33 +15,42 @@ function to the working directory. This is especially useful for later
 analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
 }
 \value{
-A data frame containing the file name and full text of the pdf, as
-    well as scraped DOI numbers from the text and some placeholder columns for later.
+A data frame containing the file name and full text of the pdf, 
+    the DOI numbers from the text and some empty metadata columns to be
+    filled by \code{\link{getScopusMetaData}}.
+    It is analogous to what \code{\link{searchScopus}}
+    returns.
 }
 \description{
 First function of the word analysis with scicloud. It takes all
-    scientific papers as PDF files from a "PDFs" folder you'll have to
-    create. It then creates a DocumentTerm matrix
-    similar to \code{\link[scicloud]{searchScopus}} for further processing.
+    scientific papers as PDF files from the "PDFs" folder in your working
+    diretory. It then creates a DocumentTerm matrix of it.
 }
 \examples{
 \dontrun{
-metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE)
 
-myAPIKey <- "YOUR API KEY"
-# go to https://dev.elsevier.com/user/login to get yours
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
 
-scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey, stemWords = FALSE,
-    longMessages = TRUE, saveToWd = TRUE, method = "hclust")
-scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
+
+# run the analysis, see ordinationCluster()
+# for more arguments
+scicloudAnalysis <- ordinationCluster(metaMatrix,
+                           myAPIKey = myAPIKey)
+
+# inspect the analysis
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 }
 \seealso{
-\code{\link[scicloud]{ordinationCluster}} for the next step in scicloud,
-    a wrapper of all steps or \code{\link[scicloud]{processMetaDataMatrix}} for the
-    next step if you intend to run it step by step,
-    \code{\link[scicloud]{getScopusMetaData}} to fill in paper metadata (needed for
+\itemize{
+    \item \code{\link{ordinationCluster}} for the next step in scicloud
+    \item or \code{\link{processMetaDataMatrix}} for the
+    more granular next step if you intend to run it step by step
+    \item \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
     future plots) from Scopus
+    }
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

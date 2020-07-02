@@ -45,9 +45,10 @@ save_data <- function(data, data_name, long_msg = TRUE){
 #'      Option 1: Delete All RDS files in cwd 
 #'      Option 2: Keep the latest RDS files of each data type 
 #'      Option 3: Keep only the selected data type of RDS files, delete all others 
+#'      
 #' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
-#' @seealso 
-#' @return 
+#' @seealso placeholder
+#' @return placeholder
 #' @family scicloud functions
 #' @export
 

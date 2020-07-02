@@ -11,33 +11,68 @@ createOrdinationPlot(
 )
 }
 \arguments{
-\item{modeledData}{result of \code{\link[scicloud]{calculateModels}}}
+\item{modeledData}{result of \code{\link{calculateModels}}}
 
-\item{exactPosition}{\code{TRUE} or \code{FALSE}, the plot function tries
-to avoid overlapping labels for the sake of visual simplicity over perfect
+\item{exactPosition}{logical, the plot function tries to avoid overlapping
+labels for the sake of visual simplicity over perfect
 precision. When set to \code{TRUE}, the words position will be marked by
 a dot and the label will be connected with a line to it.}
 
-\item{ordinationFunction}{for internal use.}
+\item{ordinationFunction}{internal variable}
 }
 \value{
-a graphic based on the calculated model and some additional barplot
-    to deepen the understanding of the dataset.
+This function plots a graphic based on the clustered publication
+    communities. The citation count and publication dates were fetched
+    from the scopus API by \code{\link{getScopusMetaData}}.
 }
 \description{
-The fourth function to the word analysis with scicloud. It creates
-    five different plots that set the results in context to the years
-    published and more. To show meaningful graphics, the use of
-    \code{\link[scicloud]{getScopusMetaData}} is recommended.
+The fifth function to the word analysis with scicloud. It takes
+    the \code{modeledData} and creates five different plots: a wordcloud of
+    the publication communities and four visualiziations of the communities
+    by year and number of citations.
 }
 \examples{
 \dontrun{
-placeholder}
+
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
+
+
+# instead of ordinationCluster(), we can also run this
+# workflow step by step.
+
+# 1) pull article metadata from scopus
+metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
+
+# 2) process the full texts
+processedMetaMatrix <- processMetaDataMatrix(
+          metaMatrix,
+          list(language = "SMART",
+          stemWords = TRUE,
+          saveToWd = FALSE),
+          ignoreWords = c("Abstract", "Bulletin", "Editor"))
+                                  
+# 3) run the cluster analysis to determine publication communities
+modeledData <- calculateModels(processedMetaMatrix)
+
+# 4) visualize the results
+createOrdinationPlot(modeledData)
+
+# 5) a list of the most important papers per cluster
+mostImportantPaperPerCluster(modeledData)
+
+# 6) a summary of the analysis
+scicloudSpecs <- inspectScicloud(modeledData)
+    }
+    
 }
 \seealso{
-\code{\link[scicloud]{calculateModels}} for the preceding step,
-    \code{\link[scicloud]{mostImportantPaperPerCluster}} and
-    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
+\itemize{
+    \item \code{\link{calculateModels}} for the preceding step
+    \item \code{\link{mostImportantPaperPerCluster}} for the proceeding step
+    \item \code{\link{inspectScicloud}} for a summary of the analysis
+    }
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

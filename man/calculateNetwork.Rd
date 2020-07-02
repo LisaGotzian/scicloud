@@ -15,7 +15,7 @@ calculateNetwork(
 }
 \arguments{
 \item{processedMetaMatrix}{requires the output of
-\code{\link[scicloud]{processMetaDataMatrix}}.}
+\code{\link{processMetaDataMatrix}}.}
 
 \item{sortby}{allows the following possible inputs: "Eigenvector", "Degree",
 "Closeness, "Betweenness". The centrality measure to sort the words by,
@@ -27,7 +27,7 @@ computations for later use.}
 
 \item{saveToWd}{placeholder}
 
-\item{ordinationFunction}{placeholder}
+\item{ordinationFunction}{internal variable}
 
 \item{longMessages}{placeholder}
 }
@@ -45,11 +45,11 @@ output:
 }
 \description{
 This function is an alternative to
-    \code{\link[scicloud]{calculateModels}} and clusters based on network theory.
+    \code{\link{calculateModels}} and clusters based on network theory.
 }
 \seealso{
-\code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
-    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
+\code{\link{processMetaDataMatrix}} for the preceding step,
+    \code{\link{inspectScicloud}} for a summary of the analysis
 }
 \author{
 Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Julius Rathgens,

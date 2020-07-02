@@ -6,37 +6,49 @@
 #' @title createTextMatrixFromPDF
 #'
 #' @description First function of the word analysis with scicloud. It takes all
-#'     scientific papers as PDF files from a "PDFs" folder you'll have to
-#'     create. It then creates a DocumentTerm matrix
-#'     similar to \code{\link[scicloud]{searchScopus}} for further processing.
+#'     scientific papers as PDF files from the "PDFs" folder in your working
+#'     diretory. It then creates a DocumentTerm matrix of it.
+#'
 #' @param directory per default, the PDFs are expected to be in a folder named
 #'     "PDFs", can be changed ad. lib.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps and can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
-#' @seealso \code{\link[scicloud]{ordinationCluster}} for the next step in scicloud,
-#'     a wrapper of all steps or \code{\link[scicloud]{processMetaDataMatrix}} for the
-#'     next step if you intend to run it step by step,
-#'     \code{\link[scicloud]{getScopusMetaData}} to fill in paper metadata (needed for
+#' @seealso \itemize{
+#'     \item \code{\link{ordinationCluster}} for the next step in scicloud
+#'     \item or \code{\link{processMetaDataMatrix}} for the
+#'     more granular next step if you intend to run it step by step
+#'     \item \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
 #'     future plots) from Scopus
+#'     }
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @return A data frame containing the file name and full text of the pdf, as
-#'     well as scraped DOI numbers from the text and some placeholder columns for later.
+#' @return A data frame containing the file name and full text of the pdf, 
+#'     the DOI numbers from the text and some empty metadata columns to be
+#'     filled by \code{\link{getScopusMetaData}}.
+#'     It is analogous to what \code{\link{searchScopus}}
+#'     returns.
 #' @examples
 #' \dontrun{
-#' metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE)
+#' 
+#' ### The normal workflow of scicloud
+#' myAPIKey <- "YOUR_API_KEY"
+#' metaMatrix <- createTextMatrixFromPDF()
 #'
-#' myAPIKey <- "YOUR API KEY"
-#' # go to https://dev.elsevier.com/user/login to get yours
+#' 
+#' # run the analysis, see ordinationCluster()
+#' # for more arguments
+#' scicloudAnalysis <- ordinationCluster(metaMatrix,
+#'                            myAPIKey = myAPIKey)
 #'
-#' scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey, stemWords = FALSE,
-#'     longMessages = TRUE, saveToWd = TRUE, method = "hclust")
-#' scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
+#' # inspect the analysis
+#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #' }
 #' @export
+ 
+
 createTextMatrixFromPDF <-
   function(directory = file.path(".", "PDFs"),
            saveToWd = TRUE) {

@@ -14,10 +14,10 @@ searchScopus(
 }
 \arguments{
 \item{searchString}{The search string you want to ask the server. See the
-Scopus API (\url{https://dev.elsevier.com/}) for details.}
+Scopus API (\url{https://dev.elsevier.com/index.jsp/}) for details.}
 
 \item{myAPIKey}{Your private Elsevier API key for the server communication.
-You can request one at \url{https://dev.elsevier.com/}.}
+You can request one at \url{https://dev.elsevier.com/index.jsp}.}
 
 \item{maxResults}{The maximum amount of accepted search results. Usually,
 Scopus does not provide more than 5000 results.}

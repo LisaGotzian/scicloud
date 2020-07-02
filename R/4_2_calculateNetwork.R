@@ -5,9 +5,9 @@
 #' @title calculateNetwork
 #'
 #' @description This function is an alternative to
-#'     \code{\link[scicloud]{calculateModels}} and clusters based on network theory.
+#'     \code{\link{calculateModels}} and clusters based on network theory.
 #' @param processedMetaMatrix requires the output of
-#'     \code{\link[scicloud]{processMetaDataMatrix}}.
+#'     \code{\link{processMetaDataMatrix}}.
 #' @param sortby allows the following possible inputs: "Eigenvector", "Degree",
 #'     "Closeness, "Betweenness". The centrality measure to sort the words by,
 #'     default is Eigenvector.
@@ -15,10 +15,10 @@
 #'     by the argument given by \code{sortby}. Can be adjusted. This facilitates
 #'     computations for later use.
 #' @param saveToWd placeholder
-#' @param ordinationFunction placeholder
+#' @param ordinationFunction internal variable
 #' @param longMessages placeholder
-#' @seealso \code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
-#'     \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
+#' @seealso \code{\link{processMetaDataMatrix}} for the preceding step,
+#'     \code{\link{inspectScicloud}} for a summary of the analysis
 #'
 #' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
 #'     \email{julius.rathgens@@leuphana.de}

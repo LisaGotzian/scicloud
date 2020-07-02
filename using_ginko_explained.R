@@ -5,7 +5,7 @@
 # Welcome to this guide, please make sure you are all set:
 # - a folder "PDFs" within your working directory that contains all PDFs
 # - To get Scopus MetaData, please go to Elsevier and get your API key, it is connected to your
-#   mail address. Then you can fill the big MetaMatrix based on the DOI. https://id.elsevier.com/as/yv1lr/resume/as/authorization.ping
+#   mail address. Then you can fill the big MetaMatrix based on the DOI. https://dev.elsevier.com/index.jsp 
 
 myAPIKey <- "3c7cc08b398980881eee1050d53c5e86"
 
@@ -13,18 +13,12 @@ library(devtools)
 install_github("LisaGotzian/scicloud")
 library(scicloud)
 
-metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE)
-# The following is the "Let your computer work for 20 min" way. It does exactly the same as the lines below.
-# You can also add all arguments I introduced below.
-
+metaMatrix <- createTextMatrixFromPDF()
 scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
-                                   stemWords = TRUE, numberOfClusters = 4,
-                                   longMessages = TRUE, saveToWd = TRUE, method = "hclust")
-# you can also access the network using modeledData$LocalMeasures
-# other possible methods: "hclust" or "network"
+                                   stemWords = TRUE, numberOfClusters = 4)
 
-# Insights into Ginko
-GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
+# Insights into scicloud
+scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
 
 
 # Only for Henrik: getting a wordlist + feeding it in again
@@ -34,19 +28,36 @@ scicloudAnalysis <- ordinationCluster(metaMatrix,
 scicloudAnalysis <- ordinationCluster(metaMatrix,
                                       keepWordsFile = "Food_SLR.csv",
                                       stemWords = TRUE, numberOfClusters = 4)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
 
 ################## Step by step ##################
-# This is the "I want to do it step by step" way. Does exactly the same as the one function above.
-processedMetaMatrix <- processMetaDataMatrix(metaMatrix, list(language = "SMART", stemWords = TRUE,
-                                                              saveToWd = FALSE, ordinationFunction = FALSE)
-                                             #, keepWordsFile = "Food_SLR.csv"
-                                             ,ignoreWords = c("Abstract", "Bulletin", "Editor"))
+# 1) pull article metadata from scopus
+metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
+# 2) process the full texts
+processedMetaMatrix <- processMetaDataMatrix(metaMatrix,
+                                  list(language = "SMART",
+                                  stemWords = TRUE,
+                                  saveToWd = FALSE),
+                                  ignoreWords = c("Abstract", "Bulletin", "Editor"))
+                                   
+# 3) run the cluster analysis to determine publication communities
+modeledData <- calculateModels(processedMetaMatrix, numberOfClusters = 4)
+ 
+# 4) visualize the results
+createOrdinationPlot(modeledData)
+ 
+# 5) a list of the most important papers per cluster
+mostImportantPaperPerCluster(modeledData)
+ 
+# 6) a summary of the analysis
+scicloudSpecs <- inspectScicloud(modeledData)
 
-processedMetaMatrix$MetaMatrix <- getScopusMetaData(processedMetaMatrix$MetaMatrix, myAPIKey)
-modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE, numberOfClusters = 4)
-
+ 
+ 
+ 
+ 
 ################# The network approach ##################
 # $LocalMeasures will return the local measurements for both papers and words
 # $ReducedLocalMeasures will return 1/3 of the words (!) with their centrality measures & clustering according
@@ -55,15 +66,6 @@ modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE, numberO
 # to be further processed eg in Gephi or with other clustering functions
 # $GlobalMeasures will return the global measurements
 modeledNetwork <- calculateNetwork(processedMetaMatrix, sortby = "Eigenvector", keep = 0.3)
-
-######################### The graphics #########################
-createOrdinationPlot(modeledData) # only works if you used your API key
-
-mostImportantPaperPerCluster(modeledData)
-
-# Insights into Ginko
-GinkoSpecs <- inspectGinko(modeledData = modeledData)
-
 
 #----------------- Search Scopus by Abstracts ----------------
 DOInumbers <- searchScopus(searchString = "sustain", myAPIKey = myAPIKey)
