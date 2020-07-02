@@ -48,8 +48,8 @@ This function is an alternative to
     \code{\link[scicloud]{calculateModels}} and clusters based on network theory.
 }
 \seealso{
-\code{\link{processMetaDataMatrix}} for the preceding step,
-    \code{\link{inspectScicloud}} for a summary of the analysis
+\code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
+    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 }
 \author{
 Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Julius Rathgens,

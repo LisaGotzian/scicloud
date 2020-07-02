@@ -12,7 +12,7 @@ createTextMatrixFromPDF(directory = file.path(".", "PDFs"), saveToWd = TRUE)
 
 \item{saveToWd}{a logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
-analysis steps and can be read in by using \code{\link[base]{saveRDS}}.}
+analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
 }
 \value{
 A data frame containing the file name and full text of the pdf, as
@@ -37,10 +37,10 @@ scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
 }
 }
 \seealso{
-\code{\link{ordinationCluster}} for the next step in scicloud,
-    a wrapper of all steps or \code{\link{processMetaDataMatrix}} for the
+\code{\link[scicloud]{ordinationCluster}} for the next step in scicloud,
+    a wrapper of all steps or \code{\link[scicloud]{processMetaDataMatrix}} for the
     next step if you intend to run it step by step,
-    \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
+    \code{\link[scicloud]{getScopusMetaData}} to fill in paper metadata (needed for
     future plots) from Scopus
 
 Other scicloud functions: 

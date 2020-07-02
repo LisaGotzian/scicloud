@@ -53,7 +53,7 @@ delete_RDS <- function(){
                        "Keep the latest of each data, delete all others",
                        "Keep only a specific data, delete all other type", 
                        "Quit")
-    pick <- menu(menu_selection, title = "\nWhich RDS files to be deleted in current directory?")
+    pick <- utils::menu(menu_selection, title = "\nWhich RDS files to be deleted in current directory?")
     if(pick == 4 | pick ==0)
       return(invisible())
     else if(pick == 1){
@@ -76,7 +76,7 @@ delete_RDS <- function(){
     else if(pick == 3){ # Keep only a specific data, delete all other type
       choices <- c("metaMatrix", "processedData", "modeledData", "modeledNetwork", 
                    "metaDOInumbers", "Quit")
-      pick <- menu(choices, title = "Which RDS data to keep?")
+      pick <- utils::menu(choices, title = "Which RDS data to keep?")
       if(pick == 1){
         to_delete <- matched_item("metaMatrix", files)
         return(delete_files(to_delete))

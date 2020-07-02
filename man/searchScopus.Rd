@@ -29,7 +29,7 @@ for requests is 20,000.}
 
 \item{saveToWd}{a logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
-analysis steps and can be read in by using \code{\link[base]{saveRDS}}.}
+analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
 }
 \value{
 A data frame containing the DOI numbers and Scopus-IDs of the search

@@ -21,9 +21,9 @@ placeholder
 placeholder}
 }
 \seealso{
-\code{\link{calculateModels}} for the preceding step
-    \code{\link{createOrdinationPlot}} for the graphics,
-    \code{\link{inspectScicloud}} for a summary of the analysis
+\code{\link[scicloud]{calculateModels}} for the preceding step
+    \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
+    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

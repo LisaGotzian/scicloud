@@ -45,8 +45,8 @@ The second function to the word analysis with scicloud This function
     accepts a \code{metaMatrix} and constructs a tf-idf matrix.
 }
 \seealso{
-\code{\link{createTextMatrixFromPDF}} for the preceding step,
-    \code{\link{calculateModels}} for the proceeding step
+\code{\link[scicloud]{createTextMatrixFromPDF}} for the preceding step,
+    \code{\link[scicloud]{calculateModels}} for the proceeding step
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

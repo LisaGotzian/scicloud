@@ -19,7 +19,7 @@
 #'     You can request one at \url{https://dev.elsevier.com/}.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
-#'     analysis steps and can be read in by using \code{\link[base]{saveRDS}}.
+#'     analysis steps and can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
 #' @return A data frame containing the DOI numbers and Scopus-IDs of the search
 #'     results, as well as some placeholder columns.

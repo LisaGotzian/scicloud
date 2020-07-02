@@ -37,6 +37,8 @@ Imports:
     SnowballC (>= 0.5.1),
     stringr (>= 1.2.0),
     tm (>= 0.7.5),
-    ArgumentCheck
+    ArgumentCheck,
+    data.table,
+    rlang
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

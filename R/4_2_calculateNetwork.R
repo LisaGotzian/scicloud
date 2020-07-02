@@ -17,8 +17,8 @@
 #' @param saveToWd placeholder
 #' @param ordinationFunction placeholder
 #' @param longMessages placeholder
-#' @seealso \code{\link{processMetaDataMatrix}} for the preceding step,
-#'     \code{\link{inspectScicloud}} for a summary of the analysis
+#' @seealso \code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
+#'     \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 #'
 #' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
 #'     \email{julius.rathgens@@leuphana.de}

@@ -23,8 +23,8 @@
 #'     as they are and disregards all other words of the analysis. A template
 #'     for this can be generated with \code{generateWordlist} in
 #'     \code{\link[scicloud]{ordinationCluster}} or \code{\link[scicloud]{calculateModels}}.
-#' @seealso \code{\link{createTextMatrixFromPDF}} for the preceding step,
-#'     \code{\link{calculateModels}} for the proceeding step
+#' @seealso \code{\link[scicloud]{createTextMatrixFromPDF}} for the preceding step,
+#'     \code{\link[scicloud]{calculateModels}} for the proceeding step
 #' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 #'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
 #' \code{[["wordList"]]} is the list of all words found in the papers.

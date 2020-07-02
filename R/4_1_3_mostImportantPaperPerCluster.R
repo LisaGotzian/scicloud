@@ -6,9 +6,9 @@
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
 #' @param modeledData result of \code{\link[scicloud]{calculateModels}}
 #' @family scicloud functions
-#' @seealso \code{\link{calculateModels}} for the preceding step
-#'     \code{\link{createOrdinationPlot}} for the graphics,
-#'     \code{\link{inspectScicloud}} for a summary of the analysis
+#' @seealso \code{\link[scicloud]{calculateModels}} for the preceding step
+#'     \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
+#'     \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 #' @return console output of the papers with the highest citation per year
 #'     count per cluster.
 #' @export

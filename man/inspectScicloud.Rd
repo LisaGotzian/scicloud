@@ -16,10 +16,10 @@ placeholder
 placeholder
 }
 \seealso{
-\code{\link{calculateModels}} or \code{\link{calculateNetwork}}
+\code{\link[scicloud]{calculateModels}} or \code{\link[scicloud]{calculateNetwork}}
     for the preceding step,
-    \code{\link{createOrdinationPlot}} for the graphics,
-    \code{\link{mostImportantPaperPerCluster}}
+    \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
+    \code{\link[scicloud]{mostImportantPaperPerCluster}}
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

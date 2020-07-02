@@ -35,9 +35,9 @@ The fourth function to the word analysis with scicloud. It creates
 placeholder}
 }
 \seealso{
-\code{\link{calculateModels}} for the preceding step,
-    \code{\link{mostImportantPaperPerCluster}} and
-    \code{\link{inspectScicloud}} for a summary of the analysis
+\code{\link[scicloud]{calculateModels}} for the preceding step,
+    \code{\link[scicloud]{mostImportantPaperPerCluster}} and
+    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 
 Other scicloud functions: 
 \code{\link{calculateModels}()},

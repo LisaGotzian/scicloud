@@ -14,9 +14,9 @@
 #'     a dot and the label will be connected with a line to it.
 #' @param ordinationFunction for internal use.
 #' @family scicloud functions
-#' @seealso \code{\link{calculateModels}} for the preceding step,
-#'     \code{\link{mostImportantPaperPerCluster}} and
-#'     \code{\link{inspectScicloud}} for a summary of the analysis
+#' @seealso \code{\link[scicloud]{calculateModels}} for the preceding step,
+#'     \code{\link[scicloud]{mostImportantPaperPerCluster}} and
+#'     \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 #' @return a graphic based on the calculated model and some additional barplot
 #'     to deepen the understanding of the dataset.
 #' @export
@@ -132,9 +132,9 @@ createOrdinationPlot <- function(modeledData,
     citationsStackedBarPlot <- ggplot2::ggplot(
       naFreeData,
       ggplot2::aes(
-        x = Year,
-        y = as.numeric(CitedBy),
-        fill = ClusterString
+        x = rlang::.data$Year,
+        y = as.numeric(rlang::.data$CitedBy),
+        fill = rlang::.data$ClusterString
       )
     ) +
       ggplot2::labs(x = "Year", y = "Citations") +
@@ -149,9 +149,9 @@ createOrdinationPlot <- function(modeledData,
     citationsStackedBarPlotPercent <- ggplot2::ggplot(
       naFreeData,
       ggplot2::aes(
-        x = Year,
-        y = as.numeric(citePercent),
-        fill = ClusterString
+        x = rlang::.data$Year,
+        y = as.numeric(rlang::.data$citePercent),
+        fill = rlang::.data$ClusterString
       )
     ) +
       ggplot2::labs(x = "Year", y = "Citations [%]") +
@@ -166,8 +166,8 @@ createOrdinationPlot <- function(modeledData,
             ggplot2::ggplot(
               naFreeData,
               ggplot2::aes(
-				      x = Year,
-				      fill = ClusterString
+				      x = rlang::.data$Year,
+				      fill = rlang::.data$ClusterString
 			)
 		) +
 		ggplot2::labs(x = "Year", y = "Amount of papers") +
@@ -182,9 +182,9 @@ createOrdinationPlot <- function(modeledData,
       ggplot2::ggplot(
         naFreeData,
         ggplot2::aes(
-          x = Year,
-          y = as.numeric(ClusterPercent),
-          fill = ClusterString
+          x = rlang::.data$Year,
+          y = as.numeric(rlang::.data$ClusterPercent),
+          fill = rlang::.data$ClusterString
         )
       ) +
       ggplot2::labs(x = "Year", y = "Amount of papers [%]") +

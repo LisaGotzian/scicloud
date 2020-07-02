@@ -43,11 +43,11 @@ recommend for a large number of PDFs.}
 your working directory. The list contains all significant words that the
 indicator species analysis deemed significant to describe your paper
 clusters. To work with the new wordlist, read it in using
-\code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster()}}.}
+\code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster}}.}
 
 \item{saveToWd}{a logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
-analysis steps and can be read in by using \code{\link[base]{saveRDS}}.}
+analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
 
 \item{ordinationFunction}{placeholder}
 
@@ -72,10 +72,10 @@ The third function to the word analysis with scicloud. It takes the
 \dontrun{ placeholder }
 }
 \seealso{
-\code{\link{processMetaDataMatrix}} for the preceding step,
-    \code{\link{createOrdinationPlot}} for the graphics,
-    \code{\link{mostImportantPaperPerCluster}} and
-    \code{\link{inspectScicloud}} for a summary of the analysis
+\code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
+    \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
+    \code{\link[scicloud]{mostImportantPaperPerCluster}} and
+    \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 
 Other scicloud functions: 
 \code{\link{createOrdinationPlot}()},

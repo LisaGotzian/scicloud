@@ -55,7 +55,7 @@ indicator species analysis deemed significant to describe your paper
 clusters. You can now add a 0/1 behind each word or delete rows you
 don't consider important to the analysis. To re-run the analysis with
 the new wordlist, read it in using \code{keepWordsFile} as an argument
-to \code{ordinationCluster()}.}
+to \code{\link[scicloud]{ordinationCluster}}.}
 
 \item{keepWordsFile}{path to a .csv-file that specifies which words to keep
 during the analysis. Accepts 0/1 behind each word or takes the words

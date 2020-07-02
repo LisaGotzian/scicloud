@@ -27,16 +27,16 @@
 #'     your working directory. The list contains all significant words that the
 #'     indicator species analysis deemed significant to describe your paper
 #'     clusters. To work with the new wordlist, read it in using
-#'     \code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster()}}.
+#'     \code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster}}.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
-#'     analysis steps and can be read in by using \code{\link[base]{saveRDS}}.
+#'     analysis steps and can be read in by using \code{\link[base]{readRDS}}.
 #' @param ordinationFunction placeholder
 #' @param longMessages placeholder
-#' @seealso \code{\link{processMetaDataMatrix}} for the preceding step,
-#'     \code{\link{createOrdinationPlot}} for the graphics,
-#'     \code{\link{mostImportantPaperPerCluster}} and
-#'     \code{\link{inspectScicloud}} for a summary of the analysis
+#' @seealso \code{\link[scicloud]{processMetaDataMatrix}} for the preceding step,
+#'     \code{\link[scicloud]{createOrdinationPlot}} for the graphics,
+#'     \code{\link[scicloud]{mostImportantPaperPerCluster}} and
+#'     \code{\link[scicloud]{inspectScicloud}} for a summary of the analysis
 #' @family scicloud functions
 
 #' @return list of two entries. First entry contains all the information to
