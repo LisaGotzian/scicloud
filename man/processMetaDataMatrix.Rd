@@ -30,12 +30,15 @@ e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE, ordi
 \item{ignoreWords}{a vector of words to be ignored.}
 
 \item{keepWordsFile}{path to a .csv-file that specifies which words to keep
-during the analysis. If provided, all other words will be disregarded.}
+during the analysis. Accepts 0/1 behind each word or takes the words
+as they are and disregards all other words of the analysis. A template
+for this can be generated with \code{generateWordlist} in
+\code{\link[scicloud]{ordinationCluster}} or \code{\link[scicloud]{calculateModels}}.}
 }
 \value{
 returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
-\code{[["wordList"]]} is the list of words found in the papers.
+\code{[["wordList"]]} is the list of all words found in the papers.
 }
 \description{
 The second function to the word analysis with scicloud This function

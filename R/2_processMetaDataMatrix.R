@@ -19,12 +19,15 @@
 #'     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE, ordinationFunction = FALSE)
 #' @param ignoreWords a vector of words to be ignored.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
-#'     during the analysis. If provided, all other words will be disregarded.
+#'     during the analysis. Accepts 0/1 behind each word or takes the words
+#'     as they are and disregards all other words of the analysis. A template
+#'     for this can be generated with \code{generateWordlist} in
+#'     \code{\link[scicloud]{ordinationCluster}} or \code{\link[scicloud]{calculateModels}}.
 #' @seealso \code{\link{createTextMatrixFromPDF}} for the preceding step,
 #'     \code{\link{calculateModels}} for the proceeding step
 #' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 #'     term matrix, \code{[["MetaMatrix"]]} as passed to the function and
-#' \code{[["wordList"]]} is the list of words found in the papers.
+#' \code{[["wordList"]]} is the list of all words found in the papers.
 #' @family scicloud functions
 #' @export
 
@@ -175,10 +178,23 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   # Apply keepWordsFile if specified
   if (methods::hasArg(keepWordsFile)) {
     # keep only the words denoted with "1" if two columns are given
-    if (ncol(keepWords) == 2){keepWordsVector <- keepWords[keepWords[, 2] == 1, 1]}else{
-      keepWordsVector = keepWords
+    if (ncol(keepWords) == 2){
+      keepWordsVector <- keepWords[keepWords[, 2] == 1, 1]
+    }else{
+      keepWordsVector = unlist(keepWords, use.names = FALSE)
     }
-    tf_idf <- tf_idf[,keepWordsVector]
+    unknownWords <- keepWordsVector[!keepWordsVector %in% colnames(tf_idf)]
+    
+    errorMessage <- function(cond) {
+      message(paste0(length(unknownWords),
+                     " words in keepWordsFile could not be found in ",
+                     "the data. Please make sure no words were altered and you ",
+                     "are using the same arguments as when generating the word ",
+                     "list. The first ten words that could not be found are: "))
+      cat(paste(unknownWords[1:10]))
+      stop("Process stopped.",call. = FALSE)
+    }
+    tryCatch(tf_idf <- tf_idf[,keepWordsVector], error = errorMessage)
   }
   
   processedData <- list()

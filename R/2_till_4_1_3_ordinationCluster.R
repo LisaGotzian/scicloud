@@ -21,17 +21,33 @@
 #' @param p placeholder
 #' @param dendrogram placeholder
 #' @param dendroLabels placeholder
+#' @param generateWordlist if set to \code{TRUE}, it generates a wordlist in
+#'     your working directory. The list contains all significant words that the
+#'     indicator species analysis deemed significant to describe your paper
+#'     clusters. You can now add a 0/1 behind each word or delete rows you
+#'     don't consider important to the analysis. To re-run the analysis with
+#'     the new wordlist, read it in using \code{keepWordsFile} as an argument
+#'     to \code{ordinationCluster()}.
+#' @param keepWordsFile path to a .csv-file that specifies which words to keep
+#'     during the analysis. Accepts 0/1 behind each word or takes the words
+#'     as they are and disregards all other words of the analysis.
 #' @param myAPIKey placeholder
 #' @param method takes "network", "hclust" or "both" as a method
 #' @param saveToWd a logical parameter whether or not to save the output of
 #'     the function to the working directory. This is especially useful for
-#'     later analysis steps and can be read in by using \code{\link[base]{saveRDS}}.
+#'     later analysis steps and can be read in by using \code{\link[base]{readRDS}}.
 #' @param longMessages by default \code{FALSE} to keep the output short.
 #' @family scicloud functions
 #' @return placeholder
 #' @export
 #' @examples \dontrun{
-#' placeholder}
+#' scicloudAnalysis <- ordinationCluster(metaMatrix, 
+#'                                       generateWordlist = TRUE,
+#'                                       stemWords = TRUE, numberOfClusters = 4)
+#' scicloudAnalysis <- ordinationCluster(metaMatrix,
+#'                                       keepWordsFile = "YourFile.csv",
+#'                                       stemWords = TRUE, numberOfClusters = 4)
+#'                                       }
 ordinationCluster <- function(metaMatrix,
                               language = "SMART",
                               numberOfClusters = NA,
@@ -44,6 +60,8 @@ ordinationCluster <- function(metaMatrix,
                               exactPosition = FALSE,
                               dendrogram = TRUE,
                               dendroLabels = "truncated",
+                              generateWordlist = FALSE,
+                              keepWordsFile,
                               saveToWd = TRUE,
                               method = "hclust",
                               longMessages = FALSE) {
@@ -69,7 +87,8 @@ ordinationCluster <- function(metaMatrix,
       stemWords = stemWords,
       saveToWd = saveToWd,
       ordinationFunction = ordinationFunction),
-      ignoreWords = ignoreWords
+      ignoreWords = ignoreWords,
+      keepWordsFile = keepWordsFile
     )
   
   if(!is.na(myAPIKey)){
@@ -92,7 +111,8 @@ ordinationCluster <- function(metaMatrix,
         dendroLabels = dendroLabels,
         ordinationFunction = ordinationFunction,
         saveToWd = saveToWd,
-        longMessages = longMessages
+        longMessages = longMessages,
+        generateWordlist = generateWordlist
       )
     createOrdinationPlot(modeledData,
                          exactPosition = exactPosition,

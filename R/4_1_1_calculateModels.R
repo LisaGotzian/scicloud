@@ -23,6 +23,11 @@
 #' @param dendroLabels allows "truncated" or "break" to either truncate the
 #'     labels of the dendrogram leaves or put a line break. Line breaks are not
 #'     recommend for a large number of PDFs.
+#' @param generateWordlist if set to \code{TRUE}, it generates a wordlist in
+#'     your working directory. The list contains all significant words that the
+#'     indicator species analysis deemed significant to describe your paper
+#'     clusters. To work with the new wordlist, read it in using
+#'     \code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster()}}.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps and can be read in by using \code{\link[base]{saveRDS}}.
@@ -39,8 +44,7 @@
 #'     of the metaMatrix, which now included the assigned cluster number per
 #'     paper to allow additional statistical analyses.
 #' @export
-#' @examples \dontrun{
-#' placeholder}
+#' @examples \dontrun{ placeholder }
 calculateModels <- function(processedData,
                             numberOfClusters = NA,
                             minWordsPerCluster = 5,
@@ -48,6 +52,7 @@ calculateModels <- function(processedData,
                             p = 0.05,
                             dendrogram = TRUE,
                             dendroLabels = "truncated",
+                            generateWordlist = FALSE,
                             saveToWd = TRUE,
                             ordinationFunction = FALSE,
                             longMessages = FALSE) {
@@ -165,6 +170,17 @@ calculateModels <- function(processedData,
   signIndSpeciesValues <-
     combIndSpeciesValues[combIndSpeciesValues["indSpeciesValues$pval"] <= p,]
   
+  if (generateWordlist == TRUE){
+    data.table::fwrite(as.data.frame(
+      signIndSpeciesValues$`names(indSpeciesValues$pval)`), col.names =  FALSE,
+      file = "scicloudWordlist.csv")
+    cat(
+      paste0(
+        "\nThe scicloudWordlist is now in your working directory. It ",
+        "contains all significant words that the indicator species ",
+        "analysis deemed significant to describe your paper clusters."))
+    readline("Proceed with calculation? Press ESC to work with wordlist first.")
+  }
   
   highestIndValPerCluster <- c()
   for (i in 1:numberOfClusters) {
@@ -341,7 +357,7 @@ calculateModels <- function(processedData,
   }
   dir.create("PdfsPerCluster/", showWarnings = FALSE)
   for (i in 1:nlevels(as.factor(cutmodel))) {
-    dir.create(paste0("PdfsPerCluster/", i), showWarnings = TRUE)
+    dir.create(paste0("PdfsPerCluster/", i), showWarnings = FALSE)
     file.copy(
       c(paste0("PDFs/", rownames(representativePapersEasyToOpen[representativePapersEasyToOpen[, 2] ==i,]))),
       to = paste0("PdfsPerCluster/", i),

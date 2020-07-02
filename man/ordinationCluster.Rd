@@ -17,6 +17,8 @@ ordinationCluster(
   exactPosition = FALSE,
   dendrogram = TRUE,
   dendroLabels = "truncated",
+  generateWordlist = FALSE,
+  keepWordsFile,
   saveToWd = TRUE,
   method = "hclust",
   longMessages = FALSE
@@ -47,9 +49,21 @@ ordinationCluster(
 
 \item{dendroLabels}{placeholder}
 
+\item{generateWordlist}{if set to \code{TRUE}, it generates a wordlist in
+your working directory. The list contains all significant words that the
+indicator species analysis deemed significant to describe your paper
+clusters. You can now add a 0/1 behind each word or delete rows you
+don't consider important to the analysis. To re-run the analysis with
+the new wordlist, read it in using \code{keepWordsFile} as an argument
+to \code{ordinationCluster()}.}
+
+\item{keepWordsFile}{path to a .csv-file that specifies which words to keep
+during the analysis. Accepts 0/1 behind each word or takes the words
+as they are and disregards all other words of the analysis.}
+
 \item{saveToWd}{a logical parameter whether or not to save the output of
 the function to the working directory. This is especially useful for
-later analysis steps and can be read in by using \code{\link[base]{saveRDS}}.}
+later analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
 
 \item{method}{takes "network", "hclust" or "both" as a method}
 
@@ -64,7 +78,13 @@ The essential wrapper function that runs all steps of the word
 }
 \examples{
 \dontrun{
-placeholder}
+scicloudAnalysis <- ordinationCluster(metaMatrix, 
+                                      generateWordlist = TRUE,
+                                      stemWords = TRUE, numberOfClusters = 4)
+scicloudAnalysis <- ordinationCluster(metaMatrix,
+                                      keepWordsFile = "YourFile.csv",
+                                      stemWords = TRUE, numberOfClusters = 4)
+                                      }
 }
 \seealso{
 Other scicloud functions: 

@@ -12,6 +12,7 @@ calculateModels(
   p = 0.05,
   dendrogram = TRUE,
   dendroLabels = "truncated",
+  generateWordlist = FALSE,
   saveToWd = TRUE,
   ordinationFunction = FALSE,
   longMessages = FALSE
@@ -38,6 +39,12 @@ significant words will be plotted.}
 labels of the dendrogram leaves or put a line break. Line breaks are not
 recommend for a large number of PDFs.}
 
+\item{generateWordlist}{if set to \code{TRUE}, it generates a wordlist in
+your working directory. The list contains all significant words that the
+indicator species analysis deemed significant to describe your paper
+clusters. To work with the new wordlist, read it in using
+\code{keepWordsFile} as an argument to \code{\link[scicloud]{ordinationCluster()}}.}
+
 \item{saveToWd}{a logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
 analysis steps and can be read in by using \code{\link[base]{saveRDS}}.}
@@ -62,8 +69,7 @@ The third function to the word analysis with scicloud. It takes the
     \link[scicloud]{createOrdinationPlot}}.
 }
 \examples{
-\dontrun{
-placeholder}
+\dontrun{ placeholder }
 }
 \seealso{
 \code{\link{processMetaDataMatrix}} for the preceding step,

@@ -7,18 +7,18 @@
 # - To get Scopus MetaData, please go to Elsevier and get your API key, it is connected to your
 #   mail address. Then you can fill the big MetaMatrix based on the DOI. https://id.elsevier.com/as/yv1lr/resume/as/authorization.ping
 
-myAPIKey <- "YourAPIKey"
+myAPIKey <- "3c7cc08b398980881eee1050d53c5e86"
 
 library(devtools)
 install_github("LisaGotzian/scicloud")
-library(ginko)
+library(scicloud)
 
 metaMatrix <- createTextMatrixFromPDF(saveToWd = TRUE)
 # The following is the "Let your computer work for 20 min" way. It does exactly the same as the lines below.
 # You can also add all arguments I introduced below.
 
-GinkoAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
-                                   stemWords = TRUE, numberOfClusters = NA,
+scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
+                                   stemWords = TRUE, numberOfClusters = 4,
                                    longMessages = TRUE, saveToWd = TRUE, method = "hclust")
 # you can also access the network using modeledData$LocalMeasures
 # other possible methods: "hclust" or "network"
@@ -27,15 +27,25 @@ GinkoAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
 GinkoSpecs <- inspectGinko(modeledData = GinkoAnalysis)
 
 
+# Only for Henrik: getting a wordlist + feeding it in again
+scicloudAnalysis <- ordinationCluster(metaMatrix, 
+                                      generateWordlist = TRUE,
+                                      stemWords = TRUE, numberOfClusters = 4)
+scicloudAnalysis <- ordinationCluster(metaMatrix,
+                                      keepWordsFile = "Food_SLR.csv",
+                                      stemWords = TRUE, numberOfClusters = 4)
+
+
 ################## Step by step ##################
 # This is the "I want to do it step by step" way. Does exactly the same as the one function above.
-processedMetaMatrix <- processMetaDataMatrix(metaMatrix, list(language = "SMART", stemWords = TRUE, saveToWd = FALSE, ordinationFunction = FALSE)
+processedMetaMatrix <- processMetaDataMatrix(metaMatrix, list(language = "SMART", stemWords = TRUE,
+                                                              saveToWd = FALSE, ordinationFunction = FALSE)
                                              #, keepWordsFile = "Food_SLR.csv"
                                              ,ignoreWords = c("Abstract", "Bulletin", "Editor"))
 
 
 processedMetaMatrix$MetaMatrix <- getScopusMetaData(processedMetaMatrix$MetaMatrix, myAPIKey)
-modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE, numberOfClusters = NA)
+modeledData <- calculateModels(processedMetaMatrix, longMessages = TRUE, numberOfClusters = 4)
 
 ################# The network approach ##################
 # $LocalMeasures will return the local measurements for both papers and words
