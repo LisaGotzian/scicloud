@@ -42,6 +42,7 @@ placeholder}
 Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createTextMatrixFromPDF}()},
+\code{\link{delete_RDS}()},
 \code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},

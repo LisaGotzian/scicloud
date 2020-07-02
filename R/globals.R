@@ -1,1 +1,1 @@
-utils::globalVariables(c("rnorm"))
+utils::globalVariables(c("rnorm", "choices", "files", "pick"))

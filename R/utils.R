@@ -38,16 +38,26 @@ save_data <- function(data, data_name, long_msg = TRUE){
   }
 }
 
-# delete RDS files from current working directory
-# Users can choose 3 delete options from the menu
-# Option 1: Delete All RDS files in cwd 
-# Option 2: Keep the latest RDS files of each data type 
-# Option 3: Keep only the selected data type of RDS files, delete all others 
+#' @title delete_RDS
+#' 
+#' @description delete RDS files from current working directory. Users can
+#'      choose 3 delete options from the menu
+#'      Option 1: Delete All RDS files in cwd 
+#'      Option 2: Keep the latest RDS files of each data type 
+#'      Option 3: Keep only the selected data type of RDS files, delete all others 
+#' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
+#' @seealso 
+#' @return 
+#' @family scicloud functions
+#' @export
+
 delete_RDS <- function(){
   files <- filter_file(getwd(), "RDS")
   if(length(files) == 0){
     stop("No RDS file(s) in the current working directory!")
   }
+  choices <- c("metaMatrix", "processedData", "modeledData", "modeledNetwork", 
+               "metaDOInumbers", "Quit")
   repeat{
     menu_selection = c("Delete All RDS files", 
                        "Keep the latest of each data, delete all others",
@@ -63,8 +73,9 @@ delete_RDS <- function(){
     }
     else if(pick == 2){
       files_to_keep <- vector("character", length(choices)-1)
+      to_keep <- NULL
       for(i in 1:(length(choices)-1)){
-        to_keep[i] <- latest_RDS(choices[i])
+        to_keep[i] <- latest_RDS(choices[i], files)
       }
       files_to_keep <- files_to_keep[to_keep != ""] # remove any empty entry 
       files_to_delete <- setdiff(files, files_to_keep)
@@ -74,8 +85,6 @@ delete_RDS <- function(){
       return(invisible())
     }
     else if(pick == 3){ # Keep only a specific data, delete all other type
-      choices <- c("metaMatrix", "processedData", "modeledData", "modeledNetwork", 
-                   "metaDOInumbers", "Quit")
       pick <- utils::menu(choices, title = "Which RDS data to keep?")
       if(pick == 1){
         to_delete <- matched_item("metaMatrix", files)
@@ -124,7 +133,7 @@ delete_files <- function(files_to_delete){
 }
 
 # find the RDS of specified data_type e.g.(metaMatrix) with the latest date
-latest_RDS <- function(data_type){
+latest_RDS <- function(data_type, files){
   file_to_match <- matched_item(regex = data_type, match_list = files, select_match = TRUE)
   if(length(file_to_match) != 0){ # if return matched item is not empty 
     dates <- gsub(data_type, "", gsub("\\..*", "", file_to_match)) # extract all dates from file name

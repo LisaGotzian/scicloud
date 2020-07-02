@@ -80,6 +80,7 @@ The third function to the word analysis with scicloud. It takes the
 Other scicloud functions: 
 \code{\link{createOrdinationPlot}()},
 \code{\link{createTextMatrixFromPDF}()},
+\code{\link{delete_RDS}()},
 \code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},

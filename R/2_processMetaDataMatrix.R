@@ -206,28 +206,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
     c("Tf_Idf", "MetaMatrix", "wordList")
   
   if (isTRUE(control$saveToWd)){
-    processedDataFile <-
-      paste0("processedData", format(Sys.time(), "%Y_%m_%d_%H_%M_%S"))
-    saveRDS(processedData, file = processedDataFile)
-    
-    if (isTRUE(control$ordinationFunction)){
-      cat(
-        paste0(
-          "\nThe processed Data is now in your global environment. It is also saved as a file in your working directory. If you work with the same data again, you can skip this step in future analysis by reading in the file:\nprocessedMetaMatrix <- readRDS(file= '",
-          processedDataFile,
-          "')\n\n"
-        )
-      )
-    } else {
-      cat(
-        paste0(
-          "Processed Data saved. You can read it in using:\nprocessedMetaMatrix <- readRDS(file= '",
-          processedDataFile,
-          "')"
-        )
-      )
-      
-    }
+    save_data(processedData, "processedData", long_msg = !control$ordinationFunction)
 
   }
   return(processedData)
