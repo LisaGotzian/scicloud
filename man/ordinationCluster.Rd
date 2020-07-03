@@ -20,8 +20,7 @@ ordinationCluster(
   generateWordlist = FALSE,
   keepWordsFile,
   saveToWd = TRUE,
-  method = "hclust",
-  longMessages = FALSE
+  method = "hclust"
 )
 }
 \arguments{
@@ -39,7 +38,8 @@ ordinationCluster(
 
 \item{ignoreWords}{placeholder}
 
-\item{myAPIKey}{placeholder}
+\item{myAPIKey}{your private Elsevier API key for communicating with the
+API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
 
 \item{p}{placeholder}
 
@@ -61,13 +61,11 @@ to \code{\link{ordinationCluster}}.}
 during the analysis. Accepts 0/1 behind each word or takes the words
 as they are and disregards all other words of the analysis.}
 
-\item{saveToWd}{a logical parameter whether or not to save the output of
-the function to the working directory. This is especially useful for
-later analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
+\item{saveToWd}{a logical parameter whether or not to save the output of the
+function to the working directory. This is especially useful for later
+analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 
 \item{method}{takes "network", "hclust" or "both" as a method}
-
-\item{longMessages}{by default \code{FALSE} to keep the output short.}
 }
 \value{
 placeholder

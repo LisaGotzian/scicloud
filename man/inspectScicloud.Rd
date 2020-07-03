@@ -4,10 +4,11 @@
 \alias{inspectScicloud}
 \title{inspectScicloud}
 \usage{
-inspectScicloud(modeledData)
+inspectScicloud(scicloudAnalysis)
 }
 \arguments{
-\item{modeledData}{result of \code{\link{ordinationCluster}} or \code{\link{ordinationCluster}}}
+\item{scicloudAnalysis}{result of \code{\link{ordinationCluster}} or
+\code{\link{calculateModels}}}
 }
 \value{
 A summary of the analysis is printed into the console. It gives
@@ -35,7 +36,7 @@ A summary of the analysis is printed into the console. It gives
 }
 \description{
 The last function to the word analysis with scicloud. It
-    takes modeledData and returns a summary of the scicloudAnalysis.
+    takes \code{scicloudAnalysis} and returns a summary of the cluster analysis.
 }
 \examples{
 \dontrun{

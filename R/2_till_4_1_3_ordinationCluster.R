@@ -31,12 +31,12 @@
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
 #'     during the analysis. Accepts 0/1 behind each word or takes the words
 #'     as they are and disregards all other words of the analysis.
-#' @param myAPIKey placeholder
+#' @param myAPIKey your private Elsevier API key for communicating with the
+#'     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
 #' @param method takes "network", "hclust" or "both" as a method
-#' @param saveToWd a logical parameter whether or not to save the output of
-#'     the function to the working directory. This is especially useful for
-#'     later analysis steps and can be read in by using \code{\link[base]{readRDS}}.
-#' @param longMessages by default \code{FALSE} to keep the output short.
+#' @param saveToWd  a logical parameter whether or not to save the output of the
+#'     function to the working directory. This is especially useful for later
+#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
 #' @return placeholder
 #' @export
@@ -80,8 +80,7 @@ ordinationCluster <- function(metaMatrix,
                               generateWordlist = FALSE,
                               keepWordsFile,
                               saveToWd = TRUE,
-                              method = "hclust",
-                              longMessages = FALSE) {
+                              method = "hclust") {
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
   if (sum(c(method == "hclust",
@@ -97,7 +96,7 @@ ordinationCluster <- function(metaMatrix,
   # to change minor things in other functions when running the big function, such as using readline() after the Dendrogram.
   ordinationFunction <-  TRUE
   
-  processedMetaMatrix <-
+  processedMetaDataMatrix <-
     processMetaDataMatrix(
       metaMatrix,
       control = list(language = language,
@@ -109,17 +108,17 @@ ordinationCluster <- function(metaMatrix,
     )
   
   if(!is.na(myAPIKey)){
-    processedMetaMatrix$MetaMatrix <-
-      getScopusMetaData(processedMetaMatrix$metaMatrix,
+    processedMetaDataMatrix$MetaMatrix <-
+      getScopusMetaData(processedMetaDataMatrix$metaMatrix,
                         myAPIKey,
                         ordinationFunction = ordinationFunction)
   }
   
   
   if (any(c(method == "hclust"), (method == "both"))) {
-    modeledData <-
+    scicloudAnalysis <-
       calculateModels(
-        processedMetaMatrix,
+        processedMetaDataMatrix,
         numberOfClusters = numberOfClusters,
         minWordsPerCluster = minWordsPerCluster,
         maxWordsPerCluster = maxWordsPerCluster,
@@ -128,10 +127,9 @@ ordinationCluster <- function(metaMatrix,
         dendroLabels = dendroLabels,
         ordinationFunction = ordinationFunction,
         saveToWd = saveToWd,
-        longMessages = longMessages,
         generateWordlist = generateWordlist
       )
-    createOrdinationPlot(modeledData,
+    createOrdinationPlot(scicloudAnalysis,
                          exactPosition = exactPosition,
                          ordinationFunction = ordinationFunction)
     
@@ -139,7 +137,7 @@ ordinationCluster <- function(metaMatrix,
       ANSWER <-
         readline("Show most influencial papers per cluster? (y/n)")
       if (substr(ANSWER, 1, 1) == "y") {
-        mostImportantPaperPerCluster(modeledData)
+        mostImportantPaperPerCluster(scicloudAnalysis)
       }
     }
     
@@ -150,18 +148,17 @@ ordinationCluster <- function(metaMatrix,
   if (any(c(method == "network"), (method == "both"))) {
     modeledNetwork <-
       calculateNetwork(
-        processedMetaMatrix,
+        processedMetaDataMatrix,
         saveToWd = saveToWd,
-        ordinationFunction = ordinationFunction,
-        longMessages = longMessages
+        ordinationFunction = ordinationFunction
       )
   }
   
   if (method == "hclust")
-    return(modeledData)
+    return(scicloudAnalysis)
   if (method == "network")
     return(modeledNetwork)
   if (method == "both")
-    return(c(modeledData, modeledNetwork))
+    return(c(scicloudAnalysis, modeledNetwork))
   
 }

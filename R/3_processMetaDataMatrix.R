@@ -14,7 +14,9 @@
 #'     \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
 #'     to its stem, so variants of the same words are treated equally. Look
 #'     at \code{\link[tm]{stemDocument}} for more information.\cr
-#'     \strong{saveToWd}: a logical parameter whether or not to save the output of the function to the working directory\cr
+#'     \strong{saveToWd}: a logical parameter whether or not to save the output of the
+#'     function to the working directory. This is especially useful for later
+#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.\cr
 #'     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE)
 #' @param ignoreWords a vector of words to be ignored.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
@@ -46,7 +48,7 @@
 #' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 #' 
 #' # 2) process the full texts
-#' processedMetaMatrix <- processMetaDataMatrix(
+#' processedMetaDataMatrix <- processMetaDataMatrix(
 #'           metaMatrix,
 #'           list(language = "SMART",
 #'           stemWords = TRUE,
@@ -54,16 +56,16 @@
 #'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
 #'                                   
 #' # 3) run the cluster analysis to determine publication communities
-#' modeledData <- calculateModels(processedMetaMatrix)
+#' scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 #' 
 #' # 4) visualize the results
-#' createOrdinationPlot(modeledData)
+#' createOrdinationPlot(scicloudAnalysis)
 #' 
 #' # 5) a list of the most important papers per cluster
-#' mostImportantPaperPerCluster(modeledData)
+#' mostImportantPaperPerCluster(scicloudAnalysis)
 #' 
 #' # 6) a summary of the analysis
-#' scicloudSpecs <- inspectScicloud(modeledData)
+#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #' 
 #' }
 #' @export
@@ -234,17 +236,17 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
     tryCatch(tf_idf <- tf_idf[,keepWordsVector], error = errorMessage)
   }
   
-  processedData <- list()
-  processedData[[1]] <- tf_idf
-  processedData[[2]] <- metaMatrix
-  processedData[[3]] <- as.factor(sort(colnames(tf_idf)))
+  processedMetaDataMatrix <- list()
+  processedMetaDataMatrix[[1]] <- tf_idf
+  processedMetaDataMatrix[[2]] <- metaMatrix
+  processedMetaDataMatrix[[3]] <- as.factor(sort(colnames(tf_idf)))
   
-  names(processedData) <-
+  names(processedMetaDataMatrix) <-
     c("Tf_Idf", "metaMatrix", "wordList")
   
   if (isTRUE(control$saveToWd)){
-    save_data(processedData, "processedData", long_msg = !control$ordinationFunction)
+    save_data(processedMetaDataMatrix, "processedMetaDataMatrix", long_msg = !control$ordinationFunction)
 
   }
-  return(processedData)
+  return(processedMetaDataMatrix)
 }

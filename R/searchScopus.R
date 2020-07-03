@@ -15,11 +15,11 @@
 #'     can't exceed 25 per request. If you are inside a subscribed IP range,
 #'     you can use the maximum of 200 per request. Note, that the weekly quota
 #'     for requests is 20,000.
-#' @param myAPIKey Your private Elsevier API key for the server communication.
-#'     You can request one at \url{https://dev.elsevier.com/index.jsp}.
+#' @param myAPIKey your private Elsevier API key for communicating with the
+#'     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
-#'     analysis steps and can be read in by using \code{\link[base]{readRDS}}.
+#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
 #' @return A data frame containing the DOI numbers and Scopus-IDs of the search
 #'     results, as well as some placeholder columns.

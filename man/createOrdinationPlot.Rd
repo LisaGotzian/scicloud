@@ -5,13 +5,13 @@
 \title{createOrdinationPlot}
 \usage{
 createOrdinationPlot(
-  modeledData,
+  scicloudAnalysis,
   exactPosition = FALSE,
   ordinationFunction = FALSE
 )
 }
 \arguments{
-\item{modeledData}{result of \code{\link{calculateModels}}}
+\item{scicloudAnalysis}{result of \code{\link{calculateModels}}}
 
 \item{exactPosition}{logical, the plot function tries to avoid overlapping
 labels for the sake of visual simplicity over perfect
@@ -27,7 +27,7 @@ This function plots a graphic based on the clustered publication
 }
 \description{
 The fifth function to the word analysis with scicloud. It takes
-    the \code{modeledData} and creates five different plots: a wordcloud of
+    the \code{scicloudAnalysis} and creates five different plots: a wordcloud of
     the publication communities and four visualiziations of the communities
     by year and number of citations.
 }
@@ -46,7 +46,7 @@ metaMatrix <- createTextMatrixFromPDF()
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
-processedMetaMatrix <- processMetaDataMatrix(
+processedMetaDataMatrix <- processMetaDataMatrix(
           metaMatrix,
           list(language = "SMART",
           stemWords = TRUE,
@@ -54,16 +54,16 @@ processedMetaMatrix <- processMetaDataMatrix(
           ignoreWords = c("Abstract", "Bulletin", "Editor"))
                                   
 # 3) run the cluster analysis to determine publication communities
-modeledData <- calculateModels(processedMetaMatrix)
+scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 
 # 4) visualize the results
-createOrdinationPlot(modeledData)
+createOrdinationPlot(scicloudAnalysis)
 
 # 5) a list of the most important papers per cluster
-mostImportantPaperPerCluster(modeledData)
+mostImportantPaperPerCluster(scicloudAnalysis)
 
 # 6) a summary of the analysis
-scicloudSpecs <- inspectScicloud(modeledData)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
     }
     
 }

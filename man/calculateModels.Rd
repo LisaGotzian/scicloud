@@ -5,7 +5,7 @@
 \title{calculateModels}
 \usage{
 calculateModels(
-  processedData,
+  processedMetaDataMatrix,
   numberOfClusters = NA,
   minWordsPerCluster = 5,
   maxWordsPerCluster = 10,
@@ -14,12 +14,11 @@ calculateModels(
   dendroLabels = "truncated",
   generateWordlist = FALSE,
   saveToWd = TRUE,
-  longMessages = FALSE,
   ordinationFunction = FALSE
 )
 }
 \arguments{
-\item{processedData}{result of \code{\link{processMetaDataMatrix}}}
+\item{processedMetaDataMatrix}{result of \code{\link{processMetaDataMatrix}}}
 
 \item{numberOfClusters}{integer or NA; \cr
 an integer sets the number of clusters manually \cr
@@ -49,11 +48,9 @@ that are representative for the respective paper clusters. To work with the
 new wordlist, read it in using \code{keepWordsFile} as an argument
 to \code{\link{processMetaDataMatrix}} or \code{\link{ordinationCluster}}.}
 
-\item{saveToWd}{logical, whether or not to save the output
-to the working directory. This is especially useful for later
-analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
-
-\item{longMessages}{logical, whether or not to give detailed updates.}
+\item{saveToWd}{a logical parameter whether or not to save the output of the
+function to the working directory. This is especially useful for later
+analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 
 \item{ordinationFunction}{internal variable}
 }
@@ -97,7 +94,7 @@ metaMatrix <- createTextMatrixFromPDF()
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
-processedMetaMatrix <- processMetaDataMatrix(
+processedMetaDataMatrix <- processMetaDataMatrix(
           metaMatrix,
           list(language = "SMART",
           stemWords = TRUE,
@@ -105,16 +102,16 @@ processedMetaMatrix <- processMetaDataMatrix(
           ignoreWords = c("Abstract", "Bulletin", "Editor"))
                                   
 # 3) run the cluster analysis to determine publication communities
-modeledData <- calculateModels(processedMetaMatrix)
+scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 
 # 4) visualize the results
-createOrdinationPlot(modeledData)
+createOrdinationPlot(scicloudAnalysis)
 
 # 5) a list of the most important papers per cluster
-mostImportantPaperPerCluster(modeledData)
+mostImportantPaperPerCluster(scicloudAnalysis)
 
 # 6) a summary of the analysis
-scicloudSpecs <- inspectScicloud(modeledData)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
     }
 }
 \seealso{

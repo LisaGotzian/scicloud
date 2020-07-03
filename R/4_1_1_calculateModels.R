@@ -14,7 +14,7 @@
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param processedData result of \code{\link{processMetaDataMatrix}}
+#' @param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
 #' @param numberOfClusters integer or NA; \cr
 #'     an integer sets the number of clusters manually \cr
 #'     for NA, the function automatically calculates results for 1 till 12 clusters
@@ -36,10 +36,9 @@
 #'     that are representative for the respective paper clusters. To work with the
 #'     new wordlist, read it in using \code{keepWordsFile} as an argument
 #'     to \code{\link{processMetaDataMatrix}} or \code{\link{ordinationCluster}}.
-#' @param saveToWd logical, whether or not to save the output
-#'     to the working directory. This is especially useful for later
-#'     analysis steps and can be read in by using \code{\link[base]{readRDS}}.
-#' @param longMessages logical, whether or not to give detailed updates.
+#' @param saveToWd a logical parameter whether or not to save the output of the
+#'     function to the working directory. This is especially useful for later
+#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @param ordinationFunction internal variable
 #' @seealso \itemize{
 #'     \item \code{\link{processMetaDataMatrix}} for the preceding step
@@ -75,7 +74,7 @@
 #' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 #' 
 #' # 2) process the full texts
-#' processedMetaMatrix <- processMetaDataMatrix(
+#' processedMetaDataMatrix <- processMetaDataMatrix(
 #'           metaMatrix,
 #'           list(language = "SMART",
 #'           stemWords = TRUE,
@@ -83,19 +82,19 @@
 #'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
 #'                                   
 #' # 3) run the cluster analysis to determine publication communities
-#' modeledData <- calculateModels(processedMetaMatrix)
+#' scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 #' 
 #' # 4) visualize the results
-#' createOrdinationPlot(modeledData)
+#' createOrdinationPlot(scicloudAnalysis)
 #' 
 #' # 5) a list of the most important papers per cluster
-#' mostImportantPaperPerCluster(modeledData)
+#' mostImportantPaperPerCluster(scicloudAnalysis)
 #' 
 #' # 6) a summary of the analysis
-#' scicloudSpecs <- inspectScicloud(modeledData)
+#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #'     }
   
-calculateModels <- function(processedData,
+calculateModels <- function(processedMetaDataMatrix,
                             numberOfClusters = NA,
                             minWordsPerCluster = 5,
                             maxWordsPerCluster = 10,
@@ -104,7 +103,6 @@ calculateModels <- function(processedData,
                             dendroLabels = "truncated",
                             generateWordlist = FALSE,
                             saveToWd = TRUE,
-                            longMessages = FALSE,
                             ordinationFunction = FALSE) {
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
@@ -140,14 +138,12 @@ calculateModels <- function(processedData,
   }
   ArgumentCheck::finishArgCheck(Check)
   
-  if (longMessages == TRUE) {
-    Sys.sleep(1)
-    cat("Calculating models\n")
-    Sys.sleep(1)
-  }
+
+  cat("Calculating models\n")
+
   
   model <-
-    vegan::decorana(processedData$Tf_Idf, iweigh = 0) #all row sums must be >0 in the community matrix
+    vegan::decorana(processedMetaDataMatrix$Tf_Idf, iweigh = 0) #all row sums must be >0 in the community matrix
 
   axisPositions <- vegan::scores(model, display = c("species"))
   
@@ -155,7 +151,7 @@ calculateModels <- function(processedData,
   #cluster
   # replaced agnes by hclust from mclust
   disthclust <-
-    stats::dist(processedData$Tf_Idf, method = "euclidian")
+    stats::dist(processedMetaDataMatrix$Tf_Idf, method = "euclidian")
   modelclust <- stats::hclust(disthclust, method = "ward.D")
   indSpeciesValues <- c()
   
@@ -170,7 +166,7 @@ calculateModels <- function(processedData,
       cutmodel <-
         stats::cutree(modelclust, k = cluster) #assigns a cluster number to every paper
       indSpeciesValues <-
-        labdsv::indval(processedData$Tf_Idf, cutmodel, numitr = 1000)
+        labdsv::indval(processedMetaDataMatrix$Tf_Idf, cutmodel, numitr = 1000)
         cat(
           paste0(
             "- Number of clusters: ",
@@ -204,7 +200,7 @@ calculateModels <- function(processedData,
   # Performs a Dufrene-Legendre Indicator Species Analysis that calculates the indicator value
   # (fidelity and relative abundance) of species in clusters or types.
   indSpeciesValues <-
-    labdsv::indval(processedData$Tf_Idf, cutmodel, numitr = 1000)
+    labdsv::indval(processedMetaDataMatrix$Tf_Idf, cutmodel, numitr = 1000)
   
   # Combines all relevant values for the indicator species analysis (including axis positions)
   combIndSpeciesValues <-
@@ -288,8 +284,8 @@ calculateModels <- function(processedData,
   
   
   
-  modeledData <- list()
-  modeledData[[1]] <- signIndSpeciesValuesInclSubsetRow
+  scicloudAnalysis <- list()
+  scicloudAnalysis[[1]] <- signIndSpeciesValuesInclSubsetRow
   
   
   
@@ -305,7 +301,7 @@ calculateModels <- function(processedData,
         cex = 0.6,
         hang = -1,
         main = "Word cluster dendrogram of papers",
-        labels = sapply(processedData$metaMatrix[, "FileName"], wordwrap, len =
+        labels = sapply(processedMetaDataMatrix$metaMatrix[, "FileName"], wordwrap, len =
                           15),
         padj = 1
       )
@@ -313,7 +309,7 @@ calculateModels <- function(processedData,
     }
     if (dendroLabels == "truncated") {
       # this truncates the labels to 18 characters, followed by "..."
-      longLabels <- processedData$metaMatrix[, "FileName"]
+      longLabels <- processedMetaDataMatrix$metaMatrix[, "FileName"]
       shortenedLabels <- NULL
       for (i in 1:length(longLabels)) {
         shortenedLabels[i] <-
@@ -344,8 +340,8 @@ calculateModels <- function(processedData,
   }
   
   
-  modeledData[[2]] <-
-    cbind(processedData$metaMatrix, "Cluster" = Cluster)
+  scicloudAnalysis[[2]] <-
+    cbind(processedMetaDataMatrix$metaMatrix, "Cluster" = Cluster)
   
   
   # Representative papers based on the percentage of significant words in each paper
@@ -354,11 +350,11 @@ calculateModels <- function(processedData,
     signIndSpeciesValues[, "names(indSpeciesValues$pval)"]
   ClusterContent <- as.data.frame(ClusterContent)
   
-  # select said columns (words) from processedData which is a 0-1 matrix of papers and words
+  # select said columns (words) from processedMetaDataMatrix which is a 0-1 matrix of papers and words
   representativePapers <-
-    as.data.frame(processedData$Tf_Idf[, ClusterContent[, 1]])
+    as.data.frame(processedMetaDataMatrix$Tf_Idf[, ClusterContent[, 1]])
   rownames(representativePapers) <-
-    processedData$metaMatrix[, "FileName"] # take the filenames as row names
+    processedMetaDataMatrix$metaMatrix[, "FileName"] # take the filenames as row names
   
   # Extracting the percentage
   # give each paper a percentage value and call the column percentageOfSignWordsInPaper
@@ -387,14 +383,14 @@ calculateModels <- function(processedData,
   representativePapersEasyToOpen <-
     as.data.frame(representativePapersEasyToOpen)
   rownames(representativePapersEasyToOpen) <-
-    trimws(processedData$metaMatrix[, "FileName"]) # take the filenames as row names
+    trimws(processedMetaDataMatrix$metaMatrix[, "FileName"]) # take the filenames as row names
   colnames(representativePapersEasyToOpen) <-
     c("percentageOfSignWordsInPaper", "Cluster")
   
-  modeledData[[3]] <- representativePapersEasyToOpen
+  scicloudAnalysis[[3]] <- representativePapersEasyToOpen
   
-  modeledData[[4]] <- processedData$wordList
-  names(modeledData) <-
+  scicloudAnalysis[[4]] <- processedMetaDataMatrix$wordList
+  names(scicloudAnalysis) <-
     c("IndVal",
       "metaMatrix",
       "RepresentativePapers",
@@ -423,7 +419,7 @@ calculateModels <- function(processedData,
   )
   
   if (saveToWd == TRUE) {
-    save_data(modeledData, "modeledData", long_msg = !ordinationFunction)
+    save_data(scicloudAnalysis, "scicloudAnalysis", long_msg = !ordinationFunction)
   }
-  return(modeledData)
+  return(scicloudAnalysis)
 }

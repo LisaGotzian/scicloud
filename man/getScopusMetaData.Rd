@@ -40,7 +40,7 @@ metaMatrix <- createTextMatrixFromPDF()
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
-processedMetaMatrix <- processMetaDataMatrix(
+processedMetaDataMatrix <- processMetaDataMatrix(
           metaMatrix,
           list(language = "SMART",
           stemWords = TRUE,
@@ -48,16 +48,16 @@ processedMetaMatrix <- processMetaDataMatrix(
           ignoreWords = c("Abstract", "Bulletin", "Editor"))
                                              
 # 3) run the cluster analysis to determine publication communities
-modeledData <- calculateModels(processedMetaMatrix)
+scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 
 # 4) visualize the results
-createOrdinationPlot(modeledData)
+createOrdinationPlot(scicloudAnalysis)
 
 # 5) a list of the most important papers per cluster
-mostImportantPaperPerCluster(modeledData)
+mostImportantPaperPerCluster(scicloudAnalysis)
 
 # 6) a summary of the analysis
-scicloudSpecs <- inspectScicloud(modeledData)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
     }
 }
 \seealso{

@@ -23,7 +23,9 @@ Error will be thrown if language & stemWords are not defined.\cr
 \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
 to its stem, so variants of the same words are treated equally. Look
 at \code{\link[tm]{stemDocument}} for more information.\cr
-\strong{saveToWd}: a logical parameter whether or not to save the output of the function to the working directory\cr
+\strong{saveToWd}: a logical parameter whether or not to save the output of the
+function to the working directory. This is especially useful for later
+analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.\cr
 e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE)}
 
 \item{ignoreWords}{a vector of words to be ignored.}
@@ -58,7 +60,7 @@ metaMatrix <- createTextMatrixFromPDF()
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
-processedMetaMatrix <- processMetaDataMatrix(
+processedMetaDataMatrix <- processMetaDataMatrix(
           metaMatrix,
           list(language = "SMART",
           stemWords = TRUE,
@@ -66,16 +68,16 @@ processedMetaMatrix <- processMetaDataMatrix(
           ignoreWords = c("Abstract", "Bulletin", "Editor"))
                                   
 # 3) run the cluster analysis to determine publication communities
-modeledData <- calculateModels(processedMetaMatrix)
+scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 
 # 4) visualize the results
-createOrdinationPlot(modeledData)
+createOrdinationPlot(scicloudAnalysis)
 
 # 5) a list of the most important papers per cluster
-mostImportantPaperPerCluster(modeledData)
+mostImportantPaperPerCluster(scicloudAnalysis)
 
 # 6) a summary of the analysis
-scicloudSpecs <- inspectScicloud(modeledData)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
 }
 }

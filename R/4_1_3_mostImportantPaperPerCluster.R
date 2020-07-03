@@ -1,12 +1,12 @@
 #' @title mostImportantPaperPerCluster
 #'
 #' @description The sixth function to the word analysis with scicloud. It takes
-#'     \code{modeledData} and outputs a list of the most cited papers per
+#'     \code{scicloudAnalysis} and outputs a list of the most cited papers per
 #'     cluster into the console.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param modeledData result of \code{\link{calculateModels}}
+#' @param scicloudAnalysis result of \code{\link{calculateModels}}
 #' @family scicloud functions
 #' @seealso \itemize{
 #'     \item \code{\link{calculateModels}} for the preceding step
@@ -32,7 +32,7 @@
 #' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 #' 
 #' # 2) process the full texts
-#' processedMetaMatrix <- processMetaDataMatrix(
+#' processedMetaDataMatrix <- processMetaDataMatrix(
 #'           metaMatrix,
 #'           list(language = "SMART",
 #'           stemWords = TRUE,
@@ -40,27 +40,27 @@
 #'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
 #'                                   
 #' # 3) run the cluster analysis to determine publication communities
-#' modeledData <- calculateModels(processedMetaMatrix)
+#' scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 #' 
 #' # 4) visualize the results
-#' createOrdinationPlot(modeledData)
+#' createOrdinationPlot(scicloudAnalysis)
 #' 
 #' # 5) a list of the most important papers per cluster
-#' mostImportantPaperPerCluster(modeledData)
+#' mostImportantPaperPerCluster(scicloudAnalysis)
 #' 
 #' # 6) a summary of the analysis
-#' scicloudSpecs <- inspectScicloud(modeledData)
+#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #'     }
 
-mostImportantPaperPerCluster <- function(modeledData) {
+mostImportantPaperPerCluster <- function(scicloudAnalysis) {
   numberOfClusters <-
-    nrow(as.data.frame(table(modeledData$metaMatrix[, "Cluster"]))) #get the number of clusters from the provided data
+    nrow(as.data.frame(table(scicloudAnalysis$metaMatrix[, "Cluster"]))) #get the number of clusters from the provided data
   
   for (i in 1:numberOfClusters) {
     paperPerCluster = 5
     
     newSubset <-
-      subset(modeledData$metaMatrix, modeledData$metaMatrix[, "Cluster"] == i)
+      subset(scicloudAnalysis$metaMatrix, scicloudAnalysis$metaMatrix[, "Cluster"] == i)
     
     newSubset[, "CitedBy"] <- as.numeric(newSubset[, "CitedBy"])
     newSubset[, "CitationPerYear"] <-

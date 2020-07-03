@@ -4,34 +4,58 @@
 
 #' @title calculateNetwork
 #'
-#' @description This function is an alternative to
-#'     \code{\link{calculateModels}} and clusters based on network theory.
-#' @param processedMetaMatrix requires the output of
-#'     \code{\link{processMetaDataMatrix}}.
-#' @param sortby allows the following possible inputs: "Eigenvector", "Degree",
-#'     "Closeness, "Betweenness". The centrality measure to sort the words by,
-#'     default is Eigenvector.
-#' @param keep The argument keep keeps by default 0.33 of all the words, sorted
-#'     by the argument given by \code{sortby}. Can be adjusted. This facilitates
-#'     computations for later use.
-#' @param saveToWd placeholder
+#' @description This function is an alternative to the fourth function
+#'     \code{\link{calculateModels}} of the scicloud analysis. It uses
+#'     a network clustering approach. When done, it returns a list of global
+#'     and local measures and also generates a clustered matrix. This matrix
+#'     can then be further processed in network programs like
+#'     Gephi.
+#' @param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
+#' @param sortby the centrality measure to sort the words by,
+#'     default is Eigenvector. Allows the following possible inputs: "Eigenvector", "Degree",
+#'     "Closeness, "Betweenness". 
+#' @param keep numeric, keeps by default 0.33 of all the words, sorted
+#'     by the argument given by \code{sortby}. A smaller amount of words to
+#'     keep facilitates computations for later use.
+#' @param saveToWd a logical parameter whether or not to save the output of the
+#'     function to the working directory. This is especially useful for later
+#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @param ordinationFunction internal variable
-#' @param longMessages placeholder
-#' @seealso \code{\link{processMetaDataMatrix}} for the preceding step,
-#'     \code{\link{inspectScicloud}} for a summary of the analysis
+#' @seealso \itemize{
+#'     \item \code{\link{processMetaDataMatrix}} for the preceding step
+#'     \item \code{\link{inspectScicloud}} for a summary of the analysis
+#'     \item note that \code{\link{createOrdinationPlot}}, 
+#'     \code{\link{mostImportantPaperPerCluster}} and \code{\link{inspectScicloud}}
+#'     are part of the clustering with \code{\link{calculateModels}}
+#'     and don't work with this function.
+#'     }
 #'
 #' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
 #'     \email{julius.rathgens@@leuphana.de}
 #' @return   output:
-#'     $LocalMeasures will return the local measurements for both papers and
-#'     words
-#'     $ReducedLocalMeasures will return 1/3 of the words (!) with their
+#' \itemize{
+#'     \item \code{LocalMeasures}: local measures
+#'     for both papers and words
+#'     \item \code{ReducedLocalMeasures}: 1/3 of the words (!) with their
 #'     centrality measures & clustering according to three different clustering
-#'     methods, arranged by eigenvector centrality (can be changed)
-#'     $ReducedIncidenceMatrix will return 1/3 of the words arranged by
+#'     methods, arranged by default by eigenvector centrality using \code{sortby}
+#'     \item \code{ReducedIncidenceMatrix}: 1/3 of the words arranged by
 #'     eigenvector centrality, to be further processed e.g. in Gephi or with other
 #'     clustering functions
-#'     $GlobalMeasures will return the global measurements
+#'     \item \code{GlobalMeasures}: global measures of the network
+#'     }
+#' @examples \dontrun{
+#' 
+#' ### The normal workflow of scicloud
+#' myAPIKey <- "YOUR_API_KEY"
+#' metaMatrix <- createTextMatrixFromPDF()
+#'
+#' 
+#' # run the analysis for the network analysis
+#' modeledNetwork <- ordinationCluster(metaMatrix,
+#'                            myAPIKey = myAPIKey,
+#'                            method = "network")
+#' }
 #' @export
 
 
@@ -47,23 +71,23 @@
 # 6) which other global measures do we want?
 
 
-calculateNetwork <- function(processedMetaMatrix,
-                             sortby = c("Eigenvector","Degree", "Closeness","Betweenness"), 
+calculateNetwork <- function(processedMetaDataMatrix,
+                             sortby = c("Eigenvector","Degree",
+                                        "Closeness","Betweenness"), 
                              keep = 0.33,
                              saveToWd = TRUE,
-                             ordinationFunction = FALSE,
-                             longMessages = FALSE) {
+                             ordinationFunction = FALSE) {
   
   sortby <- match.arg(sortby) #pick the argument input by user
   
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
   if (any(c(
-    is.null(processedMetaMatrix[[1]]),
-    is.null(processedMetaMatrix[[2]])
+    is.null(processedMetaDataMatrix[[1]]),
+    is.null(processedMetaDataMatrix[[2]])
   ))) {
     ArgumentCheck::addError(
-      msg = "Invalid processedMetaMatrix! Use value from processMetaDataMatrix()", 
+      msg = "Invalid processedMetaDataMatrix! Use value from processMetaDataMatrix()", 
       argcheck = Check
     )
   }
@@ -77,10 +101,10 @@ calculateNetwork <- function(processedMetaMatrix,
   }
   
   cat(
-    "\n####################################################################################\nNETWORK ANALYSIS\n"
+    "NETWORK ANALYSIS\n"
   )
   ###### Generating a network
-  sna <- as.matrix(processedMetaMatrix$BinaryWordList)
+  sna <- as.matrix(processedMetaDataMatrix$Tf_Idf)
   papers = nrow(sna)
   sna.transposed <- t(sna)
   snaIncidence <-
@@ -96,79 +120,66 @@ calculateNetwork <- function(processedMetaMatrix,
   
   
   ###### Calculating local measures
-  if (longMessages == TRUE) {
-    Sys.sleep(1)
-    cat("Calculating local measures...\n")
-    Sys.sleep(1)
-    
-    
-    pb <- utils::txtProgressBar(min = 1,
-                                max = 5,
-                                style = 3)
-  }
+  Sys.sleep(1)
+  cat("Calculating local measures...\n")
+  Sys.sleep(1)
+  
+  
+  pb <- utils::txtProgressBar(min = 1,
+                              max = 5,
+                              style = 3)
   
   # Degree
   nodeDegree <- igraph::degree(snaIncidence)
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 1)
-  }
+  utils::setTxtProgressBar(pb, 1)
+  
   
   # Betweenness
   nodeBetweenness <- igraph::betweenness(snaIncidence)
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 2)
-  }
+  utils::setTxtProgressBar(pb, 2)
   
   # Closeness
   nodeCloseness <- igraph::closeness(snaIncidence)
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 3)
-  }
+  utils::setTxtProgressBar(pb, 3)
+  
   
   # Eigenvector
   nodeEigenvector <- igraph::eigen_centrality(snaIncidence)$vector
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 4)
-  }
+  utils::setTxtProgressBar(pb, 4)
   
   
   networkMatrix <- list()
   networkMatrix[[1]] <-
     cbind(nodeDegree, nodeBetweenness, nodeCloseness, nodeEigenvector) # [[1]] will be the papers
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 5)
-  }
+  utils::setTxtProgressBar(pb, 5)
   
-  if (longMessages == TRUE) {
-    close(pb)
-    
-    ######## Clustering
-    Sys.sleep(1)
-    cat("Clustering based on the network...\n")
-    Sys.sleep(1)
-    
-    pb <- utils::txtProgressBar(min = 1,
-                                max = 6,
-                                style = 3)
-    
-    # mind the order
-    utils::setTxtProgressBar(pb, 1)
-  }
+  close(pb)
+  
+  ######## Clustering
+  Sys.sleep(1)
+  cat("Clustering based on the network...\n")
+  Sys.sleep(1)
+  
+  pb <- utils::txtProgressBar(min = 1,
+                              max = 6,
+                              style = 3)
+  
+  # mind the order
+  utils::setTxtProgressBar(pb, 1)
+  
   clusterWalktrap <-
     igraph::membership(igraph::cluster_walktrap(snaIncidence, steps = 10))
   
   
   clusterGreedy <-
     igraph::membership(igraph::fastgreedy.community(snaIncidence))
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 2)
-  }
+  utils::setTxtProgressBar(pb, 2)
+  
   
   clusterInfomap <-
     igraph::membership(igraph::cluster_infomap(snaIncidence))
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 3)
-  }
+  utils::setTxtProgressBar(pb, 3)
+  
   
   networkMatrix[[1]] <-
     cbind(networkMatrix[[1]],
@@ -196,9 +207,8 @@ calculateNetwork <- function(processedMetaMatrix,
     networkMatrix[[2]][networkMatrix[[2]][, "test"] == "FALSE", ] #### only keeps the rows that do not contain .pdf
   networkMatrix[[2]] <-
     networkMatrix[[2]] [, 3:9] #### Rookie way of Matrix cleaning (deleting the test and namefirstcolumn thingies)
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 4)
-  }
+  utils::setTxtProgressBar(pb, 4)
+  
   nrowMatrix <- round((nrow(networkMatrix[[2]]) * keep))
   
   # Use networkMatrix[[2]] to filter sna, only keeping the words that are the most central
@@ -206,44 +216,38 @@ calculateNetwork <- function(processedMetaMatrix,
   testvector <- colnames(sna) %in% rownames(networkMatrix[[2]])
   networkMatrix[[3]] <-
     sna[, testvector == TRUE] ### this is the reduced incidence matrix based on keep
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 5)
-  }
+  utils::setTxtProgressBar(pb, 5)
+  
   
   utils::write.csv(file = "reduced_incidence_matrix.csv", x = networkMatrix[[3]])
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 6)
-    close(pb)
-  }
+  utils::setTxtProgressBar(pb, 6)
+  close(pb)
+  
   
   # then let it run in gephi, do all the algorithms that didn't work
   
   ##### Global Measures
-  if (longMessages == TRUE) {
-    Sys.sleep(1)
-    cat("Calculating global measures...\n")
-    Sys.sleep(1)
-    
-    pb <- utils::txtProgressBar(min = 1,
-                                max = 2,
-                                style = 3)
-  }
+  Sys.sleep(1)
+  cat("Calculating global measures...\n")
+  Sys.sleep(1)
+  
+  pb <- utils::txtProgressBar(min = 1,
+                              max = 2,
+                              style = 3)
   
   meanDistance <-
     igraph::mean_distance(snaIncidence, directed = FALSE)
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 1)
-  }
+  utils::setTxtProgressBar(pb, 1)
+  
   
   networkMatrix[[4]] <- cbind(meanDistance)
-  if (longMessages == TRUE) {
-    utils::setTxtProgressBar(pb, 2)
-    close(pb)
+  utils::setTxtProgressBar(pb, 2)
+  close(pb)
     
-    Sys.sleep(1)
-    cat("Done.\n")
-    Sys.sleep(1)
-  }
+  Sys.sleep(1)
+  cat("Done.\n")
+  Sys.sleep(1)
+  
   cat(
     "Find the .csv-file reduced based on centrality in your working directory for further use.\n"
   )

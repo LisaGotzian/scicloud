@@ -57,7 +57,7 @@ delete_RDS <- function(){
   if(length(files) == 0){
     stop("No RDS file(s) in the current working directory!")
   }
-  choices <- c("metaMatrix", "processedData", "modeledData", "modeledNetwork", 
+  choices <- c("metaMatrix", "processedMetaDataMatrix", "modeledData", "modeledNetwork", 
                "metaDOInumbers", "Quit")
   repeat{
     menu_selection = c("Delete All RDS files", 
@@ -92,7 +92,7 @@ delete_RDS <- function(){
         return(delete_files(to_delete))
       }
       else if(pick == 2){
-        to_delete <- matched_item("processedData", files)
+        to_delete <- matched_item("processedMetaDataMatrix", files)
         return(delete_files(to_delete))
       }
       else if(pick == 3){

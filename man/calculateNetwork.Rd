@@ -5,51 +5,78 @@
 \title{calculateNetwork}
 \usage{
 calculateNetwork(
-  processedMetaMatrix,
+  processedMetaDataMatrix,
   sortby = c("Eigenvector", "Degree", "Closeness", "Betweenness"),
   keep = 0.33,
   saveToWd = TRUE,
-  ordinationFunction = FALSE,
-  longMessages = FALSE
+  ordinationFunction = FALSE
 )
 }
 \arguments{
-\item{processedMetaMatrix}{requires the output of
-\code{\link{processMetaDataMatrix}}.}
+\item{processedMetaDataMatrix}{result of \code{\link{processMetaDataMatrix}}}
 
-\item{sortby}{allows the following possible inputs: "Eigenvector", "Degree",
-"Closeness, "Betweenness". The centrality measure to sort the words by,
-default is Eigenvector.}
+\item{sortby}{the centrality measure to sort the words by,
+default is Eigenvector. Allows the following possible inputs: "Eigenvector", "Degree",
+"Closeness, "Betweenness".}
 
-\item{keep}{The argument keep keeps by default 0.33 of all the words, sorted
-by the argument given by \code{sortby}. Can be adjusted. This facilitates
-computations for later use.}
+\item{keep}{numeric, keeps by default 0.33 of all the words, sorted
+by the argument given by \code{sortby}. A smaller amount of words to
+keep facilitates computations for later use.}
 
-\item{saveToWd}{placeholder}
+\item{saveToWd}{a logical parameter whether or not to save the output of the
+function to the working directory. This is especially useful for later
+analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 
 \item{ordinationFunction}{internal variable}
-
-\item{longMessages}{placeholder}
 }
 \value{
 output:
-    $LocalMeasures will return the local measurements for both papers and
-    words
-    $ReducedLocalMeasures will return 1/3 of the words (!) with their
+\itemize{
+    \item \code{LocalMeasures}: local measures
+    for both papers and words
+    \item \code{ReducedLocalMeasures}: 1/3 of the words (!) with their
     centrality measures & clustering according to three different clustering
-    methods, arranged by eigenvector centrality (can be changed)
-    $ReducedIncidenceMatrix will return 1/3 of the words arranged by
+    methods, arranged by default by eigenvector centrality using \code{sortby}
+    \item \code{ReducedIncidenceMatrix}: 1/3 of the words arranged by
     eigenvector centrality, to be further processed e.g. in Gephi or with other
     clustering functions
-    $GlobalMeasures will return the global measurements
+    \item \code{GlobalMeasures}: global measures of the network
+    }
 }
 \description{
-This function is an alternative to
-    \code{\link{calculateModels}} and clusters based on network theory.
+This function is an alternative to the fourth function
+    \code{\link{calculateModels}} of the scicloud analysis. It uses
+    a network clustering approach. When done, it returns a list of global
+    and local measures and also generates a clustered matrix. This matrix
+    can then be further processed in network programs like
+    Gephi.
+}
+\examples{
+\dontrun{
+
+### The normal workflow of scicloud
+myAPIKey <- "YOUR_API_KEY"
+metaMatrix <- createTextMatrixFromPDF()
+
+
+# run the analysis
+scicloudAnalysis <- ordinationCluster(metaMatrix,
+                           myAPIKey = myAPIKey,
+                           method = "network")
+
+# inspect the analysis
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
+}
 }
 \seealso{
-\code{\link{processMetaDataMatrix}} for the preceding step,
-    \code{\link{inspectScicloud}} for a summary of the analysis
+\itemize{
+    \item \code{\link{processMetaDataMatrix}} for the preceding step
+    \item \code{\link{inspectScicloud}} for a summary of the analysis
+    \item note that \code{\link{createOrdinationPlot}}, 
+    \code{\link{mostImportantPaperPerCluster}} and \code{\link{inspectScicloud}}
+    are part of the clustering with \code{\link{calculateModels}}
+    and don't work with this function.
+    }
 }
 \author{
 Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}, Julius Rathgens,

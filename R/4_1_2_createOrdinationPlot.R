@@ -1,13 +1,13 @@
 #' @title createOrdinationPlot
 #'
 #' @description The fifth function to the word analysis with scicloud. It takes
-#'     the \code{modeledData} and creates five different plots: a wordcloud of
+#'     the \code{scicloudAnalysis} and creates five different plots: a wordcloud of
 #'     the publication communities and four visualiziations of the communities
 #'     by year and number of citations.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param modeledData result of \code{\link{calculateModels}}
+#' @param scicloudAnalysis result of \code{\link{calculateModels}}
 #' @param exactPosition logical, the plot function tries to avoid overlapping
 #'     labels for the sake of visual simplicity over perfect
 #'     precision. When set to \code{TRUE}, the words position will be marked by
@@ -38,7 +38,7 @@
 #' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 #' 
 #' # 2) process the full texts
-#' processedMetaMatrix <- processMetaDataMatrix(
+#' processedMetaDataMatrix <- processMetaDataMatrix(
 #'           metaMatrix,
 #'           list(language = "SMART",
 #'           stemWords = TRUE,
@@ -46,19 +46,19 @@
 #'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
 #'                                   
 #' # 3) run the cluster analysis to determine publication communities
-#' modeledData <- calculateModels(processedMetaMatrix)
+#' scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 #' 
 #' # 4) visualize the results
-#' createOrdinationPlot(modeledData)
+#' createOrdinationPlot(scicloudAnalysis)
 #' 
 #' # 5) a list of the most important papers per cluster
-#' mostImportantPaperPerCluster(modeledData)
+#' mostImportantPaperPerCluster(scicloudAnalysis)
 #' 
 #' # 6) a summary of the analysis
-#' scicloudSpecs <- inspectScicloud(modeledData)
+#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #'     }
 #'     
-createOrdinationPlot <- function(modeledData,
+createOrdinationPlot <- function(scicloudAnalysis,
                                  exactPosition = FALSE,
                                  ordinationFunction = FALSE) {
   
@@ -68,18 +68,18 @@ createOrdinationPlot <- function(modeledData,
   
   if (exactPosition == TRUE) {
     # This is the cluster cloud plot with labels to exact positions
-    ordinationPlot <- ggplot2::ggplot(modeledData[[1]]) +
+    ordinationPlot <- ggplot2::ggplot(scicloudAnalysis[[1]]) +
       ggplot2::geom_point(
-        ggplot2::aes(x = modeledData[[1]]$DCA1, y = modeledData[[1]]$DCA2),
+        ggplot2::aes(x = scicloudAnalysis[[1]]$DCA1, y = scicloudAnalysis[[1]]$DCA2),
         size = 4,
         color = 'grey'
       ) +
       ggrepel::geom_label_repel(
         ggplot2::aes(
-          modeledData[[1]]$DCA1,
-          modeledData[[1]]$DCA2,
+          scicloudAnalysis[[1]]$DCA1,
+          scicloudAnalysis[[1]]$DCA2,
           fill = factor(subset),
-          label = modeledData[[1]][, "names(indSpeciesValues$pval)"]
+          label = scicloudAnalysis[[1]][, "names(indSpeciesValues$pval)"]
         ),
         fontface = 'bold',
         color = 'white',
@@ -94,13 +94,13 @@ createOrdinationPlot <- function(modeledData,
     
   } else{
     # the plot without labels to exact positions
-    ordinationPlot <- ggplot2::ggplot(modeledData[[1]]) +
+    ordinationPlot <- ggplot2::ggplot(scicloudAnalysis[[1]]) +
       ggrepel::geom_label_repel(
         ggplot2::aes(
-          modeledData[[1]]$DCA1,
-          modeledData[[1]]$DCA2,
+          scicloudAnalysis[[1]]$DCA1,
+          scicloudAnalysis[[1]]$DCA2,
           fill = factor(subset),
-          label = modeledData[[1]][, "names(indSpeciesValues$pval)"]
+          label = scicloudAnalysis[[1]][, "names(indSpeciesValues$pval)"]
         ),
         fontface = 'bold',
         color = 'white',
@@ -120,12 +120,12 @@ createOrdinationPlot <- function(modeledData,
   
   graphics::plot(ordinationPlot)
   # If we have metadata, so if the column has less than 25% NA, we do the other plots.
-  if(sum(is.na(modeledData$metaMatrix[, "CitedBy"]))<nrow(modeledData$metaMatrix)/4){
+  if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"]))<nrow(scicloudAnalysis$metaMatrix)/4){
     
     
     #preparing the data for meta data plots
     naFreeData1 <-
-      subset(modeledData$metaMatrix,!is.na(modeledData$metaMatrix[, "Year"]))
+      subset(scicloudAnalysis$metaMatrix,!is.na(scicloudAnalysis$metaMatrix[, "Year"]))
     naFreeData2 <- subset(naFreeData1,!is.na(naFreeData1[, "CitedBy"]))
     naFreeData <- as.data.frame(naFreeData2)
     

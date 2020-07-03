@@ -13,12 +13,13 @@ library(devtools)
 install_github("LisaGotzian/scicloud")
 library(scicloud)
 
+### The normal workflow of scicloud
 metaMatrix <- createTextMatrixFromPDF()
 scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
                                    stemWords = TRUE, numberOfClusters = 4)
 
 # Insights into scicloud
-scicloudSpecs <- inspectScicloud(modeledData = scicloudAnalysis)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
 
 # Only for Henrik: getting a wordlist + feeding it in again
@@ -36,23 +37,23 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
-processedMetaMatrix <- processMetaDataMatrix(metaMatrix,
+processedMetaDataMatrix <- processMetaDataMatrix(metaMatrix,
                                   list(language = "SMART",
                                   stemWords = TRUE,
                                   saveToWd = FALSE),
                                   ignoreWords = c("Abstract", "Bulletin", "Editor"))
                                    
 # 3) run the cluster analysis to determine publication communities
-modeledData <- calculateModels(processedMetaMatrix, numberOfClusters = 4)
+scicloudAnalysis <- calculateModels(processedMetaDataMatrix, numberOfClusters = 4)
  
 # 4) visualize the results
-createOrdinationPlot(modeledData)
+createOrdinationPlot(scicloudAnalysis)
  
 # 5) a list of the most important papers per cluster
-mostImportantPaperPerCluster(modeledData)
+mostImportantPaperPerCluster(scicloudAnalysis)
  
 # 6) a summary of the analysis
-scicloudSpecs <- inspectScicloud(modeledData)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
  
  
@@ -65,7 +66,7 @@ scicloudSpecs <- inspectScicloud(modeledData)
 # $ReducedIncidenceMatrix will return 1/3 of the words arranged by eigenvector centrality,
 # to be further processed eg in Gephi or with other clustering functions
 # $GlobalMeasures will return the global measurements
-modeledNetwork <- calculateNetwork(processedMetaMatrix, sortby = "Eigenvector", keep = 0.3)
+modeledNetwork <- calculateNetwork(processedMetaDataMatrix, sortby = "Eigenvector", keep = 0.3)
 
 #----------------- Search Scopus by Abstracts ----------------
 DOInumbers <- searchScopus(searchString = "sustain", myAPIKey = myAPIKey)

@@ -7,13 +7,13 @@
 #'
 #' @description First function of the word analysis with scicloud. It takes all
 #'     scientific papers as PDF files from the "PDFs" folder in your working
-#'     diretory. It then creates a DocumentTerm matrix of it.
+#'     directory. It then creates a DocumentTerm matrix of it.
 #'
 #' @param directory per default, the PDFs are expected to be in a folder named
 #'     "PDFs", can be changed ad. lib.
-#' @param saveToWd a logical parameter whether or not to save the output of the
+#' @param saveToWd  a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
-#'     analysis steps and can be read in by using \code{\link[base]{readRDS}}.
+#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
 #' @seealso \itemize{
 #'     \item \code{\link{ordinationCluster}} for the next step in scicloud

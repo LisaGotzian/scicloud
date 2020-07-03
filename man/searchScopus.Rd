@@ -16,8 +16,8 @@ searchScopus(
 \item{searchString}{The search string you want to ask the server. See the
 Scopus API (\url{https://dev.elsevier.com/index.jsp/}) for details.}
 
-\item{myAPIKey}{Your private Elsevier API key for the server communication.
-You can request one at \url{https://dev.elsevier.com/index.jsp}.}
+\item{myAPIKey}{your private Elsevier API key for communicating with the
+API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
 
 \item{maxResults}{The maximum amount of accepted search results. Usually,
 Scopus does not provide more than 5000 results.}
@@ -29,7 +29,7 @@ for requests is 20,000.}
 
 \item{saveToWd}{a logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
-analysis steps and can be read in by using \code{\link[base]{readRDS}}.}
+analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 }
 \value{
 A data frame containing the DOI numbers and Scopus-IDs of the search
