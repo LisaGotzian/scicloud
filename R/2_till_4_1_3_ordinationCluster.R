@@ -108,7 +108,7 @@ ordinationCluster <- function(metaMatrix,
     )
   
   if(!is.na(myAPIKey)){
-    processedMetaDataMatrix$MetaMatrix <-
+    processedMetaDataMatrix$metaMatrix <-
       getScopusMetaData(processedMetaDataMatrix$metaMatrix,
                         myAPIKey,
                         ordinationFunction = ordinationFunction)

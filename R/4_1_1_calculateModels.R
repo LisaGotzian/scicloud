@@ -350,7 +350,7 @@ calculateModels <- function(processedMetaDataMatrix,
     signIndSpeciesValues[, "names(indSpeciesValues$pval)"]
   ClusterContent <- as.data.frame(ClusterContent)
   
-  # select said columns (words) from processedMetaDataMatrix which is a 0-1 matrix of papers and words
+  # select said columns (words) from processedMetaDataMatrix which is a tf_idf matrix of papers and words
   representativePapers <-
     as.data.frame(processedMetaDataMatrix$Tf_Idf[, ClusterContent[, 1]])
   rownames(representativePapers) <-
