@@ -59,13 +59,10 @@ myAPIKey <- "YOUR_API_KEY"
 metaMatrix <- createTextMatrixFromPDF()
 
 
-# run the analysis
-scicloudAnalysis <- ordinationCluster(metaMatrix,
+# run the analysis for the network analysis
+modeledNetwork <- ordinationCluster(metaMatrix,
                            myAPIKey = myAPIKey,
                            method = "network")
-
-# inspect the analysis
-scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 }
 \seealso{
