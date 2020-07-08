@@ -1,4 +1,4 @@
 library(testthat)
-library(ginko)
+library(scicloud)
 
-test_check("ginko")
+test_check("scicloud")
