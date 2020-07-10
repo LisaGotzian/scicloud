@@ -179,18 +179,17 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   docs_corpus <- tm::tm_map(docs_corpus, regf, "\\S+\\.com") #remove URL (not start with http)
   docs_corpus <- tm::tm_map(docs_corpus, regf_perl, "\\(((?:[^()]++|(?R))*)\\)") # remove string with parenthesis (incl. nested parenthesis)
   docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "^(.*)References.*$") # remove all references 
-  docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "\\n(.*?)\\n(.*?)[\u00BD|\u00BC](.*?)\\n") # remove math equation
+#  docs_corpus <- tm::tm_map(docs_corpus, rmb_regf, "\\n(.*?)\\n(.*?)[\u00BD|\u00BC](.*?)\\n") # remove math equation (--> is this still necessary?)
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[\r\n\f]+") # remove newline/carriage return
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:digit:]]+") # remove digits
   docs_corpus <- tm::tm_map(docs_corpus, xregf, "- ") # undo hypen, eg. embar-rassment 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:cntrl:]]+") # remove other control characters 
-  docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:punct:]]+") # remove punctuaton 
+  docs_corpus <- tm::tm_map(docs_corpus, regf, "[^[:alpha:]]") # remove non-standard characters/punctuation
   docs_corpus <- tm::tm_map(docs_corpus, regf, "[[:blank:]]+") # remove all blank spaces/tab
   
   docs_corpus <- tm::tm_map(docs_corpus, tm::content_transformer(tolower))
   docs_corpus <- tm::tm_map(docs_corpus, tm::stripWhitespace) # remove extra whitespace 
   docs_corpus <- tm::tm_map(docs_corpus, tm::removeWords, tm::stopwords(control$language)) # remove stopwords
   
+
   # extract authors & publishers' name to be added to the list of ignoreWords 
   excludeWords <- paste0(paste(metaMatrix[,"Authors"], collapse = ", "), #concatenate authors & publishers as one string
                          ", ", paste(metaMatrix[,"Publisher"], collapse = ", ")) 
