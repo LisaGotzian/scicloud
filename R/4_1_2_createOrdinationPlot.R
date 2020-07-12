@@ -92,7 +92,7 @@ createOrdinationPlot <- function(scicloudAnalysis,
       ggplot2::theme_classic(base_size = 16)
     
     
-  } else{
+  } else {
     # the plot without labels to exact positions
     ordinationPlot <- ggplot2::ggplot(scicloudAnalysis[[1]]) +
       ggrepel::geom_label_repel(

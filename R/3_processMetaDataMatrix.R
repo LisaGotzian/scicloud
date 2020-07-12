@@ -117,7 +117,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   }
   
   ## keepWordsFile errors
-  if(methods::hasArg(keepWordsFile)) # if the argument has been specified
+  if(!is.na(keepWordsFile)) # if the argument has been specified
     if(!file.exists(keepWordsFile)) # but the file path doesn't exist
       ArgumentCheck::addError(
         msg = "If you'd like to use a file to specify the words to keep, please provide a correct file path.",
@@ -133,7 +133,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   
   
   # read the keepWordsFile in correctly as a csv or csv2
-  if (methods::hasArg(keepWordsFile)) { # if the argument has been specified
+  if (!is.na(keepWordsFile)) { # if the argument has been specified
     keepWords <- utils::read.csv(file = keepWordsFile) # it's a csv
     if (grepl(";", keepWords[1, ])) {
       #if a semicolon is in there...
