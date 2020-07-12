@@ -153,8 +153,8 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
     which(rowSums(nchar(metaMatrix, keepNA = FALSE)[, c("Abstract", "FullText")]) > 104)
   metaMatrix <- metaMatrix[index,]
   
-  ### This part is to select the non-NA text from either Abstract/FullText columns for all rows 
-  ### use case: either Abstratc or FullText contains non-NA value; not both exists at the same time 
+  ### This part is to select the non-NA text from either Abstract or FullText columns for all rows 
+  ### use case: either Abstract or FullText contains non-NA value; not both exists at the same time 
   ### vectorText is a vector where each vector element is a non-NA text of each row
   subMatrix <- metaMatrix[,c("Abstract", "FullText")] 
   col_idx <- apply(subMatrix, 1, function(x){which(!is.na(x))}) # select non-NA column index
