@@ -73,7 +73,7 @@
 
 processMetaDataMatrix <- function(metaMatrix, control = list(),
                                   ignoreWords = c(),
-                                  keepWordsFile){
+                                  keepWordsFile = NA){
   
   ######## Argument checks
   #* Establish a new 'ArgCheck' object
@@ -214,7 +214,7 @@ processMetaDataMatrix <- function(metaMatrix, control = list(),
   tf_idf <- tf_idf[, colSums(tf_idf) != 0] # omit non-representative words 
   
   # Apply keepWordsFile if specified
-  if (methods::hasArg(keepWordsFile)) {
+  if (!is.na(keepWordsFile)) {
     # keep only the words denoted with "1" if two columns are given
     if (ncol(keepWords) == 2){
       keepWordsVector <- keepWords[keepWords[, 2] == 1, 1]

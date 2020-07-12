@@ -8,7 +8,7 @@ processMetaDataMatrix(
   metaMatrix,
   control = list(),
   ignoreWords = c(),
-  keepWordsFile
+  keepWordsFile = NA
 )
 }
 \arguments{

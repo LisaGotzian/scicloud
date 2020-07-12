@@ -2,7 +2,7 @@
 #'
 #' @description The fifth function to the word analysis with scicloud. It takes
 #'     the \code{scicloudAnalysis} and creates five different plots: a wordcloud of
-#'     the publication communities and four visualiziations of the communities
+#'     the publication communities and four visualizations of the communities
 #'     by year and number of citations.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},

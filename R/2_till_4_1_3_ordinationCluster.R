@@ -78,7 +78,7 @@ ordinationCluster <- function(metaMatrix,
                               dendrogram = TRUE,
                               dendroLabels = "truncated",
                               generateWordlist = FALSE,
-                              keepWordsFile,
+                              keepWordsFile = NA,
                               saveToWd = TRUE,
                               method = "hclust") {
   # Argument Checks

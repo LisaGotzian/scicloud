@@ -18,7 +18,7 @@ ordinationCluster(
   dendrogram = TRUE,
   dendroLabels = "truncated",
   generateWordlist = FALSE,
-  keepWordsFile,
+  keepWordsFile = NA,
   saveToWd = TRUE,
   method = "hclust"
 )
