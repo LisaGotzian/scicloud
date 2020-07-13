@@ -22,6 +22,7 @@
 #' @return This function plots a graphic based on the clustered publication
 #'     communities. The citation count and publication dates were fetched
 #'     from the scopus API by \code{\link{getScopusMetaData}}.
+#' @importFrom rlang .data
 #' @export
 #' @examples
 #' \dontrun{
@@ -168,9 +169,9 @@ createOrdinationPlot <- function(scicloudAnalysis,
     citationsStackedBarPlot <- ggplot2::ggplot(
       naFreeData,
       ggplot2::aes(
-        x = rlang::.data$Year,
-        y = as.numeric(rlang::.data$CitedBy),
-        fill = rlang::.data$ClusterString
+        x = .data$Year,
+        y = as.numeric(.data$CitedBy),
+        fill = .data$ClusterString
       )
     ) +
       ggplot2::labs(x = "Year", y = "Citations") +
@@ -185,9 +186,9 @@ createOrdinationPlot <- function(scicloudAnalysis,
     citationsStackedBarPlotPercent <- ggplot2::ggplot(
       naFreeData,
       ggplot2::aes(
-        x = rlang::.data$Year,
-        y = as.numeric(rlang::.data$citePercent),
-        fill = rlang::.data$ClusterString
+        x = .data$Year,
+        y = as.numeric(.data$citePercent),
+        fill = .data$ClusterString
       )
     ) +
       ggplot2::labs(x = "Year", y = "Citations [%]") +
@@ -202,8 +203,8 @@ createOrdinationPlot <- function(scicloudAnalysis,
             ggplot2::ggplot(
               naFreeData,
               ggplot2::aes(
-				      x = rlang::.data$Year,
-				      fill = rlang::.data$ClusterString
+				      x = .data$Year,
+				      fill = .data$ClusterString
 			)
 		) +
 		ggplot2::labs(x = "Year", y = "Amount of papers") +
@@ -218,9 +219,9 @@ createOrdinationPlot <- function(scicloudAnalysis,
       ggplot2::ggplot(
         naFreeData,
         ggplot2::aes(
-          x = rlang::.data$Year,
-          y = as.numeric(rlang::.data$ClusterPercent),
-          fill = rlang::.data$ClusterString
+          x = .data$Year,
+          y = as.numeric(.data$ClusterPercent),
+          fill = .data$ClusterString
         )
       ) +
       ggplot2::labs(x = "Year", y = "Amount of papers [%]") +
