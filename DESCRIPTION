@@ -16,7 +16,6 @@ Suggests:
     knitr (>= 1.29),
     rmarkdown (>= 2.3),
     vegan (>= 2.5.6),
-    ggrepel (>= 0.8.2),
     utils (>= 4.0.1),
     methods (>= 4.0.1),
     cluster (>= 2.1.0),
@@ -39,6 +38,7 @@ Imports:
     tm (>= 0.7.5),
     ArgumentCheck (>= 0.10.2),
     data.table (>= 1.12.8),
-    rlang (>= 0.4.6)
+    rlang (>= 0.4.6),
+    ggrepel
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
