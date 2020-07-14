@@ -73,12 +73,11 @@ delete_RDS <- function(){
       return(invisible())
     }
     else if(pick == 2){
-      files_to_keep <- vector("character", length(choices)-1)
       to_keep <- NULL
       for(i in 1:(length(choices)-1)){
         to_keep[i] <- latest_RDS(choices[i], files)
       }
-      files_to_keep <- files_to_keep[to_keep != ""] # remove any empty entry 
+      files_to_keep <- to_keep[to_keep != ""] # remove any empty entry 
       files_to_delete <- setdiff(files, files_to_keep)
       file.remove(files_to_delete)
       cat(paste0("Deleted ", files_to_delete, "\n"))
