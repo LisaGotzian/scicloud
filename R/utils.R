@@ -142,3 +142,25 @@ latest_RDS <- function(data_type, files){
   }
   else return("")
 }
+
+
+#' @title rename_PDFs
+#' 
+#' @description rename PDF files in order to avoid errors due to non-standard characters 
+#'      
+#' @author Johann Julius Beeck, \email{johann.j.beeck@@stud.leuphana.de}
+#' @seealso placeholder
+#' @return placeholder
+#' @family scicloud functions
+#' @export
+
+rename_PDFs <- function(){
+  former_wd <- getwd()
+  PDFs_path <- file.path(".", "PDFs")
+  setwd(PDFs_path)
+  original_names <- sort(Sys.glob("*"))
+  changed_names <- list.files(".")
+  file.rename(from = original_names, to = changed_names)
+  setwd(former_wd)
+  message("PDFs renamed")
+}

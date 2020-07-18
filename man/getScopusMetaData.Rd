@@ -9,7 +9,7 @@ getScopusMetaData(metaMatrix, myAPIKey, ordinationFunction = FALSE)
 \arguments{
 \item{metaMatrix}{a dataframe generated
 either from PDFs with \code{\link{createTextMatrixFromPDF}} or by
-searching scopus with \code{\link{searchScopus}}}
+searching Scopus with \code{\link{searchScopus}}}
 
 \item{myAPIKey}{your private Elsevier API key for communicating with the
 API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
@@ -36,7 +36,7 @@ metaMatrix <- createTextMatrixFromPDF()
 # instead of ordinationCluster(), we can also run this
 # workflow step by step.
 
-# 1) pull article metadata from scopus
+# 1) pull article metadata from Scopus
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
@@ -76,6 +76,7 @@ Other scicloud functions:
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
 \code{\link{processMetaDataMatrix}()},
+\code{\link{rename_PDFs}()},
 \code{\link{searchScopus}()}
 }
 \author{

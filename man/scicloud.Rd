@@ -18,7 +18,7 @@ Gephi or a different graphing software is required.
 Make sure to have the PDFs of your choice in a folder called 'PDFs' in
     your working directory.
     
-    Alternatively, you run an analysis of search results from scopus.
+    Alternatively, you run an analysis of search results from Scopus.
     All papers and their abstracts that match your search using
     \code{\link{searchScopus}} are then used for the analysis.
     

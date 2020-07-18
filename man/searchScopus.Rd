@@ -56,7 +56,8 @@ Other scicloud functions:
 \code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
-\code{\link{processMetaDataMatrix}()}
+\code{\link{processMetaDataMatrix}()},
+\code{\link{rename_PDFs}()}
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},

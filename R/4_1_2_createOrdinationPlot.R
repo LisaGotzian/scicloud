@@ -21,7 +21,7 @@
 #'     }
 #' @return This function plots a graphic based on the clustered publication
 #'     communities. The citation count and publication dates were fetched
-#'     from the scopus API by \code{\link{getScopusMetaData}}.
+#'     from the Scopus API by \code{\link{getScopusMetaData}}.
 #' @importFrom rlang .data
 #' @export
 #' @examples
@@ -35,7 +35,7 @@
 #' # instead of ordinationCluster(), we can also run this
 #' # workflow step by step.
 #' 
-#' # 1) pull article metadata from scopus
+#' # 1) pull article metadata from Scopus
 #' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 #' 
 #' # 2) process the full texts
@@ -141,7 +141,7 @@ createOrdinationPlot <- function(scicloudAnalysis,
     if (nrow(naFreeData) == 0) {
       cat(
         paste0(
-          "Please use your API key to obtain the metadata of your papers from scopus. Then, I'll be able to generate plots of citations and years.\n"
+          "Please use your API key to obtain the metadata of your papers from Scopus. Then, I'll be able to generate plots of citations and years.\n"
         )
       )
     }

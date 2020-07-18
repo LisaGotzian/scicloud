@@ -23,7 +23,7 @@ a dot and the label will be connected with a line to it.}
 \value{
 This function plots a graphic based on the clustered publication
     communities. The citation count and publication dates were fetched
-    from the scopus API by \code{\link{getScopusMetaData}}.
+    from the Scopus API by \code{\link{getScopusMetaData}}.
 }
 \description{
 The fifth function to the word analysis with scicloud. It takes
@@ -42,7 +42,7 @@ metaMatrix <- createTextMatrixFromPDF()
 # instead of ordinationCluster(), we can also run this
 # workflow step by step.
 
-# 1) pull article metadata from scopus
+# 1) pull article metadata from Scopus
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
@@ -83,6 +83,7 @@ Other scicloud functions:
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
 \code{\link{processMetaDataMatrix}()},
+\code{\link{rename_PDFs}()},
 \code{\link{searchScopus}()}
 }
 \author{

@@ -16,6 +16,7 @@
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
 #' @seealso \itemize{
+#'     \item \code{\link{rename_PDFs}} in case of errors due to vulnerable file names
 #'     \item \code{\link{ordinationCluster}} for the next step in scicloud
 #'     \item or \code{\link{processMetaDataMatrix}} for the
 #'     more granular next step if you intend to run it step by step
@@ -53,11 +54,25 @@ createTextMatrixFromPDF <-
   function(directory = file.path(".", "PDFs"),
            saveToWd = TRUE) {
     
-    allFiles <- list.files(directory)
+    allFiles <- list.files(directory, full.names = TRUE)
+    
     # filter out non PDF files
     PDFs_FileName <- allFiles[grepl(".pdf", allFiles)]
-    PDFs_FullPath <- file.path(directory, PDFs_FileName)
     
+    # check for non-standard PDF names
+    files_accessed <- file.access(PDFs_FileName)
+    
+    if (any(files_accessed == -1)) {
+      message(paste0(abs(sum(files_accessed)),
+      " PDF name(s) were not read in correctly.",
+      "\n",
+      "Please change the name of following PDF(s) or ",
+      "run rename_PDFs() in order to automaticly assign new names:"))
+      PDFs_wrongname <- gsub("./PDFs/", replacement = "", PDFs_FileName[which(files_accessed == -1)])
+      print(PDFs_wrongname)
+      stop("Process stopped.")
+    }
+
     # Argument Checks
     Check <- ArgumentCheck::newArgCheck()
     if (!length(allFiles)){
@@ -87,7 +102,7 @@ createTextMatrixFromPDF <-
     }
     ArgumentCheck::finishArgCheck(Check)
     
-    PDFcontent <- matrix(NA, nrow = length(PDFs_FullPath), ncol = 20)
+    PDFcontent <- matrix(NA, nrow = length(PDFs_FileName), ncol = 20)
     colnames(PDFcontent) <-
       c(
         "Title",
@@ -112,14 +127,14 @@ createTextMatrixFromPDF <-
         "FullText"
       )
     
-    num_pdf = length(PDFs_FullPath)
+    num_pdf = length(PDFs_FileName)
     # set min = 0 to cater the use case when only read 1 PDF file, max must be > min
     pb <- utils::txtProgressBar(min = 0, max = num_pdf, style = 3) 
     
     for (i in c(1:num_pdf)) {
       intermediateResultFileName <- PDFs_FileName[i]
       
-      intermediateResultText <- suppressMessages(pdftools::pdf_text(PDFs_FullPath[i]))
+      intermediateResultText <- suppressMessages(pdftools::pdf_text(PDFs_FileName[i]))
       intermediateResultText <- as.character(intermediateResultText)
       intermediateResultText <-
         paste(intermediateResultText, collapse = " ")  # takes the vector and pastes it
@@ -153,7 +168,7 @@ createTextMatrixFromPDF <-
     
     # Only retrieve the first two pages of the PDFs
     firstTwoPage <- c()
-    for(i in PDFs_FullPath){
+    for(i in PDFs_FileName){
       # concatenate the two vectors of string (each two pages) retrieve from pdf_text(i)[0:2]  
       firstTwoPage <- append(firstTwoPage, paste(suppressMessages(pdftools::pdf_text(i)[0:2]), collapse = ' '))
     }

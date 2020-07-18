@@ -10,7 +10,7 @@
 #'     \email{prabesh.dhakal@@stud.leuphana.de}
 #' @param metaMatrix a dataframe generated
 #'     either from PDFs with \code{\link{createTextMatrixFromPDF}} or by
-#'     searching scopus with \code{\link{searchScopus}}
+#'     searching Scopus with \code{\link{searchScopus}}
 #' @param myAPIKey your private Elsevier API key for communicating with the
 #'     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
 #' @param ordinationFunction internal variable
@@ -33,7 +33,7 @@
 #' # instead of ordinationCluster(), we can also run this
 #' # workflow step by step.
 #' 
-#' # 1) pull article metadata from scopus
+#' # 1) pull article metadata from Scopus
 #' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 #' 
 #' # 2) process the full texts
@@ -60,7 +60,7 @@
 getScopusMetaData <- function(metaMatrix, myAPIKey,
                               ordinationFunction = FALSE) {
   
-  #### PHASE II: GET METADATA OF THE RESOURCES FOR WHICH WE COULD GET THE DOIs/SCOPUS IDs ####
+  #### PHASE II: GET METADATA OF THE RESOURCES FOR WHICH WE COULD GET THE DOIs/SCOPUS-IDs ####
   
   # a function that returns a custom error message
   errorMessage <- function(cond) {
@@ -91,7 +91,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
   pb <- utils::txtProgressBar(min = start, max = end, style = 3)
   
   
-  # extract values for each resource whose DOI or SCOPUS ID is known
+  # extract values for each resource whose DOI or Scopus-ID is known
   for (i in start:end) {
     
     # uses the DOI to get the paper if DOI exists

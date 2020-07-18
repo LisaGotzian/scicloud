@@ -97,6 +97,7 @@ Other scicloud functions:
 \code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
+\code{\link{rename_PDFs}()},
 \code{\link{searchScopus}()}
 }
 \author{

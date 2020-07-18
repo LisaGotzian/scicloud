@@ -22,7 +22,7 @@ library(scicloud)
 Finish running `metaMatrix` function and provide its output as one of the inputs to this function
 
 ### When to use processMetaDataMatrix
-`processMetaDataMatrix` function is the first function called within the wrapper function `ordinationCluster`. If you would like to run the analysis step by step. This should be the first function to be called after running `createTextMatrixFromPDF` function. This function takes output of `createTextMatrixFromPDF` function and process the matrix by removing all unrelevant information such as email address, URLs, references, punctuation, math equantions found in each of the PDF. The options for the language and stem words can be defined through _control_ argument in the function. The inputs to this _control_ argument are mandatory and must be of _list()_ object containing the following: 
+`processMetaDataMatrix` function is the first function called within the wrapper function `ordinationCluster`. If you would like to run the analysis step by step. This should be the first function to be called after running `createTextMatrixFromPDF` function. This function takes output of `createTextMatrixFromPDF` function and process the matrix by removing all irrelevant information such as email address, URLs, references, punctuation, math equations found in each of the PDF. The options for the language and stem words can be defined through _control_ argument in the function. The inputs to this _control_ argument are mandatory and must be of _list()_ object containing the following: 
 
 language
   : expect a valid string object which defines the stopwords to be filtered. (e.g. "english" or "SMART") 

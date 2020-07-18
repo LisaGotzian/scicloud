@@ -12,7 +12,7 @@ mostImportantPaperPerCluster(scicloudAnalysis)
 \value{
 This function returns a console output of the papers with the
     highest citation count per year per cluster. The citations were fetched
-    from the scopus API by \code{\link{getScopusMetaData}}.
+    from the Scopus API by \code{\link{getScopusMetaData}}.
 }
 \description{
 The sixth function to the word analysis with scicloud. It takes
@@ -30,7 +30,7 @@ metaMatrix <- createTextMatrixFromPDF()
 # instead of ordinationCluster(), we can also run this
 # workflow step by step.
 
-# 1) pull article metadata from scopus
+# 1) pull article metadata from Scopus
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts
@@ -70,6 +70,7 @@ Other scicloud functions:
 \code{\link{inspectScicloud}()},
 \code{\link{ordinationCluster}()},
 \code{\link{processMetaDataMatrix}()},
+\code{\link{rename_PDFs}()},
 \code{\link{searchScopus}()}
 }
 \author{
