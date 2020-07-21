@@ -76,7 +76,6 @@ Other scicloud functions:
 \code{\link{mostImportantPaperPerCluster}()},
 \code{\link{ordinationCluster}()},
 \code{\link{processMetaDataMatrix}()},
-\code{\link{rename_PDFs}()},
 \code{\link{searchScopus}()}
 }
 \author{

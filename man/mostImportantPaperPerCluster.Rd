@@ -70,7 +70,6 @@ Other scicloud functions:
 \code{\link{inspectScicloud}()},
 \code{\link{ordinationCluster}()},
 \code{\link{processMetaDataMatrix}()},
-\code{\link{rename_PDFs}()},
 \code{\link{searchScopus}()}
 }
 \author{

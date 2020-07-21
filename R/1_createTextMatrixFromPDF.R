@@ -16,7 +16,6 @@
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
 #' @seealso \itemize{
-#'     \item \code{\link{rename_PDFs}} in case of errors due to vulnerable file names
 #'     \item \code{\link{ordinationCluster}} for the next step in scicloud
 #'     \item or \code{\link{processMetaDataMatrix}} for the
 #'     more granular next step if you intend to run it step by step
@@ -49,25 +48,21 @@
 #' }
 #' @export
  
-
 createTextMatrixFromPDF <-
   function(directory = file.path(".", "PDFs"),
            saveToWd = TRUE) {
     
-    allFiles <- list.files(directory, full.names = TRUE)
-    
     # filter out non PDF files
-    PDFs_FileName <- allFiles[grepl(".pdf", allFiles)]
+    PDFs_FileName <- Sys.glob(file.path(directory, "*.pdf"))
     
     # check for non-standard PDF names
     files_accessed <- file.access(PDFs_FileName)
     
     if (any(files_accessed == -1)) {
       message(paste0(abs(sum(files_accessed)),
-      " PDF name(s) were not read in correctly.",
+      " PDF(s) cannot be accessed.",
       "\n",
-      "Please change the name of following PDF(s) or ",
-      "run rename_PDFs() in order to automaticly assign new names:"))
+      "Please check following PDF(s):"))
       PDFs_wrongname <- gsub("./PDFs/", replacement = "", PDFs_FileName[which(files_accessed == -1)])
       print(PDFs_wrongname)
       stop("Process stopped.")
@@ -75,12 +70,6 @@ createTextMatrixFromPDF <-
 
     # Argument Checks
     Check <- ArgumentCheck::newArgCheck()
-    if (!length(allFiles)){
-      ArgumentCheck::addError(
-        msg = "empty directory",
-        argcheck = Check
-      )
-    }
     if (!length(PDFs_FileName)){
       ArgumentCheck::addError(
         msg = "The directory contains no PDF file(s)",
