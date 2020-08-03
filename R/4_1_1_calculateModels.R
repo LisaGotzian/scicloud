@@ -287,55 +287,29 @@ calculateModels <- function(processedMetaDataMatrix,
   scicloudAnalysis <- list()
   scicloudAnalysis[[1]] <- signIndSpeciesValuesInclSubsetRow
   
-  
-  
   # add a dendrogram of the papers
   if (dendrogram == TRUE) {
     if (dendroLabels == "break") {
-      # this breaks the file names
-      wordwrap <-
-        function(x, len)
-          paste(strwrap(x, width = len), collapse = "\n")
-      graphics::plot(
-        modelclust,
-        cex = 0.6,
-        hang = -1,
-        main = "Word cluster dendrogram of papers",
-        labels = sapply(processedMetaDataMatrix$metaMatrix[, "FileName"], wordwrap, len =
-                          15),
-        padj = 1
-      )
-      #18th column is the filename, strwrap() splits the labels
+      label <- processedMetaDataMatrix$metaMatrix[, "FileName"]
+      dend <-as.dendrogram(modelclust)
+      labels(dend) <- label
+      par(mar=c(1,1,1,10))
+      dend <- dendextend::color_labels(dend,k = numberOfClusters)
+      dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE)
+      graphics::plot(dend, adj = 0.75, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
     }
     if (dendroLabels == "truncated") {
-      # this truncates the labels to 18 characters, followed by "..."
-      longLabels <- processedMetaDataMatrix$metaMatrix[, "FileName"]
-      shortenedLabels <- NULL
-      for (i in 1:length(longLabels)) {
-        shortenedLabels[i] <-
-          ifelse(
-            nchar(longLabels[i]) > 20,
-            # shorten labels from 1:18
-            paste(
-              paste(
-                unlist(strsplit(longLabels[i], ""))[1:18],
-                sep = "",
-                collapse = ""
-              ),
-              "...",
-              sep = "",
-              collapse = ""
-            ),
-            longLabels[i]
-          )
-      }
-      graphics::plot(
-        modelclust,
-        cex = 0.6,
-        hang = -1,
-        main = "Word cluster dendrogram of papers",
-        labels = shortenedLabels
-      )
+      # exclude the file extension as part of the label
+      label <- tools::file_path_sans_ext(processedMetaDataMatrix$metaMatrix[, "FileName"])
+      # for labels with length > 20:
+      # replaced a truncated labels of characters from 1:18 followed by ...
+      label[nchar(label)>20] <- paste(substr(label[nchar(label)>20], 1,18),"...", sep = "")
+      dend <-as.dendrogram(modelclust)
+      labels(dend) <- label
+      par(mar=c(1,1,1,10))
+      dend <- color_labels(dend,k = numberOfClusters)
+      dend <- color_branches(dend, k = numberOfClusters, groupLabels=TRUE)
+      graphics::plot(dend, adj = 0.75, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
     }
   }
   

@@ -116,10 +116,12 @@ createOrdinationPlot <- function(scicloudAnalysis,
   
   
   if (ordinationFunction == TRUE) {
-    readline("Show next plot?")
+    ANS <- readline("Show next plot?(y/n)")
+    if (substr(ANS, 1, 1) == "y") {
+      graphics::plot(ordinationPlot)
+    }
   }
   
-  graphics::plot(ordinationPlot)
   # If we have metadata, so if the column has less than 25% NA, we do the other plots.
   if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"]))<nrow(scicloudAnalysis$metaMatrix)/4){
     
@@ -229,23 +231,22 @@ createOrdinationPlot <- function(scicloudAnalysis,
       ggplot2::geom_bar(stat = "identity") +
       ggplot2::theme_classic(base_size = 16)
 
-            
-    readline("Show next plot?")
-    
-    graphics::plot(citationsStackedBarPlot)
-    
-    readline("Show next plot?")
-    
-    graphics::plot(citationsStackedBarPlotPercent)
-    
-    readline("Show next plot?")
-    
-    graphics::plot(paperPerClusterPerYearStackedBarPlot)
-    
-    readline("Show next plot?")
-    
-    graphics::plot(paperPerClusterPerYearStackedBarPlotPercent)
-    
+    ANS <- readline("Show next plot?(y/n)")
+    if (substr(ANS, 1, 1) == "y") {
+      graphics::plot(citationsStackedBarPlot)
+    }
+    ANS <- readline("Show next plot?(y/n)")
+    if (substr(ANS, 1, 1) == "y") {
+      graphics::plot(citationsStackedBarPlotPercent)
+    }
+    ANS <- readline("Show next plot?(y/n)")
+    if (substr(ANS, 1, 1) == "y") {
+      graphics::plot(paperPerClusterPerYearStackedBarPlot)
+    }
+    ANS <- readline("Show next plot?(y/n)")
+    if (substr(ANS, 1, 1) == "y") {
+      graphics::plot(paperPerClusterPerYearStackedBarPlotPercent)
+    }
   } # end of if-metadata-there-loop
 }
 
