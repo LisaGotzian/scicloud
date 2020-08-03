@@ -291,8 +291,8 @@ calculateModels <- function(processedMetaDataMatrix,
   if (dendrogram == TRUE) {
     if (dendroLabels == "break") {
       label <- processedMetaDataMatrix$metaMatrix[, "FileName"]
-      dend <-as.dendrogram(modelclust)
-      labels(dend) <- label
+      dend <-stats::as.dendrogram(modelclust)
+      dendextend::labels(dend) <- label
       par(mar=c(1,1,1,10))
       dend <- dendextend::color_labels(dend,k = numberOfClusters)
       dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE)
@@ -304,12 +304,12 @@ calculateModels <- function(processedMetaDataMatrix,
       # for labels with length > 20:
       # replaced a truncated labels of characters from 1:18 followed by ...
       label[nchar(label)>20] <- paste(substr(label[nchar(label)>20], 1,18),"...", sep = "")
-      dend <-as.dendrogram(modelclust)
-      labels(dend) <- label
+      dend <-stats::as.dendrogram(modelclust)
+      dendextend::labels(dend) <- label
       par(mar=c(1,1,1,10))
-      dend <- color_labels(dend,k = numberOfClusters)
-      dend <- color_branches(dend, k = numberOfClusters, groupLabels=TRUE)
-      graphics::plot(dend, adj = 0.75, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
+      dend <- dendextend::color_labels(dend,k = numberOfClusters, col=RColorBrewer::brewer.pal(numberOfClusters, "Dark2"))
+      dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE, col=RColorBrewer::brewer.pal(numberOfClusters, "Dark2"))
+      graphics::plot(dend, adj = 0.5, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
     }
   }
   

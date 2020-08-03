@@ -104,10 +104,12 @@ createOrdinationPlot <- function(scicloudAnalysis,
           label = scicloudAnalysis[[1]][, "names(indSpeciesValues$pval)"]
         ),
         fontface = 'bold',
-        color = 'white',
+        color = 'black',
         box.padding = ggplot2::unit(0.15, "lines"),
         segment.color = NA
       ) +
+      ggplot2::ggtitle("Cluster plot of the publication communities")+ 
+      ggplot2::scale_fill_brewer(palette = "BuGn")+
       ggplot2::labs(x = "DCA 1", y = "DCA 2") +
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
       ggplot2::theme_classic(base_size = 16)
@@ -116,7 +118,7 @@ createOrdinationPlot <- function(scicloudAnalysis,
   
   
   if (ordinationFunction == TRUE) {
-    ANS <- readline("Show next plot?(y/n)")
+    ANS <- readline("Plot a wordcloud analysis of the publication communities?(y/n)")
     if (substr(ANS, 1, 1) == "y") {
       graphics::plot(ordinationPlot)
     }
@@ -176,12 +178,13 @@ createOrdinationPlot <- function(scicloudAnalysis,
         fill = .data$ClusterString
       )
     ) +
+      ggplot2::ggtitle("No. of citations of each cluster across years")+ 
+      ggplot2::scale_fill_brewer(palette = "BuGn")+
       ggplot2::labs(x = "Year", y = "Citations") +
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
       ggplot2::geom_bar(stat = "identity") +
       ggplot2::theme_classic(base_size = 16)
-    
-    
+      
     
     
     # citations per year - stacked bar plot, percentage
@@ -193,6 +196,8 @@ createOrdinationPlot <- function(scicloudAnalysis,
         fill = .data$ClusterString
       )
     ) +
+      ggplot2::ggtitle("Percentage of citations of each cluster across years")+ 
+      ggplot2::scale_fill_brewer(palette = "BuGn")+
       ggplot2::labs(x = "Year", y = "Citations [%]") +
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
       ggplot2::geom_bar(stat = "identity") +
@@ -209,12 +214,13 @@ createOrdinationPlot <- function(scicloudAnalysis,
 				      fill = .data$ClusterString
 			)
 		) +
+    ggplot2::ggtitle("No. of papers of each cluster across years")+ 
+    ggplot2::scale_fill_brewer(palette = "BuGn")+
 		ggplot2::labs(x = "Year", y = "Amount of papers") +
 		ggplot2::guides(fill=ggplot2::guide_legend(title = NULL)) + 
 		ggplot2::geom_bar(width = .9) +
     ggplot2::scale_x_discrete()+
 		ggplot2::theme_classic(base_size = 16)
-    
     
     # paper per cluster per year - stacked bar plot, percentage
     paperPerClusterPerYearStackedBarPlotPercent <-
@@ -226,24 +232,26 @@ createOrdinationPlot <- function(scicloudAnalysis,
           fill = .data$ClusterString
         )
       ) +
+      ggplot2::ggtitle("Percentage of no. of papers of each cluster across years")+ 
+      ggplot2::scale_fill_brewer(palette = "BuGn")+
       ggplot2::labs(x = "Year", y = "Amount of papers [%]") +
       ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
       ggplot2::geom_bar(stat = "identity") +
       ggplot2::theme_classic(base_size = 16)
 
-    ANS <- readline("Show next plot?(y/n)")
+    ANS <- readline("Plot a stacked Barplot of the no. of citations across different years?(y/n)")
     if (substr(ANS, 1, 1) == "y") {
       graphics::plot(citationsStackedBarPlot)
     }
-    ANS <- readline("Show next plot?(y/n)")
+    ANS <- readline("Plot a stacked Barplot of the percentage of no. of citations across different years?(y/n)")
     if (substr(ANS, 1, 1) == "y") {
       graphics::plot(citationsStackedBarPlotPercent)
     }
-    ANS <- readline("Show next plot?(y/n)")
+    ANS <- readline("Plot a stacked Barplot of the no. of papers across different years?(y/n)")
     if (substr(ANS, 1, 1) == "y") {
       graphics::plot(paperPerClusterPerYearStackedBarPlot)
     }
-    ANS <- readline("Show next plot?(y/n)")
+    ANS <- readline("Plot a stacked Barplot of the percentage of no. of papers across different years?(y/n)")
     if (substr(ANS, 1, 1) == "y") {
       graphics::plot(paperPerClusterPerYearStackedBarPlotPercent)
     }
