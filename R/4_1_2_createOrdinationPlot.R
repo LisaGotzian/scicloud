@@ -72,7 +72,7 @@ createOrdinationPlot <- function(scicloudAnalysis,
   if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"]))<nrow(scicloudAnalysis$metaMatrix)/4){
     # omit the rows where CitedBy and Year are NA
     naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,])
-    
+    # CAUTION: to convert the factors level correctly, need to use as.numeric(as.character())
     # aggregate the sum of citations by year and then join the sub data frame by year to calculate the percentage of citation for each row
     citationSum_df <- aggregate(as.numeric(as.character(naFreeData$CitedBy)), by = list(naFreeData$Year), sum)
     colnames(citationSum_df) <- c("Year", "SumByYear")
