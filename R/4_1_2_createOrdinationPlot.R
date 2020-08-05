@@ -74,7 +74,7 @@ createOrdinationPlot <- function(scicloudAnalysis,
     naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,])
     # CAUTION: to convert the factors level correctly, need to use as.numeric(as.character())
     # aggregate the sum of citations by year and then join the sub data frame by year to calculate the percentage of citation for each row
-    citationSum_df <- aggregate(as.numeric(as.character(naFreeData$CitedBy)), by = list(naFreeData$Year), sum)
+    citationSum_df <- stats::aggregate(as.numeric(as.character(naFreeData$CitedBy)), by = list(naFreeData$Year), sum)
     colnames(citationSum_df) <- c("Year", "SumByYear")
     citationSum_df <- plyr::join(naFreeData[,c("CitedBy", "Year")], by="Year", citationSum_df)
     naFreeData$citePercent <- as.numeric(as.character(citationSum_df$CitedBy))/as.numeric(as.character(citationSum_df$SumByYear))*100
@@ -89,12 +89,12 @@ createOrdinationPlot <- function(scicloudAnalysis,
     }
     # create a sub data frame that aggregate the count of each cluster by year
     # then calculate the percentage of no. of cluster for each row
-    clusterCount_df <- aggregate(as.numeric(as.character(naFreeData$Cluster)), by = list(naFreeData$Year), length)
+    clusterCount_df <- stats::aggregate(as.numeric(as.character(naFreeData$Cluster)), by = list(naFreeData$Year), length)
     colnames(clusterCount_df) <- c("Year", "CountByYear")
     clusterCount_df<- plyr::join(naFreeData[,c("Cluster", "Year")], by="Year", clusterCount_df)
     naFreeData$ClusterPercent <- 1/clusterCount_df$CountByYear*100
     # create new column to store the cluster in string 
-    naFreeData$ClusterString <- paste0("Cluster ", as.character(naFreeData$Cluster))
+    naFreeData$ClusterString <- paste("Cluster", as.character(naFreeData$Cluster))
     
   } # end of if-metadata-there-loop
   
