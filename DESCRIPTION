@@ -40,6 +40,7 @@ Imports:
     data.table (>= 1.12.8),
     rlang (>= 0.4.6),
     ggrepel,
-    dendextend
+    dendextend,
+    plyr
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

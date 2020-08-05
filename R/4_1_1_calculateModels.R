@@ -100,7 +100,7 @@ calculateModels <- function(processedMetaDataMatrix,
                             maxWordsPerCluster = 10,
                             p = 0.05,
                             dendrogram = TRUE,
-                            dendroLabels = "truncated",
+                            dendroLabels = c("truncated", "break"),
                             generateWordlist = FALSE,
                             saveToWd = TRUE,
                             ordinationFunction = FALSE) {
@@ -289,27 +289,24 @@ calculateModels <- function(processedMetaDataMatrix,
   
   # add a dendrogram of the papers
   if (dendrogram == TRUE) {
-    if (dendroLabels == "break") {
-      label <- processedMetaDataMatrix$metaMatrix[, "FileName"]
-      dend <-stats::as.dendrogram(modelclust)
-      dendextend::labels(dend) <- label
-      par(mar=c(1,1,1,10))
-      dend <- dendextend::color_labels(dend,k = numberOfClusters)
-      dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE)
-      graphics::plot(dend, adj = 0.75, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
-    }
-    if (dendroLabels == "truncated") {
-      # exclude the file extension as part of the label
-      label <- tools::file_path_sans_ext(processedMetaDataMatrix$metaMatrix[, "FileName"])
-      # for labels with length > 20:
-      # replaced a truncated labels of characters from 1:18 followed by ...
-      label[nchar(label)>20] <- paste(substr(label[nchar(label)>20], 1,18),"...", sep = "")
-      dend <-stats::as.dendrogram(modelclust)
-      dendextend::labels(dend) <- label
-      par(mar=c(1,1,1,10))
-      dend <- dendextend::color_labels(dend,k = numberOfClusters, col=RColorBrewer::brewer.pal(numberOfClusters, "Dark2"))
-      dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE, col=RColorBrewer::brewer.pal(numberOfClusters, "Dark2"))
-      graphics::plot(dend, adj = 0.5, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
+    if(all(is.na(processedMetaDataMatrix$metaMatrix[,"Authors"]))){
+      label<-paste0(processedMetaDataMatrix$metaMatrix[,"Authors"], processedMetaDataMatrix$metaMatrix[,"Year"])
+      label <- gsub("NA", "-",label)
+      plotDendrogram(modelclust, label, numberOfClusters)
+    } 
+    else{
+      if (dendroLabels == "truncated") {
+        # exclude the file extension as part of the label
+        label <- tools::file_path_sans_ext(sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, "FileName"]))
+        # for labels with length > 20:
+        # replaced a truncated labels of characters from 1:18 followed by ...
+        label[nchar(label)>20] <- paste(substr(label[nchar(label)>20], 1,18),"...", sep = "")
+        plotDendrogram(modelclust, label, numberOfClusters)
+      }
+      else if (dendroLabels == "break") {
+        label <- sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, "FileName"])
+        plotDendrogram(modelclust, label, numberOfClusters)
+      } 
     }
   }
   
@@ -396,4 +393,16 @@ calculateModels <- function(processedMetaDataMatrix,
     save_data(scicloudAnalysis, "scicloudAnalysis", long_msg = !ordinationFunction)
   }
   return(scicloudAnalysis)
+}
+
+plotDendrogram <- function(modelclust, label, numberOfClusters){
+  ifelse(numberOfClusters>5, palCol<-"Dark2", palCol<-"Paired") # select different color theme for the plot based of no. of cluster
+  dend <-stats::as.dendrogram(modelclust)
+  dendextend::labels(dend) <- label
+  par(mar=c(1,1,1,10))
+  dend <- dendextend::color_labels(dend,k = numberOfClusters, 
+                                   col=RColorBrewer::brewer.pal(numberOfClusters, palCol))
+  dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE, 
+                                     col=RColorBrewer::brewer.pal(numberOfClusters, palCol))
+  graphics::plot(dend, adj = 0.5, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
 }
