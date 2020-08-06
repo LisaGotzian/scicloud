@@ -108,19 +108,19 @@ createOrdinationPlot <- function(scicloudAnalysis,
   # Prompt user whether or not to plot the following plots
   ANS <- readline("Plot a stacked Barplot of the No. of citations across different years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "No. of citations of each cluster across years", "Year", "Citations")
+    StackedBarplot(naFreeData, palCol, "No. of citations of each cluster across years", "Year", "Citations",1)
   }
   ANS <- readline("Plot a stacked Barplot of the percentage of No. of citations across different years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "Percentage of citations of each cluster across years", "Year", "Citations[%]")
+    StackedBarplot(naFreeData, palCol, "Percentage of citations of each cluster across years", "Year", "Citations[%]",2)
   }
   ANS <- readline("Plot a stacked Barplot of the No. of papers across different years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "No. of papers of each cluster across years", "Year", "Amount of papers")
+    StackedBarplot(naFreeData, palCol, "No. of papers of each cluster across years", "Year", "Amount of papers",3)
   }
   ANS <- readline("Plot a stacked Barplot of the percentage of no. of papers across different years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "Percentage of No. of papers of each cluster across years", "Year", "Amount of papers[%]")
+    StackedBarplot(naFreeData, palCol, "Percentage of No. of papers of each cluster across years", "Year", "Amount of papers[%]",4)
   }
 }
 
