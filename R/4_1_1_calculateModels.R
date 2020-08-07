@@ -340,19 +340,26 @@ calculateModels <- function(processedMetaDataMatrix,
   
   
   ## save each paper into one new folder
-  if (dir.exists("PdfsPerCluster/")){
+  PdfsPerCluster <- file.path(getwd(), "PdfsPerCluster")
+  if (dir.exists(PdfsPerCluster)){
     warning("The existing paper-cluster folders have been overwritten")
+    nestedFolders <- list.files(PdfsPerCluster, full.names = TRUE)
+    nestedFiles <- list.files(nestedFolders, full.names = TRUE)
+    do.call(file.remove, list(nestedFiles))
+    do.call(file.remove, list(nestedFolders))
+  } else{
+    dir.create(PdfsPerCluster) 
+    cat("PdfsPerCluster folder is created in your working directory")
   }
-  dir.create("PdfsPerCluster/", showWarnings = FALSE)
-  for (i in 1:nlevels(as.factor(cutmodel))) {
-    dir.create(paste0("PdfsPerCluster/", i), showWarnings = FALSE)
-    file.copy(
-      c(paste0("PDFs/", rownames(representativePapersEasyToOpen[representativePapersEasyToOpen[, 2] ==i,]))),
-      to = paste0("PdfsPerCluster/", i),
-      copy.mode = T
-    )
+  # file.copy function does not support file copying of list of file to list of different directory
+  # manage the files copying in a loop 
+  for(i in 1:numberOfClusters){
+    clusterFolder <- file.path(PdfsPerCluster, paste("Cluster", i))
+    dir.create(clusterFolder)
+    file.copy(from = rownames(representativePapersEasyToOpen[representativePapersEasyToOpen$Cluster==i,]),
+              to = clusterFolder,
+              copy.mode = TRUE)
   }
-  
   cat(
     paste0(
       "\nAll PDFs have been copied to different subfolders in the new folder 'PdfsPerCluster'
