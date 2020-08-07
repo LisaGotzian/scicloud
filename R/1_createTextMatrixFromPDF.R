@@ -63,7 +63,7 @@ createTextMatrixFromPDF <-
       " PDF(s) cannot be accessed.",
       "\n",
       "Please check following PDF(s):"))
-      PDFs_wrongname <- gsub("./PDFs/", replacement = "", PDFs_FileName[which(files_accessed == -1)])
+      PDFs_wrongname <- sub(".*[/]", "", PDFs_FileName[which(files_accessed == -1)])
       print(PDFs_wrongname)
       stop("Process stopped.")
     }

@@ -342,7 +342,7 @@ calculateModels <- function(processedMetaDataMatrix,
   ## save each paper into one new folder
   PdfsPerCluster <- file.path(getwd(), "PdfsPerCluster")
   if (dir.exists(PdfsPerCluster)){
-    warning("The existing paper-cluster folders have been overwritten")
+    message("The existing paper-cluster folders have been overwritten")
     nestedFolders <- list.files(PdfsPerCluster, full.names = TRUE)
     nestedFiles <- list.files(nestedFolders, full.names = TRUE)
     do.call(file.remove, list(nestedFiles))
