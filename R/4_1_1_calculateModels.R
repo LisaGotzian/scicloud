@@ -205,7 +205,9 @@ calculateModels <- function(processedMetaDataMatrix,
   # as an argument (0.05 per default)
   signIndSpeciesValues <-
     combIndSpeciesValues[combIndSpeciesValues["indSpeciesValues$pval"] <= p,]
-  
+  if(!dim(signIndSpeciesValues)[1]){
+    stop("No cluster has p-value less than default value = 0.05, set a higher confidence level by defining the p argument e.g. p=0.1")
+  }
   if (generateWordlist == TRUE){
     data.table::fwrite(as.data.frame(
       signIndSpeciesValues$`names(indSpeciesValues$pval)`), col.names =  FALSE,
