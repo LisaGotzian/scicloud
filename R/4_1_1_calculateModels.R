@@ -313,7 +313,7 @@ calculateModels <- function(processedMetaDataMatrix,
   # Extracting the percentage
   # give each paper a percentage value and call the column percentageOfSignWordsInPaper
   # this dataframe also has the words in it in case you'd like to further investigate the words used
-  representativePapers <- 
+  representativePapers[c(1:nrow(representativePapers))] <- 
     as.matrix(representativePapers)*t(as.matrix(signIndSpeciesValues[,c(1:numberOfClusters)][Cluster]))
   
   representativePapers$percentageOfSignWordsInPaper <-
