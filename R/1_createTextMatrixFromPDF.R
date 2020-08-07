@@ -90,6 +90,11 @@ createTextMatrixFromPDF <-
       )
     }
     ArgumentCheck::finishArgCheck(Check)
+    # take into account of user input only the name of the folder in the 
+    # current directory without full path 
+    if(all(!grepl(.Platform$file.sep,directory))){
+      PDFs_FileName <- file.path(".", PDFs_FileName)
+    }
     
     PDFcontent <- matrix(NA, nrow = length(PDFs_FileName), ncol = 20)
     colnames(PDFcontent) <-
