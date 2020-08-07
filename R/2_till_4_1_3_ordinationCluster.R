@@ -91,6 +91,13 @@ ordinationCluster <- function(metaMatrix,
         argcheck = Check
       )
   }
+  # ensure no of clusters defined is less than total number of papers available  
+  if(numberOfClusters > dim(metaMatrix)[1]){
+    ArgumentCheck::addError(
+      msg = "Invalid input for numberOfClusters! It must be less than total no. of papers available!", 
+      argcheck = Check
+    ) 
+  }
   ArgumentCheck::finishArgCheck(Check)
   
   # to change minor things in other functions when running the big function, such as using readline() after the Dendrogram.
