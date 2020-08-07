@@ -138,20 +138,15 @@ calculateModels <- function(processedMetaDataMatrix,
   }
   ArgumentCheck::finishArgCheck(Check)
   
-
   cat("Calculating models\n")
 
-  
-  model <-
-    vegan::decorana(processedMetaDataMatrix$Tf_Idf, iweigh = 0) #all row sums must be >0 in the community matrix
-
+  #all row sums must be >0 in the community matrix
+  model <- vegan::decorana(processedMetaDataMatrix$Tf_Idf, iweigh = 0) 
   axisPositions <- vegan::scores(model, display = c("species"))
-  
   
   #cluster
   # replaced agnes by hclust from mclust
-  disthclust <-
-    stats::dist(processedMetaDataMatrix$Tf_Idf, method = "euclidian")
+  disthclust <-stats::dist(processedMetaDataMatrix$Tf_Idf, method = "euclidian")
   modelclust <- stats::hclust(disthclust, method = "ward.D")
   indSpeciesValues <- c()
   
@@ -185,22 +180,17 @@ calculateModels <- function(processedMetaDataMatrix,
     }
 
     ANSWER <- readline("With how many clusters would you like to proceed? Define 'numberOfClusters = YOURANSWER' as an argument to skip this next time.")
-    
     numberOfClusters <- as.numeric(substr(ANSWER, 1, 1))
 
   }
   
-  
-  cutmodel <-
-    stats::cutree(modelclust, k = numberOfClusters) #assigns a cluster number to every paper
+  #assigns a cluster number to every paper
+  cutmodel <- stats::cutree(modelclust, k = numberOfClusters) 
   Cluster <- as.numeric(cutmodel)
-  
-  
   
   # Performs a Dufrene-Legendre Indicator Species Analysis that calculates the indicator value
   # (fidelity and relative abundance) of species in clusters or types.
-  indSpeciesValues <-
-    labdsv::indval(processedMetaDataMatrix$Tf_Idf, cutmodel, numitr = 1000)
+  indSpeciesValues <-labdsv::indval(processedMetaDataMatrix$Tf_Idf, cutmodel, numitr = 1000)
   
   # Combines all relevant values for the indicator species analysis (including axis positions)
   combIndSpeciesValues <-
@@ -228,14 +218,7 @@ calculateModels <- function(processedMetaDataMatrix,
     readline("Proceed with calculation? Press ESC to work with wordlist first.")
   }
   
-  highestIndValPerCluster <- c()
-  for (i in 1:numberOfClusters) {
-    highestRankedWord <-
-      signIndSpeciesValues[order(signIndSpeciesValues[, i], decreasing = T)[c(1)],]
-    highestIndValPerCluster <-
-      c(highestIndValPerCluster, highestRankedWord[, i])
-  }
-  
+  highestIndValPerCluster <- apply(signIndSpeciesValues[,c(1:numberOfClusters)], 2, max)
   
   numberOfWords <- c()
   
@@ -330,20 +313,8 @@ calculateModels <- function(processedMetaDataMatrix,
   # Extracting the percentage
   # give each paper a percentage value and call the column percentageOfSignWordsInPaper
   # this dataframe also has the words in it in case you'd like to further investigate the words used
-  
-  # A weighted percentage
-  # This is done by adding up the indicator species value of word i in cluster j if the word exists
-  # for paper 1 which is in cluster j.
-  
-  for (i in 1:nrow(representativePapers)) {
-    ClusterOfPaper <- Cluster[i] # the cluster paper i is in
-    representativePapers[i,] <-
-      as.numeric(representativePapers[i,]) * #take the 0/1 if the word exists
-      signIndSpeciesValues[[ClusterOfPaper]] # and multiply it by the indicator species value for
-    # said cluster
-    
-  }
-  
+  representativePapers <- 
+    as.matrix(representativePapers)*t(as.matrix(signIndSpeciesValues[,c(1:numberOfClusters)][Cluster]))
   
   representativePapers$percentageOfSignWordsInPaper <-
     rowSums(representativePapers) / ncol(representativePapers)
