@@ -168,7 +168,8 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
     
     # retrieve the FULL NAME OF AUTHORS
     intermediateResultAuthors <- tryCatch({
-      intermediateResultAuthors <- JSON$`abstracts-retrieval-response`$coredata$`dc:creator`$author[[1]]$`preferred-name`$`ce:surname`
+      intermediateResultAuthors <- sapply(JSON$`abstracts-retrieval-response`$authors$author, function(x) x$`preferred-name`$`ce:surname`)
+      intermediateResultAuthors <- paste(intermediateResultAuthors,  collapse = ", ")
     }, error = errorMessage, warning = warningMessage)
     
     # retrieve the (INSTITUTIONAL) AFFILIATION OF THE AUTHORS
