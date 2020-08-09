@@ -11,7 +11,7 @@ calculateModels(
   maxWordsPerCluster = 10,
   p = 0.05,
   dendrogram = TRUE,
-  dendroLabels = "truncated",
+  dendroLabels = c("truncated", "break"),
   generateWordlist = FALSE,
   saveToWd = TRUE,
   ordinationFunction = FALSE

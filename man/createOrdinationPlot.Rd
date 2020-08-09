@@ -87,6 +87,7 @@ Other scicloud functions:
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
-    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
+    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de},
+    Jia Yan Ng, \email{Jia.Y.Ng@stud.leuphana.de}
 }
 \concept{scicloud functions}

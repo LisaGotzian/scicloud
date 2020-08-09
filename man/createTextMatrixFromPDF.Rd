@@ -45,7 +45,6 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 \seealso{
 \itemize{
-    \item \code{\link{rename_PDFs}} in case of errors due to vulnerable file names
     \item \code{\link{ordinationCluster}} for the next step in scicloud
     \item or \code{\link{processMetaDataMatrix}} for the
     more granular next step if you intend to run it step by step
