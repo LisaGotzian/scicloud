@@ -24,7 +24,8 @@
 #'     }
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
+#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
+#'     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
 #' @return A data frame containing the file name and full text of the pdf, 
 #'     the DOI numbers from the text and some empty metadata columns to be
 #'     filled by \code{\link{getScopusMetaData}}.
@@ -120,27 +121,24 @@ createTextMatrixFromPDF <-
         "Abstract",
         "FullText"
       )
-    
+    PDFcontent[, "FileName"] <- PDFs_FileName
     num_pdf = length(PDFs_FileName)
     # set min = 0 to cater the use case when only read 1 PDF file, max must be > min
     pb <- utils::txtProgressBar(min = 0, max = num_pdf, style = 3) 
     
+    # Only retrieve the first two pages of the PDFs
+    firstTwoPage <- c()
+    DOIpattern <-
+      '\\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])[[:graph:]])+)\\b'
+    # Save PDF name if error caught in converting the PDF
+    erroneous_pdf <- c()
     for (i in c(1:num_pdf)) {
-      intermediateResultFileName <- PDFs_FileName[i]
-      
+      tryCatch({ 
       intermediateResultText <- suppressMessages(pdftools::pdf_text(PDFs_FileName[i]))
       intermediateResultText <- as.character(intermediateResultText)
+      # takes the vector and pastes it into a single element, separated by a " "
       intermediateResultText <-
-        paste(intermediateResultText, collapse = " ")  # takes the vector and pastes it
-      # into a single element, seperated by a " "
-      
-      # retrieve the filename
-      PDFcontent[i, "FileName"] <-
-        if (length(intermediateResultFileName) > 0) {
-          intermediateResultFileName
-        } else{
-          NA
-        }
+        paste(intermediateResultText, collapse = " ")  
       
       PDFcontent[i, "FullText"] <-
         if (length(intermediateResultText) > 0) {
@@ -149,23 +147,33 @@ createTextMatrixFromPDF <-
           NA
         }
       
+      firstTwoPage <- append(firstTwoPage, 
+                             paste(suppressMessages(pdftools::pdf_text(PDFs_FileName[i])[0:2]), 
+                                   collapse = ' '))
+      
       #Progress Bar
-      utils::setTxtProgressBar(pb, i)
+      utils::setTxtProgressBar(pb, i)}
+      , error = function(e) {erroneous_pdf <<- append(erroneous_pdf, PDFs_FileName[i])})
     }
-    
-    PDFcontent <-
-      cbind(PDFcontent, "ID" = 1:nrow(PDFcontent)) # assiging a unique id to avoid
-    # collision along the way
-    
-    DOIpattern <-
-      '\\b(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])[[:graph:]])+)\\b'
-    
-    # Only retrieve the first two pages of the PDFs
-    firstTwoPage <- c()
-    for(i in PDFs_FileName){
-      # concatenate the two vectors of string (each two pages) retrieve from pdf_text(i)[0:2]  
-      firstTwoPage <- append(firstTwoPage, paste(suppressMessages(pdftools::pdf_text(i)[0:2]), collapse = ' '))
+    # exclude the erroneous pdf from the number of pdf and file name 
+    if(!is.null(erroneous_pdf)){
+      num_pdf <- num_pdf -length(erroneous_pdf)
+      PDFs_FileName <- setdiff(PDFs_FileName, erroneous_pdf)
     }
+    cat(crayon::red("\nERROR in reading PDF:",erroneous_pdf))
+    cat(crayon::red("\nFile(s) is/are excluded in the metaMatrix!"))
+    cat(crayon::red("\nOnly", num_pdf, "PDF(s) is/are included!"))
+    
+    # remove the row(s) of erroneous_pdf
+    if(num_pdf == 1){ 
+      # when remaining row = 1, matrix structure is not maintained, 
+      # use t(as.matrix()) to retain the matrix structure in no. of row x 20 columns
+      PDFcontent<- t(as.matrix(PDFcontent[-c(which(PDFcontent[,"FileName"] %in% erroneous_pdf)),])) 
+    }
+    else{
+      PDFcontent<- PDFcontent[-c(which(PDFcontent[,"FileName"] %in% erroneous_pdf)),]
+    }
+    # update DOI extracted from the text
     DOInumbers <- stringr::str_extract(firstTwoPage, DOIpattern)
     PDFcontent[, "DOI"] <- DOInumbers
     
@@ -174,6 +182,14 @@ createTextMatrixFromPDF <-
     PDFcontent <-
       subset(PDFcontent,!duplicated(PDFcontent[, "DOI"], incomparables = NA))
     
+    # assigning a unique id to avoid collision along the way
+    if(num_pdf != 0){
+      PDFcontent <- cbind(PDFcontent, "ID" = c(1:num_pdf)) 
+    }
+    else{
+      cat(crayon::red("\nThe metaMatrix is empty!"))
+    }
+      
     close(pb)
     
     if (saveToWd == TRUE) {

@@ -42,5 +42,6 @@ Imports:
     ArgumentCheck (>= 0.10.2),
     data.table (>= 1.12.8),
     rlang (>= 0.4.6),
+    crayon
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
