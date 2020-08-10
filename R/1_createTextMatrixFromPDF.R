@@ -159,19 +159,19 @@ createTextMatrixFromPDF <-
     if(!is.null(erroneous_pdf)){
       num_pdf <- num_pdf -length(erroneous_pdf)
       PDFs_FileName <- setdiff(PDFs_FileName, erroneous_pdf)
-    }
-    cat(crayon::red("\nERROR in reading PDF:",erroneous_pdf))
-    cat(crayon::red("\nFile(s) is/are excluded in the metaMatrix!"))
-    cat(crayon::red("\nOnly", num_pdf, "PDF(s) is/are included!"))
-    
-    # remove the row(s) of erroneous_pdf
-    if(num_pdf == 1){ 
-      # when remaining row = 1, matrix structure is not maintained, 
-      # use t(as.matrix()) to retain the matrix structure in no. of row x 20 columns
-      PDFcontent<- t(as.matrix(PDFcontent[-c(which(PDFcontent[,"FileName"] %in% erroneous_pdf)),])) 
-    }
-    else{
-      PDFcontent<- PDFcontent[-c(which(PDFcontent[,"FileName"] %in% erroneous_pdf)),]
+      cat(crayon::red("\nERROR in reading PDF:",erroneous_pdf))
+      cat(crayon::red("\nFile(s) is/are excluded in the metaMatrix!"))
+      cat(crayon::red("\nOnly", num_pdf, "PDF(s) is/are included!"))
+      
+      # remove the row(s) of erroneous_pdf
+      if(num_pdf == 1){ 
+        # when remaining row = 1, matrix structure is not maintained, 
+        # use t(as.matrix()) to retain the matrix structure in no. of row x 20 columns
+        PDFcontent<- t(as.matrix(PDFcontent[-c(which(PDFcontent[,"FileName"] %in% erroneous_pdf)),])) 
+      }
+      else{
+        PDFcontent<- PDFcontent[-c(which(PDFcontent[,"FileName"] %in% erroneous_pdf)),]
+      }
     }
     # update DOI extracted from the text
     DOInumbers <- stringr::str_extract(firstTwoPage, DOIpattern)
@@ -182,14 +182,14 @@ createTextMatrixFromPDF <-
     PDFcontent <-
       subset(PDFcontent,!duplicated(PDFcontent[, "DOI"], incomparables = NA))
     
-    # assigning a unique id to avoid collision along the way
+    #assigning a unique id to avoid collision along the way
     if(num_pdf != 0){
-      PDFcontent <- cbind(PDFcontent, "ID" = c(1:num_pdf)) 
+      PDFcontent <- cbind(PDFcontent, "ID" = c(1:num_pdf))
     }
     else{
       cat(crayon::red("\nThe metaMatrix is empty!"))
     }
-      
+
     close(pb)
     
     if (saveToWd == TRUE) {
