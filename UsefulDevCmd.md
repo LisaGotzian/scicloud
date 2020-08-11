@@ -54,6 +54,7 @@ The following cases might cause problems when constructing the tf-idf matrix:
 * papers with two columns of text (are the paragraphs mixed up, leading to paragraphs being thrown out when throwing out the references)
 * how are equations read in?
 * for unit testing: The current functionality yields RDS object xy, do future changes yield the same object?
+* can the folder name be different?
 
 -> see above the section about unit testing :-)
 
