@@ -43,11 +43,37 @@ We can update the version number with the use of **use_version()**. There will b
 This protocol is supposed to give guidance when we later check the package against a number of pdfs.
 
 ## Step 1: Checking if pdfs got read in correctly
+* we have 2 stacks of PDFs: both shouldn't ping back error
+* test set: feel free to come up with your own set of PDFs to test the functionality
+* do all PDFs have DOIs? Why not?
+* do we have any duplicates?
 
 ## Step 2: Checking if the words got read in correctly
 The following cases might cause problems when constructing the tf-idf matrix:
 * dual-lingual papers
 * papers with two columns of text (are the paragraphs mixed up, leading to paragraphs being thrown out when throwing out the references)
 * how are equations read in?
+* for unit testing: The current functionality yields RDS object xy, do future changes yield the same object?
+
+-> see above the section about unit testing :-)
+
+## Step 3: Check with different computers
+* make sure Windows & Mac at different versions give the same result
+
+## Step 4: Check documentation
+* have the following components in each help file:
+  * @title
+  * @description
+  * @author: Henrik is author on the top level, we are creators -> make sure everybody is mentioned where they worked and make sure we are using email addresses that will work in 2 years from now on
+  * @param: params that are present in more than one function need to be consistent
+  * @family: ! I want it present everywhere
+  * @return
+  * @seealso: the preceeding and proceeding workflow step
+  * @export: sometimes this is not present
+  * @example: a full ginko_explained script specifically made for this function, so eg calculateNetwork has a slightly different one than calculateModels
+* general stuff to check
+  * are the names consistent? Example: "metaMatrix" vs "processMetaDataMatrix" is not consistent, that's why I'd decide for one version
+  * links to functions and to webpages within each help file work
+  * nowhere "ginko"
 
 [Reference for package development](https://www.hvitfeldt.me/blog/usethis-workflow-for-package-development/) and by [Hadley Wickham](http://r-pkgs.had.co.nz/)
