@@ -172,6 +172,13 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
       intermediateResultAuthors <- paste(intermediateResultAuthors,  collapse = ", ")
     }, error = errorMessage, warning = warningMessage)
     
+    # retrieve the FULL NAME OF THE FIRST AUTHOR (in case, user is not allowed to retrieve all of them)
+    if(length(intermediateResultAuthors)<=1){
+      intermediateResultAuthors <- tryCatch({
+        intermediateResultAuthors <- JSON$`abstracts-retrieval-response`$coredata$`dc:creator`$author[[1]]$`preferred-name`$`ce:surname`
+      }, error = errorMessage, warning = warningMessage)
+    }
+    
     # retrieve the (INSTITUTIONAL) AFFILIATION OF THE AUTHORS
     intermediateResultAffiliation <- tryCatch({
       if (!is.null(JSON$`abstracts-retrieval-response`$affiliation$affilname)) {
@@ -287,7 +294,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
     } else {
       NA
     }
-    metaMatrix[i, "Authors"] <- if (length(intermediateResultAuthors) > 0) {
+    metaMatrix[i, "Authors"] <- if (length(intermediateResultAuthors) > 1) {
       intermediateResultAuthors
     } else {
       NA
@@ -334,6 +341,13 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
   # close the progress bar utility once the loop has finished
   close(pb)
   
+  # Checks whether user is classified as a Subscriber by Scopus
+  if(all(is.na(metaMatrix["Authors"]))){
+  warning("You are currently not able to retrieve abstracts and information about all authors.
+In order to exploit the full potential of Scicloud, make sure you are connected to your institution's network (e.g. via VPN)
+and run again.")
+  }
+  
   
   # Final Changes before returning the results:
   
@@ -366,7 +380,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
   metaMatrixCheckValue <- metaMatrixCheck[which(!is.na(metaMatrixCheck))]
   
   cat(paste0("\nIf catching the Metadata worked, this should show you some Journal: \n'", metaMatrixCheckValue[1],
-             "'\nIf it didn't work out, check your API key."))
+             "'\nIf it didn't work out, check your API key.\n"))
   if (ordinationFunction == TRUE) {
     cat(paste0("\n###################################################################################################\n\n"))
   }
