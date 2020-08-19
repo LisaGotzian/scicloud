@@ -22,8 +22,11 @@
 #' Metadata of the papers allow for a more complete analysis. Metadata will be
 #'     downloaded from Elsevier and it requires you to have an API key.
 #'     To acquire your API key, go to \url{https://dev.elsevier.com/index.jsp}.
+#'     In addition, make sure that you are connected to your institution's
+#'     network (e.g. via VPN). 
+#' 
 #' See the examples below on how to use the package.
-#'
+#' 
 #' @section scicloud functions:
 #' The scicloud functions are built in the following order:
 #' \enumerate{

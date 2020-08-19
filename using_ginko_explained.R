@@ -33,7 +33,10 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
 
 ################## Step by step ##################
-# 1) pull article metadata from scopus
+# 0) create a text matrix from your PDF files
+metaMatrix <- createTextMatrixFromPDF()
+
+# 1) pull article metadata from Scopus
 metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
 
 # 2) process the full texts

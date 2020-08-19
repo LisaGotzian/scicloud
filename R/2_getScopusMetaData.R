@@ -3,7 +3,8 @@
 #' @description The second function to the word analysis with scicloud. This
 #'     function accepts a dataframe of DOI numbers and/or Scopus-IDs.
 #'     It downloads article metadata like title, author and year and returns
-#'     the input dataframe filled with that metadata.
+#'     the input dataframe filled with that metadata. Make sure to be connected
+#'     to your institution's network (e.g. via VPN).
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Prabesh Dhakal,
@@ -167,6 +168,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
     }, error = errorMessage, warning = warningMessage)
     
     # retrieve the FULL NAME OF AUTHORS
+    subscriber <- TRUE
     intermediateResultAuthors <- tryCatch({
       intermediateResultAuthors <- sapply(JSON$`abstracts-retrieval-response`$authors$author, function(x) x$`preferred-name`$`ce:surname`)
       intermediateResultAuthors <- paste(intermediateResultAuthors,  collapse = ", ")
@@ -174,6 +176,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
     
     # retrieve the FULL NAME OF THE FIRST AUTHOR (in case, user is not allowed to retrieve all of them)
     if(length(intermediateResultAuthors)<=1){
+      subscriber <- FALSE
       intermediateResultAuthors <- tryCatch({
         intermediateResultAuthors <- JSON$`abstracts-retrieval-response`$coredata$`dc:creator`$author[[1]]$`preferred-name`$`ce:surname`
       }, error = errorMessage, warning = warningMessage)
@@ -294,7 +297,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
     } else {
       NA
     }
-    metaMatrix[i, "Authors"] <- if (length(intermediateResultAuthors) > 1) {
+    metaMatrix[i, "Authors"] <- if (length(intermediateResultAuthors) > 0) {
       intermediateResultAuthors
     } else {
       NA
@@ -341,13 +344,12 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
   # close the progress bar utility once the loop has finished
   close(pb)
   
-  # Checks whether user is classified as a Subscriber by Scopus
-  if(all(is.na(metaMatrix["Authors"]))){
+  # Checks whether user is classified as a subscriber by Scopus
+  if(!subscriber){
   warning("You are currently not able to retrieve abstracts and information about all authors.
-In order to exploit the full potential of Scicloud, make sure you are connected to your institution's network (e.g. via VPN)
-and run again.")
+In order to exploit the full potential of scicloud, make sure you are connected to your institution's network
+(e.g. via VPN) and run again.")
   }
-  
   
   # Final Changes before returning the results:
   

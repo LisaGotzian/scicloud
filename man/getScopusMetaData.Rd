@@ -23,7 +23,8 @@ A dataframe with metadata of all articles provided to the function.
 The second function to the word analysis with scicloud. This
     function accepts a dataframe of DOI numbers and/or Scopus-IDs.
     It downloads article metadata like title, author and year and returns
-    the input dataframe filled with that metadata.
+    the input dataframe filled with that metadata. Make sure to be connected
+    to your institution's network (e.g. via VPN).
 }
 \examples{
 \dontrun{
