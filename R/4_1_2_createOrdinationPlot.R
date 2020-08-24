@@ -70,6 +70,12 @@ createOrdinationPlot <- function(scicloudAnalysis,
   
   # If we have metadata, so if the column has less than 25% NA, we do the other plots.
   if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"]))<nrow(scicloudAnalysis$metaMatrix)/4){
+    na_row_idx <- which(rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) != 0)
+    excluded_file <- scicloudAnalysis$metaMatrix[,"FileName"][na_row_idx]
+    if(length(excluded_file) != 0){
+      cat(crayon::red("\nCitedBy and/or Year info are not found in", excluded_file))
+      cat(crayon::red("\nThe files(s) will be excluded in the following plots!"))
+    }
     # omit the rows where CitedBy and Year are NA
     naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,])
     # CAUTION: to convert the factors level correctly, need to use as.numeric(as.character())
