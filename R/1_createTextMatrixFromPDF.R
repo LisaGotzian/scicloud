@@ -159,9 +159,9 @@ createTextMatrixFromPDF <-
     if(!is.null(erroneous_pdf)){
       num_pdf <- num_pdf -length(erroneous_pdf)
       PDFs_FileName <- setdiff(PDFs_FileName, erroneous_pdf)
-      cat(crayon::red("\nERROR in reading PDF:",erroneous_pdf))
-      cat(crayon::red("\nFile(s) is/are excluded in the metaMatrix!"))
-      cat(crayon::red("\nOnly", num_pdf, "PDF(s) is/are included!"))
+      cat(crayon::red("\nCorrupted file(s) found in your PDFs folder!"))
+      cat(crayon::red("\nExcluding file(s) in the metaMatrix..."))
+      cat(crayon::red("\nERROR found in PDF:",erroneous_pdf))
       
       # remove the row(s) of erroneous_pdf
       if(num_pdf == 1){ 
@@ -186,10 +186,10 @@ createTextMatrixFromPDF <-
       num_pdf <- num_pdf - duplicate_num
       PDFcontent <-
         subset(PDFcontent,!duplicates)
+      cat(crayon::red("\nExcluding file(s) in the metaMatrix..."))
       cat(crayon::red("\nPDF with duplicated DOI:", 
-                      duplicate_file, " is removed from the metaMatrix"))
-      cat(crayon::red("\nOnly ", num_pdf, " files are included in metaMatrix. Instead of", num_pdf + duplicate_num, "found in your PDFs folder."))
-      cat(crayon::red("\nCheck your PDFs if contain same PDF files but with different names"))
+                      duplicate_file, " is excluded from the metaMatrix"))
+      cat(crayon::red("\nCheck your PDFs if contain some same PDF files but with different names!"))
     }
     
     #assigning a unique id to avoid collision along the way
@@ -201,10 +201,12 @@ createTextMatrixFromPDF <-
     }
 
     close(pb)
+    pdf_in_dir <- length(Sys.glob(file.path(directory, "*.pdf")))
+    cat("\nIncluded", num_pdf, "file(s) in metaMatrix out of", pdf_in_dir, "file(s) found in your PDFs folder.")
+    cat("\n")
     
     if (saveToWd == TRUE) {
       save_data(PDFcontent, "metaMatrix")
     }
-    
     return(PDFcontent)
   }
