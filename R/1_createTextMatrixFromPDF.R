@@ -179,8 +179,18 @@ createTextMatrixFromPDF <-
     
     # this filters double DOI entries in the PDFcontent
     # the perfect similarity of entries has a huge effect on the models later on in the process
-    PDFcontent <-
-      subset(PDFcontent,!duplicated(PDFcontent[, "DOI"], incomparables = NA))
+    duplicates <- duplicated(PDFcontent[, "DOI"], incomparables = NA)
+    if(any(duplicates)){
+      duplicate_file <- PDFcontent[, "FileName"][duplicates]
+      duplicate_num <- sum(duplicates)
+      num_pdf <- num_pdf - duplicate_num
+      PDFcontent <-
+        subset(PDFcontent,!duplicates)
+      cat(crayon::red("\nPDF with duplicated DOI:", 
+                      duplicate_file, " is removed from the metaMatrix"))
+      cat(crayon::red("\nOnly ", num_pdf, " files are included in metaMatrix. Instead of", num_pdf + duplicate_num, "found in your PDFs folder."))
+      cat(crayon::red("\nCheck your PDFs if contain same PDF files but with different names"))
+    }
     
     #assigning a unique id to avoid collision along the way
     if(num_pdf != 0){
