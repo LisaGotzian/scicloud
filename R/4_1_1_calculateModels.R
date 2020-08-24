@@ -274,9 +274,11 @@ calculateModels <- function(processedMetaDataMatrix,
   
   # add a dendrogram of the papers
   if (dendrogram == TRUE) {
-    if(all(is.na(processedMetaDataMatrix$metaMatrix[,"Authors"]))){
-      label<-paste0(processedMetaDataMatrix$metaMatrix[,"Authors"], processedMetaDataMatrix$metaMatrix[,"Year"])
-      label <- gsub("NA", "-",label)
+    if(any(!is.na(processedMetaDataMatrix$metaMatrix[,"Authors"]))){
+      label<-paste0(processedMetaDataMatrix$metaMatrix[,"Authors"],"_", processedMetaDataMatrix$metaMatrix[,"Year"])
+      # when author is not available, use pdf file name instead
+      label[which(grepl("NA",label))] <- 
+        sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[,"FileName"][which(grepl("NA",label))])
       plotDendrogram(modelclust, label, numberOfClusters)
     } 
     else{
