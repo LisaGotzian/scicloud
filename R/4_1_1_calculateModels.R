@@ -376,13 +376,14 @@ calculateModels <- function(processedMetaDataMatrix,
 }
 
 plotDendrogram <- function(modelclust, label, numberOfClusters){
-  ifelse(numberOfClusters>5, palCol<-"Dark2", palCol<-"Paired") # select different color theme for the plot based of no. of cluster
+  palCol <- c("#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c", "#00441b")
   dend <-stats::as.dendrogram(modelclust)
   dendextend::labels(dend) <- label
-  par(mar=c(1,1,1,10))
-  dend <- dendextend::color_labels(dend,k = numberOfClusters, 
-                                   col=RColorBrewer::brewer.pal(numberOfClusters, palCol))
+  par(font = 2, mar=c(1,1,1,10))
+  dend <- dendextend::color_labels(dend,k = numberOfClusters, col=grDevices::colorRampPalette(palCol, bias = 1)(numberOfClusters))
   dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE, 
-                                     col=RColorBrewer::brewer.pal(numberOfClusters, palCol))
+                                     col=grDevices::colorRampPalette(palCol, bias = 1)(numberOfClusters))
+  dend <- dendextend::highlight_branches_col(dend, values = grDevices::colorRampPalette(palCol, bias = 1)(numberOfClusters))
+  dend <- dendextend::highlight_branches_lwd(dend)
   graphics::plot(dend, adj = 0.5, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
 }

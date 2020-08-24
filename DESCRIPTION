@@ -42,6 +42,8 @@ Imports:
     rlang (>= 0.4.6),
     crayon (>= 1.3.4),
     dendextend (>= 1.13.4),
-    plyr (>= 1.8.6)
+    plyr (>= 1.8.6),
+    grDevices (>= 3.6.0),
+    gtools (>= 3.8.2)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

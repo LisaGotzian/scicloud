@@ -95,11 +95,13 @@ createOrdinationPlot <- function(scicloudAnalysis,
     naFreeData$ClusterPercent <- 1/clusterCount_df$CountByYear*100
     # create new column to store the cluster in string 
     naFreeData$ClusterString <- paste("Cluster", as.character(naFreeData$Cluster))
-    
+    # set ClusterString as factor in order to have a legend arranged in the order of Cluster1, Cluster2... Cluster9, Cluster10 
+    naFreeData$ClusterString <- factor(naFreeData$ClusterString, 
+                                       levels = unique(naFreeData$ClusterString[gtools::mixedorder(naFreeData$ClusterString)]))
   } # end of if-metadata-there-loop
   
   numberOfClusters <- length(unique(naFreeData$Cluster))
-  ifelse(numberOfClusters>5, palCol<-"Paired", palCol<-"BuGn") # select different theme based on no of clusters
+  palCol <- c("#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c", "#00441b")
   
   if (ordinationFunction == TRUE) {
       wordCloudPlot(scicloudAnalysis, exactPosition, palCol)
@@ -125,11 +127,13 @@ createOrdinationPlot <- function(scicloudAnalysis,
 }
 
 wordCloudPlot <- function(scicloudAnalysis, exact, palCol){
+  n <- length(unique(scicloudAnalysis$metaMatrix[,"Cluster"])) # no. of cluster
   plt <- ggplot2::ggplot(scicloudAnalysis[[1]]) + ggplot2::ggtitle("Cluster plot of the publication communities")+ 
-    ggplot2::scale_fill_brewer(palette = palCol)+
+    ggplot2::scale_fill_manual(values = grDevices::colorRampPalette(palCol, bias = 1)(n))+  
     ggplot2::labs(x = "DCA 1", y = "DCA 2") +
-    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
-    ggplot2::theme_classic(base_size = 16)
+    # override.aes remove "a" label in the legend
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL, override.aes = list(label = ""))) +
+    ggplot2::theme_classic(base_size = 16) 
   
   if(exact){
     plt <- plt + ggplot2::geom_point(
@@ -141,26 +145,28 @@ wordCloudPlot <- function(scicloudAnalysis, exact, palCol){
         ggplot2::aes(
           scicloudAnalysis[[1]]$DCA1,
           scicloudAnalysis[[1]]$DCA2,
-          fill = factor(subset),
+          # order the legend label in ascending order 
+          fill = factor(subset, levels = unique(subset[gtools::mixedorder(subset)])),
           label = scicloudAnalysis[[1]][, "names(indSpeciesValues$pval)"]
         ),
         fontface = 'bold',
-        color = 'black',
+        color = 'white',
         box.padding = ggplot2::unit(0.35, "lines"),
         point.padding = ggplot2::unit(0.3, "lines"),
         segment.color = 'grey50'
-      )
+      ) 
   }
   else{
     plt <- plt + ggrepel::geom_label_repel(
       ggplot2::aes(
         scicloudAnalysis[[1]]$DCA1,
         scicloudAnalysis[[1]]$DCA2,
-        fill = factor(subset),
+        # order the legend label in ascending order 
+        fill = factor(subset, levels = unique(subset[gtools::mixedorder(subset)])),
         label = scicloudAnalysis[[1]][, "names(indSpeciesValues$pval)"]
       ),
       fontface = 'bold',
-      color = 'black',
+      color = 'white',
       box.padding = ggplot2::unit(0.15, "lines"),
       segment.color = NA
     )
@@ -169,11 +175,11 @@ wordCloudPlot <- function(scicloudAnalysis, exact, palCol){
 }
 
 StackedBarplot <- function(data, palCol, title, xlabel, ylabel, plot=c(1,2,3,4)){
-  borderColor<-"azure2"
+  n <- length(unique(data$Cluster)) # calculate the number of cluster
   plt <- ggplot2::ggplot(data) +
     ggplot2::ggtitle(title)+ 
-    ggplot2::scale_fill_brewer(palette = palCol)+
-    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL)) +
+    ggplot2::scale_fill_manual(values = grDevices::colorRampPalette(palCol, bias = 1)(n))+  
+    ggplot2::guides(fill = ggplot2::guide_legend(title = NULL))+
     ggplot2::theme_classic(base_size = 16)
   # somehow if added ggplot2::labs(x = xlabel, y = ylabel) here doesn't work, add within ifelse
   
@@ -210,3 +216,5 @@ StackedBarplot <- function(data, palCol, title, xlabel, ylabel, plot=c(1,2,3,4))
   }
   graphics::plot(plt)
 }
+
+
