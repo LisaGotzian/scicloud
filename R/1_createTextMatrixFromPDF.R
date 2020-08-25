@@ -146,7 +146,6 @@ createTextMatrixFromPDF <-
         } else{
           NA
         }
-      
       firstTwoPage <- append(firstTwoPage, 
                              paste(suppressMessages(pdftools::pdf_text(PDFs_FileName[i])[0:2]), 
                                    collapse = ' '))
@@ -175,6 +174,21 @@ createTextMatrixFromPDF <-
     }
     # update DOI extracted from the text
     DOInumbers <- stringr::str_extract(firstTwoPage, DOIpattern)
+    
+    # need to remove all spaces because some pdf have their DOI being read with extra whitespaces  
+    # e.g. 1 0.1 007/s 1055 1-01 1-1008-5, hence doesn't match with DOIpattern
+    # following use case only cater when doi number preceding by DOI or DOI:
+    # does not cater the scenario when doi number preceding with vol num: 
+    # 0261-0183 101; Vol. 31(2): 308–324; 396040 1 0.1 177/0261018310396040! 
+    
+    if(sum(is.na(DOInumbers))!=0){
+      compressed_text <- gsub(" ", "", firstTwoPage[which(is.na(DOInumbers))])
+      pattern <- '\\b(?:DOI){0,1}(?::){0,1}(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])[[:graph:]])+)\\b'
+      DOI <- stringr::str_extract(compressed_text, pattern)
+      # remove DOI or DOI: by removing all text up to the first numeric character
+      DOI <- sub("^\\D+(\\d)", "\\1", DOI) 
+      DOInumbers[is.na(DOInumbers)] <- DOI
+    }
     PDFcontent[, "DOI"] <- DOInumbers
     
     # this filters double DOI entries in the PDFcontent
