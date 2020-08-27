@@ -158,10 +158,11 @@ createTextMatrixFromPDF <-
     if(!is.null(erroneous_pdf)){
       num_pdf <- num_pdf -length(erroneous_pdf)
       PDFs_FileName <- setdiff(PDFs_FileName, erroneous_pdf)
+      cat("\nCORRUPTED FILE ISSUE:")
       cat(crayon::red("\nCorrupted file(s) found in your PDFs folder!"))
       cat(crayon::red("\nExcluding file(s) in the metaMatrix..."))
       cat(crayon::red("\nERROR found in PDF:",erroneous_pdf))
-      
+      cat("\n")
       # remove the row(s) of erroneous_pdf
       if(num_pdf == 1){ 
         # when remaining row = 1, matrix structure is not maintained, 
@@ -200,10 +201,30 @@ createTextMatrixFromPDF <-
       num_pdf <- num_pdf - duplicate_num
       PDFcontent <-
         subset(PDFcontent,!duplicates)
-      cat(crayon::red("\nExcluding file(s) in the metaMatrix..."))
+      cat("\nDUPLICATED FILE ISSUE:")
       cat(crayon::red("\nPDF with duplicated DOI:", 
                       duplicate_file, " is excluded from the metaMatrix"))
       cat(crayon::red("\nCheck your PDFs if contain some same PDF files but with different names!"))
+      cat("\n")
+    }
+    
+    # Request User to input DOI manually 
+    na_count <- sum(is.na(PDFcontent[,"DOI"]))
+    if(na_count != 0){
+      form <- as.list(rep("NA",na_count))
+      names(form) <- sub(".*[/]", "", PDFcontent[,"FileName"][which(is.na(PDFcontent[,"DOI"]))])
+      CONTINUE <- TRUE
+      cat("\nDOI NOT FOUND ISSUE: \n")
+      while(CONTINUE){
+        update <- dlg_form(form, "Enter the DOI for the following PDF(s):")$res
+        if(sum(stringr::str_detect(update, DOIpattern))==na_count){
+          CONTINUE <- FALSE
+          PDFcontent[,"DOI"][which(is.na(PDFcontent[,"DOI"]))] <- unlist(update) 
+        }
+        else{
+          cat("Invalid DOI(s) entered! Please make sure all entries are valid! \n")
+        }
+      }
     }
     
     #assigning a unique id to avoid collision along the way
@@ -222,5 +243,6 @@ createTextMatrixFromPDF <-
     if (saveToWd == TRUE) {
       save_data(PDFcontent, "metaMatrix")
     }
+    
     return(PDFcontent)
   }
