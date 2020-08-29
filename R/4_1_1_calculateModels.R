@@ -135,6 +135,12 @@ calculateModels <- function(processedMetaDataMatrix,
         argcheck = Check
       )
     }
+    if(numberOfClusters > 14){
+      ArgumentCheck::addError(
+        msg = "Please enter a number of cluster that is not more than 14", 
+        argcheck = Check
+      )
+    }
   }
   ArgumentCheck::finishArgCheck(Check)
   
@@ -179,9 +185,17 @@ calculateModels <- function(processedMetaDataMatrix,
       
     }
 
-    ANSWER <- readline("With how many clusters would you like to proceed? Define 'numberOfClusters = YOURANSWER' as an argument to skip this next time.")
-    numberOfClusters <- as.numeric(substr(ANSWER, 1, 1))
-
+    ANSWER <- readline("With how many clusters would you like to proceed?\nDefine 'numberOfClusters = YOURANSWER' as an argument to skip this next time.\n")
+    numberOfClusters <- as.numeric(ANSWER)
+    if(is.na(numberOfClusters)){
+      stop("Invalid numberOfClusters! It is not a numeric input!")
+    }
+    if(numberOfClusters > dim(metaMatrix)[1]){
+        stop("Invalid input for numberOfClusters! It must be less than total no. of papers available!")
+    }
+    if(numberOfClusters > 14){
+      stop("Please enter a number of cluster that is not more than 14")
+    }
   }
   
   #assigns a cluster number to every paper

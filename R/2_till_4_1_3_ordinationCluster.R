@@ -92,11 +92,13 @@ ordinationCluster <- function(metaMatrix,
       )
   }
   # ensure no of clusters defined is less than total number of papers available  
-  if(numberOfClusters > dim(metaMatrix)[1]){
-    ArgumentCheck::addError(
-      msg = "Invalid input for numberOfClusters! It must be less than total no. of papers available!", 
-      argcheck = Check
-    ) 
+  if(!is.na(numberOfClusters)){
+    if(numberOfClusters > dim(metaMatrix)[1]){
+      ArgumentCheck::addError(
+        msg = "Invalid input for numberOfClusters! It must be less than total no. of papers available!", 
+        argcheck = Check
+      ) 
+    }
   }
   ArgumentCheck::finishArgCheck(Check)
   
