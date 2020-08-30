@@ -14,14 +14,14 @@ calculateModels(
   dendroLabels = c("truncated", "break"),
   generateWordlist = FALSE,
   saveToWd = TRUE,
-  ordinationFunction = FALSE
+  long_msg = FALSE
 )
 }
 \arguments{
 \item{processedMetaDataMatrix}{result of \code{\link{processMetaDataMatrix}}}
 
-\item{numberOfClusters}{integer or NA; \cr
-an integer sets the number of clusters manually \cr
+\item{numberOfClusters}{integer or NA; It must be an integer value \cr
+not more than 14. An integer sets the number of clusters manually \cr
 for NA, the function automatically calculates results for 1 till 12 clusters}
 
 \item{minWordsPerCluster}{minimum number of words to be plotted per cluster
@@ -52,7 +52,7 @@ to \code{\link{processMetaDataMatrix}} or \code{\link{ordinationCluster}}.}
 function to the working directory. This is especially useful for later
 analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 
-\item{ordinationFunction}{internal variable}
+\item{long_msg}{logical variable to whether print long message or not}
 }
 \value{
 Returns a list with the following components:
@@ -135,6 +135,7 @@ Other scicloud functions:
 }
 \author{
 Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
-    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de}
+    Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de},
+    Jia Yan Ng, \email{Jia.Y.Ng@stud.leuphana.de}
 }
 \concept{scicloud functions}

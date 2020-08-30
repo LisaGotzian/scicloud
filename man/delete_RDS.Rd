@@ -6,19 +6,34 @@
 \usage{
 delete_RDS()
 }
-\value{
-placeholder
-}
 \description{
-delete RDS files from current working directory. Users can
-     choose 3 delete options from the menu
-     Option 1: Delete All RDS files in cwd 
-     Option 2: Keep the latest RDS files of each data type 
-     Option 3: Keep only the selected data type of RDS files, delete all others
+Delete RDS files from current working directory. Users can
+     choose 3 delete options from the menu as following:\cr
+     Option 1: Delete All RDS files in cwd \cr
+     Option 2: Keep the latest RDS files of each data type \cr
+     Option 3: Keep only the selected data type of RDS files, delete all others \cr
+}
+\examples{
+\dontrun{
+
+## RDS files created from functions 
+## e.g. createTextMatrixFromPDF, calculateModels, etc.  
+## which located in the working directory can be 
+## deleted with this function by running as following:
+
+delete_RDS()
+Which RDS files to be deleted in current directory? 
+
+1: Delete All RDS files
+2: Keep the latest of each data, delete all others
+3: Keep only a specific data, delete all other type
+4: Quit
+
+Selection: 1
+Done. Deleted All RDS files.
+}
 }
 \seealso{
-placeholder
-
 Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},

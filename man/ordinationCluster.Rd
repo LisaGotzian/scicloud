@@ -20,34 +20,51 @@ ordinationCluster(
   generateWordlist = FALSE,
   keepWordsFile = NA,
   saveToWd = TRUE,
-  method = "hclust"
+  method = "hclust",
+  long_msg = FALSE
 )
 }
 \arguments{
-\item{metaMatrix}{placeholder}
+\item{metaMatrix}{a dataframe generated
+either from PDFs with \code{\link{createTextMatrixFromPDF}} or by
+searching Scopus with \code{\link{searchScopus}}}
 
-\item{language}{placeholder}
+\item{language}{this defines the stopwords to be filtered. the default is
+"SMART". Look at \code{\link[tm]{stopwords}} for more information.\cr}
 
-\item{numberOfClusters}{placeholder}
+\item{numberOfClusters}{integer or NA; It must be an integer value \cr
+not more than 14. An integer sets the number of clusters manually \cr
+for NA, the function automatically calculates results for 1 till 12 clusters}
 
-\item{minWordsPerCluster}{placeholder}
+\item{minWordsPerCluster}{minimum number of words to be plotted per cluster
+in \code{\link{createOrdinationPlot}}.}
 
-\item{maxWordsPerCluster}{placeholder}
+\item{maxWordsPerCluster}{maximum number of words to be plotted per cluster
+in \code{\link{createOrdinationPlot}}.}
 
-\item{stemWords}{placeholder}
+\item{stemWords}{logical variable which is passed to processMetaDataMatrix. 
+ When it is TRUE, every word is transformed to its stem. Look at 
+\code{\link[tm]{stemDocument}} for more information.}
 
-\item{ignoreWords}{placeholder}
+\item{ignoreWords}{a vector of words to be ignored which is passed to processMetaDataMatrix. 
+Refer \code{\link{processMetaDataMatrix.}} for details.}
 
 \item{myAPIKey}{your private Elsevier API key for communicating with the
 API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
 
-\item{p}{placeholder}
+\item{p}{the p-value that sets the significance level of individual words for
+the indicator species analysis. Only significant words will be plotted
+in \code{\link{createOrdinationPlot}}.}
 
-\item{exactPosition}{placeholder}
+\item{exactPosition}{logical variable which is passed to createOrdinationPlot. When set to \code{TRUE}, the words position will be marked by
+a dot and the label will be connected with a line to it. Refer \code{\link{createOrdinationPlot}} for details.}
 
-\item{dendrogram}{placeholder}
+\item{dendrogram}{logical, whether or not to show a dendrogram of the calculated
+clusters.}
 
-\item{dendroLabels}{placeholder}
+\item{dendroLabels}{allows "truncated" or "break". This either truncates the
+labels of the dendrogram leaves or puts a line break. Line breaks are not
+recommended for a large number of PDFs.}
 
 \item{generateWordlist}{logical, if set to \code{TRUE}, it generates a wordlist in
 your working directory. The list contains all significant words that the
@@ -66,13 +83,30 @@ function to the working directory. This is especially useful for later
 analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 
 \item{method}{takes "network", "hclust" or "both" as a method}
+
+\item{long_msg}{logical variable to whether print long message or not}
 }
 \value{
-placeholder
+Returns a list with the following components:
+\itemize{
+    \item \code{IndVal}: the results of the indicator species analysis.
+    \item \code{metaMatrix}: the metaMatrix that has been processed by
+    \code{\link{processMetaDataMatrix}} including a cluster column for each paper
+    \item \code{RepresentativePapers}: a dataframe of the most representative
+    papers of each publication community. Papers are representative if they contain
+    the highest number of significant words.
+    \item \code{wordList}: a list of all words that have been used in the analysis.
+    }
 }
 \description{
 The essential wrapper function that runs all steps of the word
-    analysis.
+    analysis as the following: \cr
+    1. processMetaDataMatrix \cr
+    2. getScopusMetaData \cr
+    3. calculateModels \cr
+    4. calculateNetwork \cr
+    5. createOrdinationPlot \cr
+    6. mostImportantPaperPerCluster \cr
 }
 \examples{
 \dontrun{

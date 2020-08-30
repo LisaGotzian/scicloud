@@ -4,11 +4,7 @@
 \alias{createOrdinationPlot}
 \title{createOrdinationPlot}
 \usage{
-createOrdinationPlot(
-  scicloudAnalysis,
-  exactPosition = FALSE,
-  ordinationFunction = FALSE
-)
+createOrdinationPlot(scicloudAnalysis, exactPosition = FALSE)
 }
 \arguments{
 \item{scicloudAnalysis}{result of \code{\link{calculateModels}}}
@@ -17,8 +13,6 @@ createOrdinationPlot(
 labels for the sake of visual simplicity over perfect
 precision. When set to \code{TRUE}, the words position will be marked by
 a dot and the label will be connected with a line to it.}
-
-\item{ordinationFunction}{internal variable}
 }
 \value{
 This function plots a graphic based on the clustered publication

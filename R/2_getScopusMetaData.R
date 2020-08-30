@@ -14,7 +14,7 @@
 #'     searching Scopus with \code{\link{searchScopus}}
 #' @param myAPIKey your private Elsevier API key for communicating with the
 #'     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
-#' @param ordinationFunction internal variable
+#' @param long_msg logical variable to whether print long message or not
 #' @family scicloud functions
 #' @return A dataframe with metadata of all articles provided to the function.
 #' @seealso \itemize{
@@ -59,7 +59,7 @@
 #'     }
 #' @export
 getScopusMetaData <- function(metaMatrix, myAPIKey,
-                              ordinationFunction = FALSE) {
+                              long_msg = FALSE) {
   
   #### PHASE II: GET METADATA OF THE RESOURCES FOR WHICH WE COULD GET THE DOIs/SCOPUS-IDs ####
   
@@ -383,7 +383,7 @@ In order to exploit the full potential of scicloud, make sure you are connected 
   
   cat(paste0("\nIf catching the Metadata worked, this should show you some Journal: \n'", metaMatrixCheckValue[1],
              "'\nIf it didn't work out, check your API key.\n"))
-  if (ordinationFunction == TRUE) {
+  if (long_msg == TRUE) {
     cat(paste0("\n###################################################################################################\n\n"))
   }
   

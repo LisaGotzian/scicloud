@@ -19,7 +19,7 @@ in parentheses and all references are removed.}
 \item{control}{a list of parameters used to determine preprocessing methods.
 Error will be thrown if language & stemWords are not defined.\cr
 \strong{language}: this defines the stopwords to be filtered. the default is
-"english". Look at \code{\link[tm]{stopwords}} for more information.\cr
+"SMART". Look at \code{\link[tm]{stopwords}} for more information.\cr
 \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
 to its stem, so variants of the same words are treated equally. Look
 at \code{\link[tm]{stemDocument}} for more information.\cr

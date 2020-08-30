@@ -4,7 +4,7 @@
 \alias{getScopusMetaData}
 \title{getScopusMetaData}
 \usage{
-getScopusMetaData(metaMatrix, myAPIKey, ordinationFunction = FALSE)
+getScopusMetaData(metaMatrix, myAPIKey, long_msg = FALSE)
 }
 \arguments{
 \item{metaMatrix}{a dataframe generated
@@ -14,7 +14,7 @@ searching Scopus with \code{\link{searchScopus}}}
 \item{myAPIKey}{your private Elsevier API key for communicating with the
 API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
 
-\item{ordinationFunction}{internal variable}
+\item{long_msg}{logical variable to whether print long message or not}
 }
 \value{
 A dataframe with metadata of all articles provided to the function.

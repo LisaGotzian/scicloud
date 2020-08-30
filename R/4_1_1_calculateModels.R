@@ -13,10 +13,11 @@
 #'     \link{createOrdinationPlot}}.
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
+#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
+#'     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
 #' @param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
-#' @param numberOfClusters integer or NA; \cr
-#'     an integer sets the number of clusters manually \cr
+#' @param numberOfClusters integer or NA; It must be an integer value \cr
+#'     not more than 14. An integer sets the number of clusters manually \cr
 #'     for NA, the function automatically calculates results for 1 till 12 clusters
 #' @param minWordsPerCluster minimum number of words to be plotted per cluster
 #'     in \code{\link{createOrdinationPlot}}.
@@ -39,7 +40,7 @@
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
-#' @param ordinationFunction internal variable
+#' @param long_msg logical variable to whether print long message or not 
 #' @seealso \itemize{
 #'     \item \code{\link{processMetaDataMatrix}} for the preceding step
 #'     \item \code{\link{createOrdinationPlot}} for the next step and
@@ -103,7 +104,7 @@ calculateModels <- function(processedMetaDataMatrix,
                             dendroLabels = c("truncated", "break"),
                             generateWordlist = FALSE,
                             saveToWd = TRUE,
-                            ordinationFunction = FALSE) {
+                            long_msg = FALSE) {
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
   # ignore to tiny p values. labdvs::inval only provides three decimal digits
@@ -386,7 +387,7 @@ calculateModels <- function(processedMetaDataMatrix,
   )
   
   if (saveToWd == TRUE) {
-    save_data(scicloudAnalysis, "scicloudAnalysis", long_msg = !ordinationFunction)
+    save_data(scicloudAnalysis, "scicloudAnalysis", long_msg = long_msg)
   }
   return(scicloudAnalysis)
 }

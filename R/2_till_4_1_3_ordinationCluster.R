@@ -6,21 +6,43 @@
 #' @title ordinationCluster
 #'
 #' @description The essential wrapper function that runs all steps of the word
-#'     analysis.
+#'     analysis as the following: \cr
+#'     1. processMetaDataMatrix \cr
+#'     2. getScopusMetaData \cr
+#'     3. calculateModels \cr
+#'     4. calculateNetwork \cr
+#'     5. createOrdinationPlot \cr
+#'     6. mostImportantPaperPerCluster \cr
 #'
 #' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
 #'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param metaMatrix placeholder
-#' @param language placeholder
-#' @param numberOfClusters placeholder
-#' @param minWordsPerCluster placeholder
-#' @param maxWordsPerCluster placeholder
-#' @param stemWords placeholder
-#' @param ignoreWords placeholder
-#' @param exactPosition placeholder
-#' @param p placeholder
-#' @param dendrogram placeholder
-#' @param dendroLabels placeholder
+#' @param metaMatrix a dataframe generated
+#'     either from PDFs with \code{\link{createTextMatrixFromPDF}} or by
+#'     searching Scopus with \code{\link{searchScopus}}
+#' @param language this defines the stopwords to be filtered. the default is
+#'     "SMART". Look at \code{\link[tm]{stopwords}} for more information.\cr
+#' @param numberOfClusters integer or NA; It must be an integer value \cr
+#'     not more than 14. An integer sets the number of clusters manually \cr
+#'     for NA, the function automatically calculates results for 1 till 12 clusters
+#' @param minWordsPerCluster minimum number of words to be plotted per cluster
+#'     in \code{\link{createOrdinationPlot}}.
+#' @param maxWordsPerCluster maximum number of words to be plotted per cluster
+#'     in \code{\link{createOrdinationPlot}}.
+#' @param stemWords logical variable which is passed to processMetaDataMatrix. 
+#'     When it is TRUE, every word is transformed to its stem. Look at 
+#'    \code{\link[tm]{stemDocument}} for more information.
+#' @param ignoreWords a vector of words to be ignored which is passed to processMetaDataMatrix. 
+#'     Refer \code{\link{processMetaDataMatrix.}} for details.
+#' @param exactPosition logical variable which is passed to createOrdinationPlot. When set to \code{TRUE}, the words position will be marked by
+#'     a dot and the label will be connected with a line to it. Refer \code{\link{createOrdinationPlot}} for details.
+#' @param p the p-value that sets the significance level of individual words for
+#'     the indicator species analysis. Only significant words will be plotted
+#'     in \code{\link{createOrdinationPlot}}.
+#' @param dendrogram logical, whether or not to show a dendrogram of the calculated
+#'     clusters.
+#' @param dendroLabels allows "truncated" or "break". This either truncates the
+#'     labels of the dendrogram leaves or puts a line break. Line breaks are not
+#'     recommended for a large number of PDFs.
 #' @param generateWordlist logical, if set to \code{TRUE}, it generates a wordlist in
 #'     your working directory. The list contains all significant words that the
 #'     indicator species analysis deemed significant to describe your paper
@@ -37,8 +59,18 @@
 #' @param saveToWd  a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
+#'@param long_msg logical variable to whether print long message or not 
 #' @family scicloud functions
-#' @return placeholder
+#' @return Returns a list with the following components:
+#' \itemize{
+#'     \item \code{IndVal}: the results of the indicator species analysis.
+#'     \item \code{metaMatrix}: the metaMatrix that has been processed by
+#'     \code{\link{processMetaDataMatrix}} including a cluster column for each paper
+#'     \item \code{RepresentativePapers}: a dataframe of the most representative
+#'     papers of each publication community. Papers are representative if they contain
+#'     the highest number of significant words.
+#'     \item \code{wordList}: a list of all words that have been used in the analysis.
+#'     }
 #' @export
 #' @examples \dontrun{
 #' 
@@ -80,7 +112,8 @@ ordinationCluster <- function(metaMatrix,
                               generateWordlist = FALSE,
                               keepWordsFile = NA,
                               saveToWd = TRUE,
-                              method = "hclust") {
+                              method = "hclust",
+                              long_msg = FALSE) {
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
   if (sum(c(method == "hclust",
@@ -102,16 +135,13 @@ ordinationCluster <- function(metaMatrix,
   }
   ArgumentCheck::finishArgCheck(Check)
   
-  # to change minor things in other functions when running the big function, such as using readline() after the Dendrogram.
-  ordinationFunction <-  TRUE
-  
   processedMetaDataMatrix <-
     processMetaDataMatrix(
       metaMatrix,
       control = list(language = language,
       stemWords = stemWords,
       saveToWd = saveToWd,
-      ordinationFunction = ordinationFunction),
+      long_msg = long_msg),
       ignoreWords = ignoreWords,
       keepWordsFile = keepWordsFile
     )
@@ -120,7 +150,7 @@ ordinationCluster <- function(metaMatrix,
     processedMetaDataMatrix$metaMatrix <-
       getScopusMetaData(processedMetaDataMatrix$metaMatrix,
                         myAPIKey,
-                        ordinationFunction = ordinationFunction)
+                        long_msg = long_msg)
   }
   
   
@@ -134,13 +164,12 @@ ordinationCluster <- function(metaMatrix,
         p = p,
         dendrogram = dendrogram,
         dendroLabels = dendroLabels,
-        ordinationFunction = ordinationFunction,
+        long_msg = long_msg,
         saveToWd = saveToWd,
         generateWordlist = generateWordlist
       )
     createOrdinationPlot(scicloudAnalysis,
-                         exactPosition = exactPosition,
-                         ordinationFunction = ordinationFunction)
+                         exactPosition = exactPosition)
     
     if(!is.na(myAPIKey)){ # if there's no API key, we don't need the influencial papers
       ANSWER <-
@@ -159,7 +188,7 @@ ordinationCluster <- function(metaMatrix,
       calculateNetwork(
         processedMetaDataMatrix,
         saveToWd = saveToWd,
-        ordinationFunction = ordinationFunction
+        long_msg = long_msg
       )
   }
   

@@ -13,7 +13,6 @@
 #'     labels for the sake of visual simplicity over perfect
 #'     precision. When set to \code{TRUE}, the words position will be marked by
 #'     a dot and the label will be connected with a line to it.
-#' @param ordinationFunction internal variable
 #' @family scicloud functions
 #' @seealso \itemize{
 #'     \item \code{\link{calculateModels}} for the preceding step
@@ -61,8 +60,7 @@
 #'     }
 #'     
 createOrdinationPlot <- function(scicloudAnalysis,
-                                 exactPosition = FALSE,
-                                 ordinationFunction = FALSE) {
+                                 exactPosition = FALSE) {
   
   Sys.sleep(1)
   cat("Creating graphic\n")
@@ -109,11 +107,11 @@ createOrdinationPlot <- function(scicloudAnalysis,
   numberOfClusters <- length(unique(naFreeData$Cluster))
   palCol <- c("#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c", "#00441b")
   
-  if (ordinationFunction == TRUE) {
-      wordCloudPlot(scicloudAnalysis, exactPosition, palCol)
-  }
-  
   # Prompt user whether or not to plot the following plots
+  ANS <- readline("Plot a word cloud analysis?(y/n)")
+  if (substr(ANS, 1, 1) == "y") {
+    wordCloudPlot(scicloudAnalysis, exactPosition, palCol)
+  }
   ANS <- readline("Plot a stacked Barplot of the No. of citations across different years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
     StackedBarplot(naFreeData, palCol, "No. of citations of each cluster across years", "Year", "Citations",1)
