@@ -44,6 +44,7 @@ Imports:
     dendextend (>= 1.13.4),
     plyr (>= 1.8.6),
     grDevices (>= 3.6.0),
-    gtools (>= 3.8.2)
+    gtools (>= 3.8.2),
+    svDialogs (>= 1.0.0)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

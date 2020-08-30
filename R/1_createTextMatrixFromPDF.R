@@ -216,7 +216,7 @@ createTextMatrixFromPDF <-
       CONTINUE <- TRUE
       cat("\nDOI NOT FOUND ISSUE: \n")
       while(CONTINUE){
-        update <- dlg_form(form, "Enter the DOI for the following PDF(s):")$res
+        update <- svDialogs::dlg_form(form, "Enter the DOI for the following PDF(s):")$res
         if(sum(stringr::str_detect(update, DOIpattern))==na_count){
           CONTINUE <- FALSE
           PDFcontent[,"DOI"][which(is.na(PDFcontent[,"DOI"]))] <- unlist(update) 
