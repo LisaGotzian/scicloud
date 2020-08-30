@@ -400,7 +400,6 @@ plotDendrogram <- function(modelclust, label, numberOfClusters){
   dend <- dendextend::color_labels(dend,k = numberOfClusters, col=grDevices::colorRampPalette(palCol, bias = 1)(numberOfClusters))
   dend <- dendextend::color_branches(dend, k = numberOfClusters, groupLabels=TRUE, 
                                      col=grDevices::colorRampPalette(palCol, bias = 1)(numberOfClusters))
-  dend <- dendextend::highlight_branches_col(dend, values = grDevices::colorRampPalette(palCol, bias = 1)(numberOfClusters))
   dend <- dendextend::highlight_branches_lwd(dend)
   graphics::plot(dend, adj = 0.5, main = "Word cluster dendrogram of papers", horiz=TRUE, axes=FALSE)
 }
