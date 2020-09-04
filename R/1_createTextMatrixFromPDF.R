@@ -211,33 +211,37 @@ createTextMatrixFromPDF <-
     # Request User to input DOI manually 
     na_count <- sum(is.na(PDFcontent[,"DOI"]))
     if(na_count != 0){
-      form <- as.list(rep("NA",na_count))
-      names(form) <- sub(".*[/]", "", PDFcontent[,"FileName"][which(is.na(PDFcontent[,"DOI"]))])
-      CONTINUE <- TRUE
       cat("\nDOI NOT FOUND ISSUE: \n")
-      while(CONTINUE){
+      cat("Please enter the DOI(s) for the respective PDF(s).\n")
+      cat("press ENTER without any input to exclude the PDF\n")
+      while(na_count != 0){
+        form <- as.list(rep("NA",na_count))
+        names(form) <- sub(".*[/]", "", PDFcontent[,"FileName"][which(is.na(PDFcontent[,"DOI"]))])
         update <- svDialogs::dlg_form(form, "Enter the DOI for the following PDF(s):")$res
-        if(sum(stringr::str_detect(update, DOIpattern))==na_count){
-          CONTINUE <- FALSE
-          PDFcontent[,"DOI"][which(is.na(PDFcontent[,"DOI"]))] <- unlist(update) 
+        
+        idx_to_del <- which(is.na(PDFcontent[,"DOI"]))[stringr::str_detect(update, "NA")]
+        if(length(idx_to_del)){
+          cat(crayon::red("Excluded the following file(s):\n", names(update[stringr::str_detect(update, "NA")])))
+          PDFcontent<-PDFcontent[-idx_to_del,]  
         }
-        else{
-          cat("Invalid DOI(s) entered! Please make sure all entries are valid! \n")
+        
+        update_bool <- stringr::str_detect(update[!stringr::str_detect(update, "NA")], DOIpattern)
+        idx_to_add <- which(is.na(PDFcontent[,"DOI"]))[update_bool]
+        if(length(idx_to_add)){
+          PDFcontent[, "DOI"][idx_to_add] <- unlist(update[update != "NA"][which(update_bool)])
+        }
+        na_count <- sum(is.na(PDFcontent[,"DOI"]))
+        if(na_count){
+          cat(crayon::red("Invalid DOI(s) entered!\n"))
         }
       }
     }
-    
     #assigning a unique id to avoid collision along the way
-    if(num_pdf != 0){
-      PDFcontent <- cbind(PDFcontent, "ID" = c(1:num_pdf))
-    }
-    else{
-      cat(crayon::red("\nThe metaMatrix is empty!"))
-    }
-
+    PDFcontent <- cbind(PDFcontent, "ID" = c(1:nrow(PDFcontent)))
+    
     close(pb)
     pdf_in_dir <- length(Sys.glob(file.path(directory, "*.pdf")))
-    cat("\nIncluded", num_pdf, "file(s) in metaMatrix out of", pdf_in_dir, "file(s) found in your PDFs folder.")
+    cat("\nIncluded", nrow(PDFcontent), "file(s) in metaMatrix out of", pdf_in_dir, "file(s) found in your PDFs folder.")
     cat("\n")
     
     if (saveToWd == TRUE) {
