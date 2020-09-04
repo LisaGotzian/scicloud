@@ -218,18 +218,20 @@ createTextMatrixFromPDF <-
         form <- as.list(rep("NA",na_count))
         names(form) <- sub(".*[/]", "", PDFcontent[,"FileName"][which(is.na(PDFcontent[,"DOI"]))])
         update <- svDialogs::dlg_form(form, "Enter the DOI for the following PDF(s):")$res
-        
+        # remove rows from the metaMatrix, when == "NA"
         idx_to_del <- which(is.na(PDFcontent[,"DOI"]))[stringr::str_detect(update, "NA")]
         if(length(idx_to_del)){
           cat(crayon::red("Excluded the following file(s):\n", names(update[stringr::str_detect(update, "NA")])))
           PDFcontent<-PDFcontent[-idx_to_del,]  
         }
-        
+        # update the rows when user input a valid DOI == DOIpattern
         update_bool <- stringr::str_detect(update[!stringr::str_detect(update, "NA")], DOIpattern)
         idx_to_add <- which(is.na(PDFcontent[,"DOI"]))[update_bool]
         if(length(idx_to_add)){
           PDFcontent[, "DOI"][idx_to_add] <- unlist(update[update != "NA"][which(update_bool)])
         }
+        # update the number of rows where the DOI == NA
+        # equal to 0 when entries are valid/excluded from the metaMatrix
         na_count <- sum(is.na(PDFcontent[,"DOI"]))
         if(na_count){
           cat(crayon::red("Invalid DOI(s) entered!\n"))
