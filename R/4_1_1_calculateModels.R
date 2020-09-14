@@ -105,6 +105,9 @@ calculateModels <- function(processedMetaDataMatrix,
                             generateWordlist = FALSE,
                             saveToWd = TRUE,
                             long_msg = FALSE) {
+  
+  dendroLabels <- match.arg(dendroLabels) #pick the argument input by user
+  
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
   # ignore to tiny p values. labdvs::inval only provides three decimal digits

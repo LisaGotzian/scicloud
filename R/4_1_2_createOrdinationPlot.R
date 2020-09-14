@@ -66,16 +66,21 @@ createOrdinationPlot <- function(scicloudAnalysis,
   cat("Creating graphic\n")
   Sys.sleep(1)
   
+  # omit the rows where CitedBy and Year are NA
+  naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,])
+  
+  if (nrow(naFreeData) == 0) {
+    stop("Info needed to make plots for analysis is missing. Please make sure you can connect to Scopus with your API key to retrieve the update in metaMatrix.\n")
+  }
+  
   # If we have metadata, so if the column has less than 25% NA, we do the other plots.
-  if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"]))<nrow(scicloudAnalysis$metaMatrix)/4){
+  if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"])) < nrow(scicloudAnalysis$metaMatrix)/4){
     na_row_idx <- which(rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) != 0)
     excluded_file <- scicloudAnalysis$metaMatrix[,"FileName"][na_row_idx]
     if(length(excluded_file) != 0){
       cat(crayon::red("\nCitedBy and/or Year info are not found in", excluded_file))
       cat(crayon::red("\nThe files(s) will be excluded in the following plots!"))
     }
-    # omit the rows where CitedBy and Year are NA
-    naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,])
     # CAUTION: to convert the factors level correctly, need to use as.numeric(as.character())
     # aggregate the sum of citations by year and then join the sub data frame by year to calculate the percentage of citation for each row
     citationSum_df <- stats::aggregate(as.numeric(as.character(naFreeData$CitedBy)), by = list(naFreeData$Year), sum)
@@ -83,14 +88,6 @@ createOrdinationPlot <- function(scicloudAnalysis,
     citationSum_df <- plyr::join(naFreeData[,c("CitedBy", "Year")], by="Year", citationSum_df)
     naFreeData$citePercent <- as.numeric(as.character(citationSum_df$CitedBy))/as.numeric(as.character(citationSum_df$SumByYear))*100
       
-    if (nrow(naFreeData) == 0) {
-      cat(
-        paste0(
-          "Please use your API key to obtain the metadata of your papers from Scopus.\n
-          Plots of citations/no. of papers across different years can be generated.\n"
-        )
-      )
-    }
     # create a sub data frame that aggregate the count of each cluster by year
     # then calculate the percentage of no. of cluster for each row
     clusterCount_df <- stats::aggregate(as.numeric(as.character(naFreeData$Cluster)), by = list(naFreeData$Year), length)

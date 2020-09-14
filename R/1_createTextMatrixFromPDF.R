@@ -221,7 +221,7 @@ createTextMatrixFromPDF <-
         # remove rows from the metaMatrix, when == "NA"
         idx_to_del <- which(is.na(PDFcontent[,"DOI"]))[stringr::str_detect(update, "NA")]
         if(length(idx_to_del)){
-          cat(crayon::red("Excluded the following file(s):\n", names(update[stringr::str_detect(update, "NA")])))
+          cat(crayon::red("\nExcluded the following file(s):", names(update[stringr::str_detect(update, "NA")])))
           PDFcontent<-PDFcontent[-idx_to_del,]  
         }
         # update the rows when user input a valid DOI == DOIpattern

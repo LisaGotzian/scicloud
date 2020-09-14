@@ -58,9 +58,17 @@
 #' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #'     }
 #' @export
-getScopusMetaData <- function(metaMatrix, myAPIKey,
+getScopusMetaData <- function(metaMatrix, myAPIKey=NA,
                               long_msg = FALSE) {
   
+  Check <- ArgumentCheck::newArgCheck()
+  if(is.na(myAPIKey)){
+    ArgumentCheck::addError(
+      msg = "Please input your API key from Elsevier!",
+      argcheck = Check
+    )
+  }
+  ArgumentCheck::finishArgCheck(Check)
   #### PHASE II: GET METADATA OF THE RESOURCES FOR WHICH WE COULD GET THE DOIs/SCOPUS-IDs ####
   
   # a function that returns a custom error message
@@ -87,7 +95,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey,
   end <- nrow(metaMatrix)
   
   # let users know what is happening at this stage
-  cat("Accessing the Meta-data of the search result...\n")
+  cat("Accessing the Scopus to update the Metadata...\n")
   # reset the progress bar (using new `end` value)
   pb <- utils::txtProgressBar(min = start, max = end, style = 3)
   

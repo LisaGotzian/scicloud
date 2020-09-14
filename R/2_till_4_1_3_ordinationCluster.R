@@ -133,6 +133,13 @@ ordinationCluster <- function(metaMatrix,
       ) 
     }
   }
+  # check API Key
+  if(is.na(myAPIKey)){
+    ArgumentCheck::addError(
+      msg = "Please input your API key from Elsevier!",
+      argcheck = Check
+    )
+  }
   ArgumentCheck::finishArgCheck(Check)
   
   processedMetaDataMatrix <-
@@ -146,12 +153,12 @@ ordinationCluster <- function(metaMatrix,
       keepWordsFile = keepWordsFile
     )
   
-  if(!is.na(myAPIKey)){
-    processedMetaDataMatrix$metaMatrix <-
-      getScopusMetaData(processedMetaDataMatrix$metaMatrix,
-                        myAPIKey,
-                        long_msg = long_msg)
-  }
+  
+  processedMetaDataMatrix$metaMatrix <-
+    getScopusMetaData(processedMetaDataMatrix$metaMatrix,
+                      myAPIKey,
+                      long_msg = long_msg)
+  
   
   
   if (any(c(method == "hclust"), (method == "both"))) {

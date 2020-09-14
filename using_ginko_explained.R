@@ -13,6 +13,10 @@ library(devtools)
 install_github("LisaGotzian/scicloud")
 library(scicloud)
 
+metaData <- createMetaData(myAPIKey = myAPIKey)
+scicloudAnalysis <- runAnalysis(metaDataList = metaData, numberOfClusters = 10)
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
+
 ### The normal workflow of scicloud
 metaMatrix <- createTextMatrixFromPDF()
 scicloudAnalysis <- ordinationCluster(metaMatrix, myAPIKey = myAPIKey,
