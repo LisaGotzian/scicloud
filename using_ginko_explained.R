@@ -13,8 +13,16 @@ library(devtools)
 install_github("LisaGotzian/scicloud")
 library(scicloud)
 
-metaData <- createMetaData(myAPIKey = myAPIKey)
-scicloudAnalysis <- runAnalysis(metaDataList = metaData, numberOfClusters = 10)
+# Step 1: create ScipusList which returns a meta List which contains a WordList,
+#       a tf-idf matrix, a metaMatrix 
+scipusList <- createScipusList(myAPIKey = myAPIKey)
+scipusList_test <- createScipusList(myAPIKey = myAPIKey, keepWordsFile = "/Users/jiayan/Desktop/keepWord.csv")
+
+# Step 2: run the Analysis on the ScipusList created and generate plots that
+#       illustrate the results of the modeling 
+scicloudAnalysis <- runAnalysis(scipusList = scipusList, numberOfClusters = 10)
+
+# Step 3: generate a summary of the analysis
 scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
 ### The normal workflow of scicloud

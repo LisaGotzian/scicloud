@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 scientific-wordcloud.Rproj
+inst/doc

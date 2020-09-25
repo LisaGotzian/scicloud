@@ -4,7 +4,7 @@
 \alias{getScopusMetaData}
 \title{getScopusMetaData}
 \usage{
-getScopusMetaData(metaMatrix, myAPIKey, long_msg = FALSE)
+getScopusMetaData(metaMatrix, myAPIKey = NA, long_msg = FALSE)
 }
 \arguments{
 \item{metaMatrix}{a dataframe generated
@@ -72,6 +72,7 @@ Other scicloud functions:
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},
 \code{\link{createTextMatrixFromPDF}()},
+\code{\link{createTfIdf}()},
 \code{\link{delete_RDS}()},
 \code{\link{inspectScicloud}()},
 \code{\link{mostImportantPaperPerCluster}()},

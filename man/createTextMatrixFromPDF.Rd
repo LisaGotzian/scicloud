@@ -55,6 +55,7 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 Other scicloud functions: 
 \code{\link{calculateModels}()},
 \code{\link{createOrdinationPlot}()},
+\code{\link{createTfIdf}()},
 \code{\link{delete_RDS}()},
 \code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()},
