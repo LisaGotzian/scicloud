@@ -16,7 +16,7 @@ library(scicloud)
 # Step 1: create ScipusList which returns a meta List which contains a WordList,
 #       a tf-idf matrix, a metaMatrix 
 scipusList <- createScipusList(myAPIKey = myAPIKey)
-scipusList_test <- createScipusList(myAPIKey = myAPIKey, keepWordsFile = "/Users/jiayan/Desktop/keepWord.csv")
+scipusList_test <- createScipusList(myAPIKey = myAPIKey, keepWordsFile = "keepWord.csv")
 
 # Step 2: run the Analysis on the ScipusList created and generate plots that
 #       illustrate the results of the modeling 
