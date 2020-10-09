@@ -194,8 +194,7 @@ createTfIdf <- function(metaMatrix, control = list(),
     if(length(unmatched) != 0){
       utils::write.table(unmatched, file="./unmatched.csv", 
                          row.names=FALSE, col.names=FALSE, na = "", sep =",")
-      cat("\nThere are word(s) in the .csv provided that are not found in the analysis\n
-          Check unmatched.csv saved in the current working directory in details")
+      cat("\nThere are word(s) in the .csv provided that are not found in the analysis\nCheck unmatched.csv saved in the current working directory in details\n")
       
       if(length(updateWord) != 0){
         tf_idf <- tf_idf[,updateWord]  

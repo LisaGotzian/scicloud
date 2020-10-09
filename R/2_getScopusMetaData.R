@@ -354,9 +354,7 @@ getScopusMetaData <- function(metaMatrix, myAPIKey=NA,
   
   # Checks whether user is classified as a subscriber by Scopus
   if(!subscriber){
-  warning("You are currently not able to retrieve abstracts and information about all authors.
-In order to exploit the full potential of scicloud, make sure you are connected to your institution's network
-(e.g. via VPN) and run again.")
+  warning("You are currently not able to retrieve abstracts and information about all authors. In order to exploit the full potential of scicloud, make sure you are connected to your institution's network (e.g. via VPN) and run again.")
   }
   
   # Final Changes before returning the results:
