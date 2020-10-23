@@ -47,7 +47,7 @@ processedMetaDataMatrix <- processMetaDataMatrix(
           stemWords = TRUE,
           saveToWd = FALSE),
           ignoreWords = c("Abstract", "Bulletin", "Editor"))
-                                             
+
 # 3) run the cluster analysis to determine publication communities
 scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
 

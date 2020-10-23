@@ -20,17 +20,19 @@ Suggests:
     methods (>= 4.0.1),
     cluster (>= 2.1.0),
     xml2 (>= 1.3.2),
-    ggrepel (>= 0.8.2)
+    ggrepel (>= 0.8.2),
+    grDevices (>= 4.0.2),
+    igraph (>= 1.2.6),
+    mgcv (>= 1.8.31),
+    nlme (>= 3.1.148),
+    ggplot2 (>= 3.3.2),
+    gtools (>= 3.8.2)
 Language: en-US
 Imports:
     bipartite (>= 2.11),
-    ggplot2 (>= 3.1.0),
     httr (>= 1.4.0),
-    igraph (>= 1.2.2),
     labdsv (>= 1.8.0),
     mclust (>= 5.4.1),
-    mgcv (>= 1.8.24),
-    nlme (>= 3.1.137),
     NLP (>= 0.2.0),
     pdftools (>= 1.8),
     RColorBrewer (>= 1.1),
@@ -43,8 +45,6 @@ Imports:
     crayon (>= 1.3.4),
     dendextend (>= 1.13.4),
     plyr (>= 1.8.6),
-    grDevices (>= 3.6.0),
-    gtools (>= 3.8.2),
     svDialogs (>= 1.0.0)
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
