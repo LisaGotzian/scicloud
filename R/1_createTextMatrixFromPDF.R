@@ -204,7 +204,7 @@ createTextMatrixFromPDF <-
       cat("\nDUPLICATED FILE ISSUE:")
       cat(crayon::red("\nPDF with duplicated DOI:", 
                       duplicate_file, " is excluded from the metaMatrix"))
-      cat(crayon::red("\nCheck your PDFs if contain some same PDF files but with different names!"))
+      cat(crayon::red("\nCheck your PDFs folder as it contains same PDF files but with different names!"))
       cat("\n")
     }
     
