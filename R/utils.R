@@ -38,7 +38,7 @@ save_data <- function(data, data_name, long_msg = TRUE){
   }
 }
 
-#' @title delete_RDS
+#' @title Delete RDS files saved in working directory
 #' 
 #' @description Delete RDS files from current working directory. Users can
 #'      choose 3 delete options from the menu as following:\cr
@@ -56,7 +56,7 @@ save_data <- function(data, data_name, long_msg = TRUE){
 #' ## which located in the working directory can be 
 #' ## deleted with this function by running as following:
 #' 
-#' delete_RDS()
+#' deleteRDS()
 #' Which RDS files to be deleted in current directory? 
 #' 
 #' 1: Delete All RDS files
@@ -69,7 +69,7 @@ save_data <- function(data, data_name, long_msg = TRUE){
 #' }
 #' @export
 
-delete_RDS <- function(){
+deleteRDS <- function(){
   files <- filter_file(getwd(), "RDS")
   if(length(files) == 0){
     stop("No RDS file(s) in the current working directory!")

@@ -1,38 +1,38 @@
-#' @title createTfIdf
-#'
-#' @description The third function to the word analysis with scicloud. This function
-#'     accepts a \code{metaMatrix} filled with metadata and constructs a tf-idf matrix.
-#'
-#' @author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
-#' @param metaMatrix metaMatrix created through \code{\link{getScopusMetaData}}
-#'     or \code{\link{createTextMatrixFromPDF}}. Equations, symbols, all words
-#'     in parentheses and all references are removed.
-#' @param control a list of parameters used to determine preprocessing methods.
-#'     Error will be thrown if language & stemWords are not defined.\cr
-#'     \strong{language}: this defines the stopwords to be filtered. the default is
-#'     "SMART". Look at \code{\link[tm]{stopwords}} for more information.\cr
-#'     \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
-#'     to its stem, so variants of the same words are treated equally. Look
-#'     at \code{\link[tm]{stemDocument}} for more information.\cr
-#'     \strong{saveToWd}: a logical parameter whether or not to save the output of the
-#'     function to the working directory. This is especially useful for later
-#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.\cr
-#'     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE)
-#' @param ignoreWords a vector of words to be ignored.
-#' @param keepWordsFile path to a .csv-file that specifies which words to keep
-#'     during the analysis. Accepts 0/1 behind each word or takes the words
-#'     as they are and disregards all other words of the analysis. A template
-#'     for this can be generated with \code{generateWordlist} in
-#'     \code{\link{ordinationCluster}} or \code{\link{calculateModels}}.
-#' @seealso \itemize{
-#'     \item \code{\link{createTextMatrixFromPDF}} and \code{\link{getScopusMetaData}}
-#'     for the preceding steps
-#'     \item \code{\link{calculateModels}} for the proceeding step
-#'     }
-#' @return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
-#'     term matrix, \code{[["metaMatrix"]]} as passed to the function and
-#' \code{[["wordList"]]} is the list of all words found in the papers.
-#' @family scicloud functions
+# title createTfIdf
+#
+# description The third function to the word analysis with scicloud. This function
+#     accepts a \code{metaMatrix} filled with metadata and constructs a tf-idf matrix.
+#
+# author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
+# param metaMatrix metaMatrix created through \code{\link{getScopusMetaData}}
+#     or \code{\link{createTextMatrixFromPDF}}. Equations, symbols, all words
+#     in parentheses and all references are removed.
+# param control a list of parameters used to determine preprocessing methods.
+#     Error will be thrown if language & stemWords are not defined.\cr
+#     \strong{language}: this defines the stopwords to be filtered. the default is
+#     "SMART". Look at \code{\link[tm]{stopwords}} for more information.\cr
+#     \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
+#     to its stem, so variants of the same words are treated equally. Look
+#     at \code{\link[tm]{stemDocument}} for more information.\cr
+#     \strong{saveToWd}: a logical parameter whether or not to save the output of the
+#     function to the working directory. This is especially useful for later
+#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.\cr
+#     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE)
+# param ignoreWords a vector of words to be ignored.
+# param keepWordsFile path to a .csv-file that specifies which words to keep
+#     during the analysis. Accepts 0/1 behind each word or takes the words
+#     as they are and disregards all other words of the analysis. A template
+#     for this can be generated with \code{generateWordlist} in
+#     \code{\link{ordinationCluster}} or \code{\link{calculateModels}}.
+# seealso \itemize{
+#     \item \code{\link{createTextMatrixFromPDF}} and \code{\link{getScopusMetaData}}
+#     for the preceding steps
+#     \item \code{\link{calculateModels}} for the proceeding step
+#     }
+# return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
+#     term matrix, \code{[["metaMatrix"]]} as passed to the function and
+# \code{[["wordList"]]} is the list of all words found in the papers.
+# family scicloud functions
 
 createTfIdf <- function(metaMatrix, control = list(),
                                   ignoreWords = c(),

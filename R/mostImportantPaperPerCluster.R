@@ -1,56 +1,21 @@
-#' @title mostImportantPaperPerCluster
-#'
-#' @description The sixth function to the word analysis with scicloud. It takes
-#'     \code{scicloudAnalysis} and outputs a list of the most cited papers per
-#'     cluster into the console.
-#'
-#' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-#' @param scicloudAnalysis result of \code{\link{calculateModels}}
-#' @family scicloud functions
-#' @seealso \itemize{
-#'     \item \code{\link{calculateModels}} for the preceding step
-#'     \item \code{\link{createOrdinationPlot}} for the graphics
-#'     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#'     }
-#' @return This function returns a console output of the papers with the
-#'     highest citation count per year per cluster. The citations were fetched
-#'     from the Scopus API by \code{\link{getScopusMetaData}}.
-#' @export
-#' @examples 
-#' \dontrun{
-#' 
-#' ### The normal workflow of scicloud
-#' myAPIKey <- "YOUR_API_KEY"
-#' metaMatrix <- createTextMatrixFromPDF()
-#' 
-#' 
-#' # instead of ordinationCluster(), we can also run this
-#' # workflow step by step.
-#' 
-#' # 1) pull article metadata from Scopus
-#' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
-#' 
-#' # 2) process the full texts
-#' processedMetaDataMatrix <- processMetaDataMatrix(
-#'           metaMatrix,
-#'           list(language = "SMART",
-#'           stemWords = TRUE,
-#'           saveToWd = FALSE),
-#'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
-#'                                   
-#' # 3) run the cluster analysis to determine publication communities
-#' scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
-#' 
-#' # 4) visualize the results
-#' createOrdinationPlot(scicloudAnalysis)
-#' 
-#' # 5) a list of the most important papers per cluster
-#' mostImportantPaperPerCluster(scicloudAnalysis)
-#' 
-#' # 6) a summary of the analysis
-#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
-#'     }
+# title mostImportantPaperPerCluster
+#
+# description The sixth function to the word analysis with scicloud. It takes
+#     \code{scicloudAnalysis} and outputs a list of the most cited papers per
+#     cluster into the console.
+#
+# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
+#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
+# param scicloudAnalysis result of \code{\link{calculateModels}}
+# family scicloud functions
+# seealso \itemize{
+#     \item \code{\link{calculateModels}} for the preceding step
+#     \item \code{\link{createOrdinationPlot}} for the graphics
+#     \item \code{\link{inspectScicloud}} for a summary of the analysis
+#     }
+# return This function returns a console output of the papers with the
+#     highest citation count per year per cluster. The citations were fetched
+#     from the Scopus API by \code{\link{getScopusMetaData}}.
 
 mostImportantPaperPerCluster <- function(scicloudAnalysis) {
   numberOfClusters <-

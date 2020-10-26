@@ -2,53 +2,36 @@
 # Workflow for folders containing PDF files
 # generates a matrix of name in col1 and text in row2 like the scopus function
 ########################################################################
+# title createTextMatrixFromPDF
+#
+# description First function of the word analysis with scicloud. It takes all
+#     scientific papers as PDF files from the "PDFs" folder in your working
+#     directory. It then creates a DocumentTerm matrix of it.
+#
+# param directory per default, the PDFs are expected to be in a folder named
+#     "PDFs", can be changed ad. lib.
+# param saveToWd  a logical parameter whether or not to save the output of the
+#     function to the working directory. This is especially useful for later
+#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
+# family scicloud functions
+# seealso \itemize{
+#     \item \code{\link{ordinationCluster}} for the next step in scicloud
+#     \item or \code{\link{processMetaDataMatrix}} for the
+#     more granular next step if you intend to run it step by step
+#     \item \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
+#     future plots) from Scopus
+#     }
+#
+# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
+#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
+#     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
+# return A data frame containing the file name and full text of the pdf, 
+#     the DOI numbers from the text and some empty metadata columns to be
+#     filled by \code{\link{getScopusMetaData}}.
+#     It is analogous to what \code{\link{searchScopus}}
+#     returns.
+#      
 
-#' @title createTextMatrixFromPDF
-#'
-#' @description First function of the word analysis with scicloud. It takes all
-#'     scientific papers as PDF files from the "PDFs" folder in your working
-#'     directory. It then creates a DocumentTerm matrix of it.
-#'
-#' @param directory per default, the PDFs are expected to be in a folder named
-#'     "PDFs", can be changed ad. lib.
-#' @param saveToWd  a logical parameter whether or not to save the output of the
-#'     function to the working directory. This is especially useful for later
-#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
-#' @family scicloud functions
-#' @seealso \itemize{
-#'     \item \code{\link{ordinationCluster}} for the next step in scicloud
-#'     \item or \code{\link{processMetaDataMatrix}} for the
-#'     more granular next step if you intend to run it step by step
-#'     \item \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
-#'     future plots) from Scopus
-#'     }
-#'
-#' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#'     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
-#' @return A data frame containing the file name and full text of the pdf, 
-#'     the DOI numbers from the text and some empty metadata columns to be
-#'     filled by \code{\link{getScopusMetaData}}.
-#'     It is analogous to what \code{\link{searchScopus}}
-#'     returns.
-#' @examples
-#' \dontrun{
-#' 
-#' ### The normal workflow of scicloud
-#' myAPIKey <- "YOUR_API_KEY"
-#' metaMatrix <- createTextMatrixFromPDF()
-#'
-#' 
-#' # run the analysis, see ordinationCluster()
-#' # for more arguments
-#' scicloudAnalysis <- ordinationCluster(metaMatrix,
-#'                            myAPIKey = myAPIKey)
-#'
-#' # inspect the analysis
-#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
-#' }
-#' @export
- 
 createTextMatrixFromPDF <-
   function(directory = file.path(".", "PDFs"),
            saveToWd = TRUE) {
@@ -160,7 +143,7 @@ createTextMatrixFromPDF <-
       PDFs_FileName <- setdiff(PDFs_FileName, erroneous_pdf)
       cat("\nCORRUPTED FILE ISSUE:")
       cat(crayon::red("\nCorrupted file(s) found in your PDFs folder!"))
-      cat(crayon::red("\nExcluding file(s) in the metaMatrix..."))
+      cat(crayon::red("\nExcluding file(s)..."))
       cat(crayon::red("\nERROR found in PDF:",erroneous_pdf))
       cat("\n")
       # remove the row(s) of erroneous_pdf
@@ -203,8 +186,8 @@ createTextMatrixFromPDF <-
         subset(PDFcontent,!duplicates)
       cat("\nDUPLICATED FILE ISSUE:")
       cat(crayon::red("\nPDF with duplicated DOI:", 
-                      duplicate_file, " is excluded from the metaMatrix"))
-      cat(crayon::red("\nCheck your PDFs folder as it contains same PDF files but with different names!"))
+                      duplicate_file, " is excluded."))
+      cat(crayon::red("\nCheck your PDFs if contain some same PDF files but with different names!"))
       cat("\n")
     }
     
@@ -221,7 +204,7 @@ createTextMatrixFromPDF <-
         # remove rows from the metaMatrix, when == "NA"
         idx_to_del <- which(is.na(PDFcontent[,"DOI"]))[stringr::str_detect(update, "NA")]
         if(length(idx_to_del)){
-          cat(crayon::red("\nExcluded the following file(s):", names(update[stringr::str_detect(update, "NA")])))
+          cat(crayon::red("\nExcluded the following file:", names(update[stringr::str_detect(update, "NA")])))
           PDFcontent<-PDFcontent[-idx_to_del,]  
         }
         # update the rows when user input a valid DOI == DOIpattern

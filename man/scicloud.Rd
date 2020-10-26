@@ -3,95 +3,72 @@
 \docType{package}
 \name{scicloud}
 \alias{scicloud}
-\title{scicloud: A Package For Word Analysis Of Scientific Papers}
+\title{A Package For Word Analysis Of Scientific Papers}
 \description{
-The scicloud package provides a word analysis for scientific papers as PDFs.
-It clusters publication communities based on the words used in the papers.
-To then identify the words relevant to the communities, it uses an indicator
+The scicloud package provides a word analysis for scientific papers which 
+saved as PDFs. It clusters publication communities based on the words used in 
+the papers. To identify the words relevant to the communities, it uses an indicator
 species analysis. In the end, it produces a wordcloud and visualizes the
-communities by year and number of citations.
+communities by year and number of citations with barplots.
 The package also offers a network analysis approach for which
 Gephi or a different graphing software is required.
 }
 \section{Pre-requisites}{
 
-Make sure to have the PDFs of your choice in a folder called 'PDFs' in
-    your working directory.
+Locate all the PDFs that you want to analyze in a folder called "PDFs" 
+in your working directory, otherwise please provide a specific path to the 
+directory of your PDFs when calling \code{\link{createScicloudList}} function. 
     
-    Alternatively, you run an analysis of search results from Scopus.
-    All papers and their abstracts that match your search using
-    \code{\link{searchScopus}} are then used for the analysis.
+    An API key from Elsevier is also required in order to retrieve additional 
+    information needed from Scopus. All papers and their abstracts that match 
+    in the search are then used for the analysis.
     
-Metadata of the papers allow for a more complete analysis. Metadata will be
-    downloaded from Elsevier and it requires you to have an API key.
     To acquire your API key, go to \url{https://dev.elsevier.com/index.jsp}.
     In addition, make sure that you are connected to your institution's
-    network (e.g. via VPN). 
+    network (e.g. via VPN) when executing \code{\link{createScicloudList}} function. 
 
-See the examples below on how to use the package.
+Refer to the examples below to know how to use the package.
 }
 
-\section{scicloud functions}{
-
-The scicloud functions are built in the following order:
+\section{Workflow of running analysis with scicloud}{
+ 
+The scicloud functions should be executed in the following order:
 \enumerate{
-    \item \code{\link{createTextMatrixFromPDF}}
-    \item \code{\link{ordinationCluster}}
+    \item \code{\link{createScicloudList}}
+    \item \code{\link{runAnalysis}}
     \item \code{\link{inspectScicloud}}
 }
-The wrapper function \code{\link{ordinationCluster}} can also be done step
-    by step:
-\enumerate{
-    \item \code{\link{processMetaDataMatrix}}
-    \item \code{\link{getScopusMetaData}}
-    \item \code{\link{calculateModels}}
-    \item \code{\link{calculateNetwork}}
-    \item \code{\link{createOrdinationPlot}}
-    \item \code{\link{mostImportantPaperPerCluster}}
 }
+
+\section{Managing RDS files}{
+ 
+The result of \code{\link{createScicloudList}} and \code{\link{runAnalysis}} 
+can be saved as a RDS file in your working directory by setting the parameter "saveToWd"
+to TRUE when executing these functions. To delete the RDS files in the working directory,
+simply execute \code{\link{delete_RDS}} and choose one of the delete options. Check the 
+function's documentation for more details.
 }
 
 \examples{
 \dontrun{
 
-### The normal workflow of scicloud
+### Workflow of performing analysis using scicloud
 myAPIKey <- "YOUR_API_KEY"
-metaMatrix <- createTextMatrixFromPDF()
 
-# optional: read in previously run models
-# metaMatrix <- readRDS(file= 'metaMatrix2019_______FILL_IN_HERE________')
+# retrieving data from PDFs and Scorpus website using API  
+scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 
-# run the analysis, see ordinationCluster()
-# for more arguments
-scicloudAnalysis <- ordinationCluster(metaMatrix,
-                           myAPIKey = myAPIKey)
-
-# inspect the analysis
+# Run the analysis with a specified no. of cluster
+scicloudAnalysis <- runAnalysis(scipusList = scipusList, numberOfClusters = 4)
+                           
+# Generate a summary of the analysis 
 scicloudSpecs <- inspectScicloud(scicloudAnalysis)
-
-
-
-### Alternative workflow: Generate a wordlist-csv to
-### revise the words before the analysis
-
-createTextMatrixFromPDF()
-scicloudAnalysis <- ordinationCluster(metaMatrix, 
-                                      generateWordlist = TRUE,
-                                      stemWords = TRUE)
-                                      
-# work with the wordlist and read the wordlist in again
-scicloudAnalysis <- ordinationCluster(metaMatrix,
-                                      keepWordsFile = "scicloudWordlist.csv",
-                                      stemWords = TRUE)
-
- scicloudSpecs <- inspectScicloud(scicloudAnalysis)
-                                   }
-
+}
 }
 \author{
 Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de},
     Matthias Nachtmann, \email{matthias.nachtmann@stud.leuphana.de},
     Jia Yan Ng, \email{jia.y.ng@stud.leuphana.de},
-    Johann Julius Beeck,
+    Johann Julius Beeck, \email{johann.j.beeck@stud.leuphana.de}, 
     Henrik von Wehrden, Prabesh Dhakal, \email{prabesh.dhakal@stud.leuphana.de}
 }

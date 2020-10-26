@@ -2,13 +2,13 @@
 # Inspecting the results of the scicloud package
 ########################################################################
 
-#' @title inspectScicloud
+#' @title Summarize the result of scicloud analysis
 #'
-#' @description The last function to the word analysis with scicloud. It
-#'     takes \code{scicloudAnalysis} and returns a summary of the cluster analysis.
-#' @param scicloudAnalysis result of \code{\link{ordinationCluster}} or
-#'     \code{\link{calculateModels}}
-#' @family scicloud functions
+#' @description The last function to be called to perform analysis in scicloud.
+#' It takes the result of \code{scicloudAnalysis} and returns a summary of the 
+#' cluster analysis.
+#' @param scicloudAnalysis 
+#' 
 #' @seealso \itemize{
 #'     \item \code{\link{calculateModels}} for the preceding step
 #'     \item \code{\link{createOrdinationPlot}} for the graphics
@@ -39,20 +39,19 @@
 #'     \code{View(scicloudSpecs$metaMatrix)} to view the original
 #'     metaMatrix (without full texts, so it's safe to open).
 #'     }
+#' @family scicloud functions
 #' @examples
 #' \dontrun{
 #' 
-#' ### The normal workflow of scicloud
+#' ### Workflow of performing analysis using scicloud
 #' myAPIKey <- "YOUR_API_KEY"
-#' metaMatrix <- createTextMatrixFromPDF()
+#' # retrieving data from PDFs and Scorpus website using API  
+#' scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 #'
-#' 
-#' # run the analysis, see ordinationCluster()
-#' # for more arguments
-#' scicloudAnalysis <- ordinationCluster(metaMatrix,
-#'                            myAPIKey = myAPIKey)
-#'
-#' # inspect the analysis
+#' # Run the analysis with a specified no. of cluster
+#' scicloudAnalysis <- runAnalysis(scipusList = scipusList, numberOfClusters = 4)
+#'                            
+#' # Generate a summary of the analysis 
 #' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #' }
 #' @export

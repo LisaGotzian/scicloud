@@ -2,62 +2,48 @@
 # Workflow for working with networks
 ########################################################################
 
-#' @title calculateNetwork
-#'
-#' @description This function is an alternative to the fourth function
-#'     \code{\link{calculateModels}} of the scicloud analysis. It uses
-#'     a network clustering approach. When done, it returns a list of global
-#'     and local measures and also generates a clustered matrix. This matrix
-#'     can then be further processed in network programs like
-#'     Gephi.
-#' @param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
-#' @param sortby the centrality measure to sort the words by,
-#'     default is Eigenvector. Allows the following possible inputs: "Eigenvector", "Degree",
-#'     "Closeness, "Betweenness". 
-#' @param keep numeric, keeps by default 0.33 of all the words, sorted
-#'     by the argument given by \code{sortby}. A smaller amount of words to
-#'     keep facilitates computations for later use.
-#' @param saveToWd a logical parameter whether or not to save the output of the
-#'     function to the working directory. This is especially useful for later
-#'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
-#' @param ordinationFunction internal variable
-#' @seealso \itemize{
-#'     \item \code{\link{processMetaDataMatrix}} for the preceding step
-#'     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#'     \item note that \code{\link{createOrdinationPlot}}, 
-#'     \code{\link{mostImportantPaperPerCluster}} and \code{\link{inspectScicloud}}
-#'     are part of the clustering with \code{\link{calculateModels}}
-#'     and don't work with this function.
-#'     }
-#'
-#' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
-#'     \email{julius.rathgens@@leuphana.de}
-#' @return   output:
-#' \itemize{
-#'     \item \code{LocalMeasures}: local measures
-#'     for both papers and words
-#'     \item \code{ReducedLocalMeasures}: 1/3 of the words (!) with their
-#'     centrality measures & clustering according to three different clustering
-#'     methods, arranged by default by eigenvector centrality using \code{sortby}
-#'     \item \code{ReducedIncidenceMatrix}: 1/3 of the words arranged by
-#'     eigenvector centrality, to be further processed e.g. in Gephi or with other
-#'     clustering functions
-#'     \item \code{GlobalMeasures}: global measures of the network
-#'     }
-#' @examples \dontrun{
-#' 
-#' ### The normal workflow of scicloud
-#' myAPIKey <- "YOUR_API_KEY"
-#' metaMatrix <- createTextMatrixFromPDF()
-#'
-#' 
-#' # run the analysis for the network analysis
-#' modeledNetwork <- ordinationCluster(metaMatrix,
-#'                            myAPIKey = myAPIKey,
-#'                            method = "network")
-#' }
-#' @export
-
+# title calculateNetwork
+#
+# description This function is an alternative to the fourth function
+#     \code{\link{calculateModels}} of the scicloud analysis. It uses
+#     a network clustering approach. When done, it returns a list of global
+#     and local measures and also generates a clustered matrix. This matrix
+#     can then be further processed in network programs like
+#     Gephi.
+# param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
+# param sortby the centrality measure to sort the words by,
+#     default is Eigenvector. Allows the following possible inputs: "Eigenvector", "Degree",
+#     "Closeness, "Betweenness". 
+# param keep numeric, keeps by default 0.33 of all the words, sorted
+#     by the argument given by \code{sortby}. A smaller amount of words to
+#     keep facilitates computations for later use.
+# param saveToWd a logical parameter whether or not to save the output of the
+#     function to the working directory. This is especially useful for later
+#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
+# param long_msg logical variable to whether print long message or not 
+# seealso \itemize{
+#     \item \code{\link{processMetaDataMatrix}} for the preceding step
+#     \item \code{\link{inspectScicloud}} for a summary of the analysis
+#     \item note that \code{\link{createOrdinationPlot}}, 
+#     \code{\link{mostImportantPaperPerCluster}} and \code{\link{inspectScicloud}}
+#     are part of the clustering with \code{\link{calculateModels}}
+#     and don't work with this function.
+#     }
+#
+# author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
+#     \email{julius.rathgens@@leuphana.de}
+# return   output:
+# \itemize{
+#     \item \code{LocalMeasures}: local measures
+#     for both papers and words
+#     \item \code{ReducedLocalMeasures}: 1/3 of the words (!) with their
+#     centrality measures & clustering according to three different clustering
+#     methods, arranged by default by eigenvector centrality using \code{sortby}
+#     \item \code{ReducedIncidenceMatrix}: 1/3 of the words arranged by
+#     eigenvector centrality, to be further processed e.g. in Gephi or with other
+#     clustering functions
+#     \item \code{GlobalMeasures}: global measures of the network
+#     }
 
 # possible future avances:
 # 1) using
@@ -76,7 +62,7 @@ calculateNetwork <- function(processedMetaDataMatrix,
                                         "Closeness","Betweenness"), 
                              keep = 0.33,
                              saveToWd = TRUE,
-                             ordinationFunction = FALSE) {
+                             long_msg = FALSE) {
   
   sortby <- match.arg(sortby) #pick the argument input by user
   
@@ -84,7 +70,8 @@ calculateNetwork <- function(processedMetaDataMatrix,
   Check <- ArgumentCheck::newArgCheck()
   if (any(c(
     is.null(processedMetaDataMatrix[[1]]),
-    is.null(processedMetaDataMatrix[[2]])
+    is.null(processedMetaDataMatrix[[2]]),
+    is.null(processedMetaDataMatrix[[3]])
   ))) {
     ArgumentCheck::addError(
       msg = "Invalid processedMetaDataMatrix! Use value from processMetaDataMatrix()", 
@@ -253,7 +240,7 @@ calculateNetwork <- function(processedMetaDataMatrix,
   )
   
   if (saveToWd == TRUE) {
-    save_data(networkMatrix, "modeledNetwork", long_msg = !ordinationFunction)
+    save_data(networkMatrix, "modeledNetwork", long_msg = !long_msg)
   }
   names(networkMatrix) <-
     c(

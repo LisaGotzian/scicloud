@@ -1,64 +1,29 @@
-#' @title createOrdinationPlot
-#'
-#' @description The fifth function to the word analysis with scicloud. It takes
-#'     the \code{scicloudAnalysis} and creates five different plots: a wordcloud of
-#'     the publication communities and four visualizations of the communities
-#'     by year and number of citations.
-#'
-#' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#'     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
-#' @param scicloudAnalysis result of \code{\link{calculateModels}}
-#' @param exactPosition logical, the plot function tries to avoid overlapping
-#'     labels for the sake of visual simplicity over perfect
-#'     precision. When set to \code{TRUE}, the words position will be marked by
-#'     a dot and the label will be connected with a line to it.
-#' @family scicloud functions
-#' @seealso \itemize{
-#'     \item \code{\link{calculateModels}} for the preceding step
-#'     \item \code{\link{mostImportantPaperPerCluster}} for the proceeding step
-#'     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#'     }
-#' @return This function plots a graphic based on the clustered publication
-#'     communities. The citation count and publication dates were fetched
-#'     from the Scopus API by \code{\link{getScopusMetaData}}.
-#' @importFrom rlang .data
-#' @export
-#' @examples
-#' \dontrun{
-#' 
-#' ### The normal workflow of scicloud
-#' myAPIKey <- "YOUR_API_KEY"
-#' metaMatrix <- createTextMatrixFromPDF()
-#' 
-#' 
-#' # instead of ordinationCluster(), we can also run this
-#' # workflow step by step.
-#' 
-#' # 1) pull article metadata from Scopus
-#' metaMatrix <- getScopusMetaData(metaMatrix, myAPIKey)
-#' 
-#' # 2) process the full texts
-#' processedMetaDataMatrix <- processMetaDataMatrix(
-#'           metaMatrix,
-#'           list(language = "SMART",
-#'           stemWords = TRUE,
-#'           saveToWd = FALSE),
-#'           ignoreWords = c("Abstract", "Bulletin", "Editor"))
-#'                                   
-#' # 3) run the cluster analysis to determine publication communities
-#' scicloudAnalysis <- calculateModels(processedMetaDataMatrix)
-#' 
-#' # 4) visualize the results
-#' createOrdinationPlot(scicloudAnalysis)
-#' 
-#' # 5) a list of the most important papers per cluster
-#' mostImportantPaperPerCluster(scicloudAnalysis)
-#' 
-#' # 6) a summary of the analysis
-#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
-#'     }
-#'     
+# title createOrdinationPlot
+#
+# description The fifth function to the word analysis with scicloud. It takes
+#     the \code{scicloudAnalysis} and creates five different plots: a wordcloud of
+#     the publication communities and four visualizations of the communities
+#     by year and number of citations.
+#
+# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
+#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
+#     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
+# param scicloudAnalysis result of \code{\link{calculateModels}}
+# param exactPosition logical, the plot function tries to avoid overlapping
+#     labels for the sake of visual simplicity over perfect
+#     precision. When set to \code{TRUE}, the words position will be marked by
+#     a dot and the label will be connected with a line to it.
+# family scicloud functions
+# seealso \itemize{
+#     \item \code{\link{calculateModels}} for the preceding step
+#     \item \code{\link{mostImportantPaperPerCluster}} for the proceeding step
+#     \item \code{\link{inspectScicloud}} for a summary of the analysis
+#     }
+# return This function plots a graphic based on the clustered publication
+#     communities. The citation count and publication dates were fetched
+#     from the Scopus API by \code{\link{getScopusMetaData}}.
+# @importFrom rlang .data
+  
 createOrdinationPlot <- function(scicloudAnalysis,
                                  exactPosition = FALSE) {
   
