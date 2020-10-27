@@ -82,6 +82,7 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 \seealso{
 Other scicloud functions: 
 \code{\link{deleteRDS}()},
+\code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()},
 \code{\link{runAnalysis}()}
 }
