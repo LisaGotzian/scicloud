@@ -35,8 +35,7 @@ analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
  When it is TRUE, every word is transformed to its stem. Look at 
 \code{\link[tm]{stemDocument}} for more information.}
 
-\item{ignoreWords}{a vector of words to be ignored which is passed to processMetaDataMatrix. 
-Refer \code{\link{processMetaDataMatrix.}} for details.}
+\item{ignoreWords}{a vector of words to be ignored which is passed to processMetaDataMatrix.}
 
 \item{keepWordsFile}{path to a .csv-file that specifies which words to keep
 during the analysis. Accepts 0/1 behind each word or takes the words
@@ -82,7 +81,6 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 \seealso{
 Other scicloud functions: 
 \code{\link{deleteRDS}()},
-\code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()},
 \code{\link{runAnalysis}()}
 }

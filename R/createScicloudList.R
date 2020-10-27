@@ -24,8 +24,7 @@
 #' @param long_msg logical variable to whether print long message or not  
 #'     When it is TRUE, every word is transformed to its stem. Look at 
 #'    \code{\link[tm]{stemDocument}} for more information.
-#' @param ignoreWords a vector of words to be ignored which is passed to processMetaDataMatrix. 
-#'     Refer \code{\link{processMetaDataMatrix.}} for details.
+#' @param ignoreWords a vector of words to be ignored which is passed to processMetaDataMatrix.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
 #'     during the analysis. Accepts 0/1 behind each word or takes the words
 #'     as they are and disregards all other words of the analysis.

@@ -37,7 +37,7 @@
 #' The result of \code{\link{createScicloudList}} and \code{\link{runAnalysis}} 
 #' can be saved as a RDS file in your working directory by setting the parameter "saveToWd"
 #' to TRUE when executing these functions. To delete the RDS files in the working directory,
-#' simply execute \code{\link{delete_RDS}} and choose one of the delete options. Check the 
+#' simply execute \code{\link{deleteRDS}} and choose one of the delete options. Check the 
 #' function's documentation for more details. 
 #' 
 #' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},

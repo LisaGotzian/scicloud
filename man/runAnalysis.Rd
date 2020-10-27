@@ -26,15 +26,12 @@ runAnalysis(
 not more than 14. An integer sets the number of clusters manually \cr
 for NA, the function automatically calculates results for 1 till 12 clusters}
 
-\item{minWordsPerCluster}{minimum number of words to be plotted per cluster
-in \code{\link{createOrdinationPlot}}.}
+\item{minWordsPerCluster}{minimum number of words to be plotted per cluster.}
 
-\item{maxWordsPerCluster}{maximum number of words to be plotted per cluster
-in \code{\link{createOrdinationPlot}}.}
+\item{maxWordsPerCluster}{maximum number of words to be plotted per cluster.}
 
 \item{p}{the p-value that sets the significance level of individual words for
-the indicator species analysis. Only significant words will be plotted
-in \code{\link{createOrdinationPlot}}.}
+the indicator species analysis. Only significant words will be plotted.}
 
 \item{exactPosition}{logical, the plot function tries to avoid overlapping 
 labels for the sake of visual simplicity over perfect precision. 
@@ -59,8 +56,7 @@ your working directory. The list contains all significant words that the
 indicator species analysis deemed significant to describe your paper
 clusters. You can now add a 0/1 behind each word or delete rows you
 don't consider important to the analysis. To re-run the analysis with
-the new wordlist, read it in using \code{keepWordsFile} as an argument
-to \code{\link{ordinationCluster}}.}
+the new wordlist, read it in using \code{keepWordsFile} as an argument.}
 
 \item{long_msg}{logical variable to whether print long message or not}
 }
@@ -104,7 +100,6 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 Other scicloud functions: 
 \code{\link{createScicloudList}()},
 \code{\link{deleteRDS}()},
-\code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()}
 }
 \author{

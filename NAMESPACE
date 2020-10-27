@@ -2,6 +2,6 @@
 
 export(createScicloudList)
 export(deleteRDS)
-export(getScopusMetaData)
 export(inspectScicloud)
 export(runAnalysis)
+importFrom(rlang,.data)

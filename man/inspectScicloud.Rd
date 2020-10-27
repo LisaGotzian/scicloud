@@ -7,7 +7,7 @@
 inspectScicloud(scicloudAnalysis)
 }
 \arguments{
-\item{scicloudAnalysis}{}
+\item{scicloudAnalysis}{the result of \code{scicloudAnalysis}}
 }
 \value{
 A summary of the analysis is printed into the console. It gives
@@ -54,17 +54,9 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 }
 \seealso{
-\itemize{
-    \item \code{\link{calculateModels}} for the preceding step
-    \item \code{\link{createOrdinationPlot}} for the graphics
-    \item \code{\link{mostImportantPaperPerCluster}} for the most cited
-    papers per cluster
-    }
-
 Other scicloud functions: 
 \code{\link{createScicloudList}()},
 \code{\link{deleteRDS}()},
-\code{\link{getScopusMetaData}()},
 \code{\link{runAnalysis}()}
 }
 \author{

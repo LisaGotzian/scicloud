@@ -36,7 +36,6 @@ Done. Deleted All RDS files.
 \seealso{
 Other scicloud functions: 
 \code{\link{createScicloudList}()},
-\code{\link{getScopusMetaData}()},
 \code{\link{inspectScicloud}()},
 \code{\link{runAnalysis}()}
 }

@@ -7,14 +7,7 @@
 #' @description The last function to be called to perform analysis in scicloud.
 #' It takes the result of \code{scicloudAnalysis} and returns a summary of the 
 #' cluster analysis.
-#' @param scicloudAnalysis 
-#' 
-#' @seealso \itemize{
-#'     \item \code{\link{calculateModels}} for the preceding step
-#'     \item \code{\link{createOrdinationPlot}} for the graphics
-#'     \item \code{\link{mostImportantPaperPerCluster}} for the most cited
-#'     papers per cluster
-#'     }
+#' @param scicloudAnalysis the result of \code{scicloudAnalysis}
 #'
 #' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
 #' @return A summary of the analysis is printed into the console. It gives

@@ -22,7 +22,7 @@
 # return This function plots a graphic based on the clustered publication
 #     communities. The citation count and publication dates were fetched
 #     from the Scopus API by \code{\link{getScopusMetaData}}.
-# @importFrom rlang .data
+#' @importFrom rlang .data
   
 createOrdinationPlot <- function(scicloudAnalysis,
                                  exactPosition = FALSE) {
