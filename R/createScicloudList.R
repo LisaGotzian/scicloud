@@ -21,9 +21,6 @@
 #' @param saveToWd  a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
-#' @param long_msg logical variable to whether print long message or not  
-#'     When it is TRUE, every word is transformed to its stem. Look at 
-#'    \code{\link[tm]{stemDocument}} for more information.
 #' @param ignoreWords a vector of words to be ignored which is passed to processMetaDataMatrix.
 #' @param keepWordsFile path to a .csv-file that specifies which words to keep
 #'     during the analysis. Accepts 0/1 behind each word or takes the words
@@ -59,7 +56,6 @@ createScicloudList <- function(directory = file.path(".", "PDFs"),
                            language = "SMART",
                            stemWords = TRUE,
                            saveToWd = FALSE,
-                           long_msg = FALSE,
                            ignoreWords = c(),
                            keepWordsFile = NA) {
   
@@ -76,7 +72,7 @@ createScicloudList <- function(directory = file.path(".", "PDFs"),
   ArgumentCheck::finishArgCheck(Check)
   
   # create matrix by reading PDFs 
-  metaMatrix <- createTextMatrixFromPDF(directory, saveToWd)
+  metaMatrix <- createTextMatrixFromPDF(directory)
   
   # preprocessing the corpus from the PDFs to create Tf-Idf and WordList
   scicloudList <-
@@ -84,9 +80,7 @@ createScicloudList <- function(directory = file.path(".", "PDFs"),
       metaMatrix = metaMatrix,
       control = list(
         language = language, 
-        stemWords = stemWords, 
-        saveToWd = saveToWd, 
-        long_msg = long_msg),
+        stemWords = stemWords),
       ignoreWords = ignoreWords,
       keepWordsFile = keepWordsFile
     )
@@ -95,8 +89,10 @@ createScicloudList <- function(directory = file.path(".", "PDFs"),
   scicloudList$metaMatrix <-
     getScopusMetaData(
       metaMatrix = metaMatrix, 
-      myAPIKey = myAPIKey, 
-      long_msg = long_msg)
+      myAPIKey = myAPIKey)
   
+  if (saveToWd){
+    save_data(scicloudList, "scicloudList")
+  }
   return(scicloudList)
 }

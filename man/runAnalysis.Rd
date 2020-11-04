@@ -15,8 +15,7 @@ runAnalysis(
   dendroLabels = c("truncated", "break"),
   saveToWd = TRUE,
   method = c("hclust", "network", "both"),
-  generateWordlist = FALSE,
-  long_msg = FALSE
+  generateWordlist = FALSE
 )
 }
 \arguments{
@@ -57,8 +56,6 @@ indicator species analysis deemed significant to describe your paper
 clusters. You can now add a 0/1 behind each word or delete rows you
 don't consider important to the analysis. To re-run the analysis with
 the new wordlist, read it in using \code{keepWordsFile} as an argument.}
-
-\item{long_msg}{logical variable to whether print long message or not}
 }
 \value{
 Returns a list with the following components:

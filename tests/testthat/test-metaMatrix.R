@@ -1,6 +1,6 @@
 # Test the output of createTextMatrixFromPDF using the dummy PDFs in tests/testthat
 if (!require(testthat)) install.packages('testthat')
-metaMatrix <- createTextMatrixFromPDF(getwd(), FALSE)
+metaMatrix <- createTextMatrixFromPDF(getwd())
 library("testthat")
 test_that("check metaMatrix structure",{
   colname <- c("Title","Year","Month","Day","Authors","Journal","Volume","Issue","Pages","CitedBy","CitationPerYear","DOI","Scopus-ID","Publisher","Affiliation","Affiliation-City","Affiliation-Country","FileName","Abstract","FullText","ID")

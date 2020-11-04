@@ -37,10 +37,6 @@
 #     that are representative for the respective paper clusters. To work with the
 #     new wordlist, read it in using \code{keepWordsFile} as an argument
 #     to \code{\link{processMetaDataMatrix}} or \code{\link{ordinationCluster}}.
-# param saveToWd a logical parameter whether or not to save the output of the
-#     function to the working directory. This is especially useful for later
-#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
-# param long_msg logical variable to whether print long message or not 
 # seealso \itemize{
 #     \item \code{\link{processMetaDataMatrix}} for the preceding step
 #     \item \code{\link{createOrdinationPlot}} for the next step and
@@ -66,9 +62,7 @@ calculateModels <- function(processedMetaDataMatrix,
                             p = 0.05,
                             dendrogram = TRUE,
                             dendroLabels = c("truncated", "break"),
-                            generateWordlist = FALSE,
-                            saveToWd = TRUE,
-                            long_msg = FALSE) {
+                            generateWordlist = FALSE) {
   
   dendroLabels <- match.arg(dendroLabels) #pick the argument input by user
   
@@ -327,6 +321,7 @@ calculateModels <- function(processedMetaDataMatrix,
   
   ## save each paper into one new folder
   PdfsPerCluster <- file.path(getwd(), "PdfsPerCluster")
+  #PdfsPerCluster <- file.path(do.call(file.path, as.list(strsplit(getwd(), "/")[[1]])), "PdfsPerCluster")
   if (dir.exists(PdfsPerCluster)){
     message("The existing paper-cluster folders have been overwritten")
     nestedFolders <- list.files(PdfsPerCluster, full.names = TRUE)
@@ -353,9 +348,6 @@ calculateModels <- function(processedMetaDataMatrix,
     )
   )
   
-  if (saveToWd == TRUE) {
-    save_data(scicloudAnalysis, "scicloudAnalysis", long_msg = long_msg)
-  }
   return(scicloudAnalysis)
 }
 

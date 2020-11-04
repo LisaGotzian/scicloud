@@ -8,25 +8,9 @@ filter_file <- function(file_path, file_extension){
 }
 
 # Save data in RDS format at current working directory  
-save_data <- function(data, data_name, long_msg = TRUE){
+save_data <- function(data, data_name){
   file_name <- paste0(data_name, format(Sys.time(), "%Y_%m_%d_%H_%M_%S"), ".RDS")
   saveRDS(data, file = file_name)
-  if(long_msg){
-    cat(
-      paste0(
-        "\nThe ", data_name, " is now in your global environment. ",
-        "It is also saved as a file in your working directory. ",
-        "\nIf you work with the same data again, you can skip this ",
-        "step in future analysis by reading the file:",
-        "\n ", data_name, "<- readRDS(file= '",
-        file_name,
-        "')
-        \nTo delete RDS files: run delete_RDS() to select different options from the menu.
-        \n"
-      )
-    )
-  }
-  else{
     cat(
       paste0(
         data_name, " is saved. You can read it using:\n", data_name, " <- readRDS(file= '",
@@ -35,7 +19,6 @@ save_data <- function(data, data_name, long_msg = TRUE){
         \n###################################################################################\n\n"
       )
     )  
-  }
 }
 
 #' @title Delete RDS files saved in working directory

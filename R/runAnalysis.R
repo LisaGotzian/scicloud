@@ -38,7 +38,6 @@
 #'     clusters. You can now add a 0/1 behind each word or delete rows you
 #'     don't consider important to the analysis. To re-run the analysis with
 #'     the new wordlist, read it in using \code{keepWordsFile} as an argument.
-#' @param long_msg logical variable to whether print long message or not
 #' @return Returns a list with the following components:
 #' \itemize{
 #'     \item \code{IndVal}: the results of the indicator species analysis.
@@ -74,8 +73,7 @@ runAnalysis <- function(scicloudList,
                         dendroLabels = c("truncated", "break"), 
                         saveToWd = TRUE,
                         method = c("hclust", "network", "both"),
-                        generateWordlist = FALSE,
-                        long_msg = FALSE) {
+                        generateWordlist = FALSE) {
   
   #pick the argument input by user, default = "hclust"
   method <- match.arg(method) 
@@ -105,8 +103,6 @@ runAnalysis <- function(scicloudList,
         p = p,
         dendrogram = dendrogram,
         dendroLabels = dendroLabels,
-        long_msg = long_msg,
-        saveToWd = saveToWd,
         generateWordlist = generateWordlist
       )
     
@@ -123,10 +119,12 @@ runAnalysis <- function(scicloudList,
   if(method == "network" | method == "both"){
     modeledNetwork <-
       calculateNetwork(
-        scicloudList,
-        saveToWd = saveToWd,
-        long_msg = long_msg
+        scicloudList
       )
+  }
+  
+  if (saveToWd == TRUE) {
+    save_data(runAnalysis, "runAnalysis")
   }
   
   if (method == "hclust")

@@ -10,7 +10,6 @@ createScicloudList(
   language = "SMART",
   stemWords = TRUE,
   saveToWd = FALSE,
-  long_msg = FALSE,
   ignoreWords = c(),
   keepWordsFile = NA
 )
@@ -30,10 +29,6 @@ API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
 \item{saveToWd}{a logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
 analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
-
-\item{long_msg}{logical variable to whether print long message or not
- When it is TRUE, every word is transformed to its stem. Look at 
-\code{\link[tm]{stemDocument}} for more information.}
 
 \item{ignoreWords}{a vector of words to be ignored which is passed to processMetaDataMatrix.}
 

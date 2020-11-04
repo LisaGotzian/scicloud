@@ -10,9 +10,6 @@
 #
 # param directory per default, the PDFs are expected to be in a folder named
 #     "PDFs", can be changed ad. lib.
-# param saveToWd  a logical parameter whether or not to save the output of the
-#     function to the working directory. This is especially useful for later
-#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 # family scicloud functions
 # seealso \itemize{
 #     \item \code{\link{ordinationCluster}} for the next step in scicloud
@@ -33,8 +30,7 @@
 #      
 
 createTextMatrixFromPDF <-
-  function(directory = file.path(".", "PDFs"),
-           saveToWd = TRUE) {
+  function(directory = file.path(".", "PDFs")) {
     
     # filter out non PDF files
     PDFs_FileName <- Sys.glob(file.path(directory, "*.pdf"))
@@ -228,10 +224,6 @@ createTextMatrixFromPDF <-
     pdf_in_dir <- length(Sys.glob(file.path(directory, "*.pdf")))
     cat("\nIncluded", nrow(PDFcontent), "file(s) in metaMatrix out of", pdf_in_dir, "file(s) found in your PDFs folder.")
     cat("\n")
-    
-    if (saveToWd == TRUE) {
-      save_data(PDFcontent, "metaMatrix")
-    }
     
     return(PDFcontent)
   }

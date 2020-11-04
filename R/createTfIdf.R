@@ -14,10 +14,7 @@
 #     \strong{stemWords}: can be \code{TRUE} of \code{FALSE}. Transforms every word
 #     to its stem, so variants of the same words are treated equally. Look
 #     at \code{\link[tm]{stemDocument}} for more information.\cr
-#     \strong{saveToWd}: a logical parameter whether or not to save the output of the
-#     function to the working directory. This is especially useful for later
-#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.\cr
-#     e.g. control = list(language = "SMART", stemWords = FALSE, saveToWd = TRUE)
+#     e.g. control = list(language = "SMART", stemWords = FALSE)
 # param ignoreWords a vector of words to be ignored.
 # param keepWordsFile path to a .csv-file that specifies which words to keep
 #     during the analysis. Accepts 0/1 behind each word or takes the words
@@ -62,12 +59,6 @@ createTfIdf <- function(metaMatrix, control = list(),
           msg = "Please define the stemWords in control list!",
           argcheck = Check
         )
-      if(is.null(control$saveToWd))
-        ArgumentCheck::addError(
-          msg = "Please define the saveToWd in control list!",
-          argcheck = Check
-        )
-      
     }
   
   ## metaMatrix warnings
@@ -104,10 +95,6 @@ createTfIdf <- function(metaMatrix, control = list(),
   
   #* Return errors and warnings (if any)
   ArgumentCheck::finishArgCheck(Check)
-  
-  # define ordinationFunction
-  if(is.null(control$long_msg)) {control$long_msg <- FALSE}
-  
   
   ### This part checks for results without abstract or fulltext and excludes them
   ### use keepNA = FALSE in nchar(), so that value 2 is returned when it is an empty string
@@ -211,9 +198,5 @@ createTfIdf <- function(metaMatrix, control = list(),
   scipusList$Tf_Idf <- tf_idf
   scipusList$wordList <- as.factor(sort(colnames(tf_idf)))
   
-  if (isTRUE(control$saveToWd)){
-    save_data(scipusList, "metaData", long_msg = control$long_msg)
-    
-  }
   return(scipusList)
 }

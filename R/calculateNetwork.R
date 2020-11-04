@@ -17,10 +17,6 @@
 # param keep numeric, keeps by default 0.33 of all the words, sorted
 #     by the argument given by \code{sortby}. A smaller amount of words to
 #     keep facilitates computations for later use.
-# param saveToWd a logical parameter whether or not to save the output of the
-#     function to the working directory. This is especially useful for later
-#     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
-# param long_msg logical variable to whether print long message or not 
 # seealso \itemize{
 #     \item \code{\link{processMetaDataMatrix}} for the preceding step
 #     \item \code{\link{inspectScicloud}} for a summary of the analysis
@@ -60,9 +56,7 @@
 calculateNetwork <- function(processedMetaDataMatrix,
                              sortby = c("Eigenvector","Degree",
                                         "Closeness","Betweenness"), 
-                             keep = 0.33,
-                             saveToWd = TRUE,
-                             long_msg = FALSE) {
+                             keep = 0.33) {
   
   sortby <- match.arg(sortby) #pick the argument input by user
   
@@ -239,9 +233,6 @@ calculateNetwork <- function(processedMetaDataMatrix,
     "Find the .csv-file reduced based on centrality in your working directory for further use.\n"
   )
   
-  if (saveToWd == TRUE) {
-    save_data(networkMatrix, "modeledNetwork", long_msg = !long_msg)
-  }
   names(networkMatrix) <-
     c(
       "LocalMeasures",
