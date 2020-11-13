@@ -325,9 +325,7 @@ calculateModels <- function(processedMetaDataMatrix,
   if (dir.exists(PdfsPerCluster)){
     message("The existing paper-cluster folders have been overwritten")
     nestedFolders <- list.files(PdfsPerCluster, full.names = TRUE)
-    nestedFiles <- list.files(nestedFolders, full.names = TRUE)
-    do.call(file.remove, list(nestedFiles))
-    do.call(file.remove, list(nestedFolders))
+    do.call(function(x) unlink(x, recursive = TRUE), list(nestedFolders))
   } else{
     dir.create(PdfsPerCluster) 
     cat("PdfsPerCluster folder is created in your working directory")
