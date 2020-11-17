@@ -32,39 +32,35 @@ createOrdinationPlot <- function(scicloudAnalysis,
   Sys.sleep(1)
   
   # omit the rows where CitedBy and Year are NA
-  naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,])
+  naFreeData <- as.data.frame(scicloudAnalysis$metaMatrix[rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) == 0,c("Year", "Cluster", "CitedBy")])
   
   if (nrow(naFreeData) == 0) {
     stop("Info needed to make plots for analysis is missing. Please make sure you can connect to Scopus with your API key to retrieve the update in metaMatrix.\n")
   }
   
-  # If we have metadata, so if the column has less than 25% NA, we do the other plots.
-  if(sum(is.na(scicloudAnalysis$metaMatrix[, "CitedBy"])) < nrow(scicloudAnalysis$metaMatrix)/4){
-    na_row_idx <- which(rowSums(is.na(scicloudAnalysis$metaMatrix[, c("CitedBy", "Year")])) != 0)
-    excluded_file <- scicloudAnalysis$metaMatrix[,"FileName"][na_row_idx]
-    if(length(excluded_file) != 0){
-      cat(crayon::red("\nCitedBy and/or Year info are not found in", excluded_file))
-      cat(crayon::red("\nThe files(s) will be excluded in the following plots!"))
-    }
-    # CAUTION: to convert the factors level correctly, need to use as.numeric(as.character())
-    # aggregate the sum of citations by year and then join the sub data frame by year to calculate the percentage of citation for each row
-    citationSum_df <- stats::aggregate(as.numeric(as.character(naFreeData$CitedBy)), by = list(naFreeData$Year), sum)
-    colnames(citationSum_df) <- c("Year", "SumByYear")
-    citationSum_df <- plyr::join(naFreeData[,c("CitedBy", "Year")], by="Year", citationSum_df)
-    naFreeData$citePercent <- as.numeric(as.character(citationSum_df$CitedBy))/as.numeric(as.character(citationSum_df$SumByYear))*100
-      
-    # create a sub data frame that aggregate the count of each cluster by year
-    # then calculate the percentage of no. of cluster for each row
-    clusterCount_df <- stats::aggregate(as.numeric(as.character(naFreeData$Cluster)), by = list(naFreeData$Year), length)
-    colnames(clusterCount_df) <- c("Year", "CountByYear")
-    clusterCount_df<- plyr::join(naFreeData[,c("Cluster", "Year")], by="Year", clusterCount_df)
-    naFreeData$ClusterPercent <- 1/clusterCount_df$CountByYear*100
-    # create new column to store the cluster in string 
-    naFreeData$ClusterString <- paste("Cluster", as.character(naFreeData$Cluster))
-    # set ClusterString as factor in order to have a legend arranged in the order of Cluster1, Cluster2... Cluster9, Cluster10 
-    naFreeData$ClusterString <- factor(naFreeData$ClusterString, 
-                                       levels = unique(naFreeData$ClusterString[gtools::mixedorder(naFreeData$ClusterString)]))
-  } # end of if-metadata-there-loop
+  # CAUTION: to convert the factors level correctly, need to use as.numeric(as.character())
+  # aggregate the sum of citations by year and then join the sub data frame by year to calculate the percentage of citation for each row
+  citation_SumByYearNCluster <- stats::aggregate(as.numeric(as.character(naFreeData$CitedBy)), by=list(naFreeData$Year, naFreeData$Cluster), sum)
+  citation_SumByYear <- stats::aggregate(as.numeric(as.character(naFreeData$CitedBy)), by = list(naFreeData$Year), sum)
+  
+  df_citation <- plyr::join(citation_SumByYearNCluster, by="Group.1", citation_SumByYear)
+  colnames(df_citation) <- c("Year", "Cluster", "CitedBy", "SumByYear")
+  df_citation['CitePercent'] <- paste0(round(df_citation$CitedBy/df_citation$SumByYear*100,2), '%')
+  df_citation['ClusterString'] <- paste("Cluster", as.character(df_citation$Cluster))
+  
+  # create a sub data frame that aggregate the count of each cluster by year
+  # then calculate the percentage of no. of cluster for each row
+  paperCount_byYear <- stats::aggregate(as.numeric(as.character(naFreeData$Cluster)), by = list(naFreeData$Year), length)
+  colnames(paperCount_byYear) <- c("Year", "CountByYear")
+  paperCount_byyearNCluster <- stats::aggregate(naFreeData$Cluster, by = list(naFreeData$Year,naFreeData$Cluster), length)
+  colnames(paperCount_byyearNCluster) <- c("Year", "Cluster", "Counts")
+  
+  df_PaperCount<- plyr::join(paperCount_byyearNCluster, by="Year", paperCount_byYear)
+  df_PaperCount['ClusterPercent'] <- paste0(round(df_PaperCount$Counts/df_PaperCount$CountByYear*100,2), '%')
+  df_PaperCount['ClusterString'] <- paste("Cluster", as.character(df_PaperCount$Cluster))
+  
+  #} # end of if-metadata-there-loop
+  
   
   numberOfClusters <- length(unique(naFreeData$Cluster))
   palCol <- c("#08306b", "#08519c", "#2171b5", "#4292c6", "#6baed6", "#9ecae1", "#c6dbef", "#ccece6", "#99d8c9", "#66c2a4", "#41ae76", "#238b45", "#006d2c", "#00441b")
@@ -74,21 +70,13 @@ createOrdinationPlot <- function(scicloudAnalysis,
   if (substr(ANS, 1, 1) == "y") {
     wordCloudPlot(scicloudAnalysis, exactPosition, palCol)
   }
-  ANS <- readline("Plot a stacked Barplot of the No. of citations across different years?(y/n)")
+  ANS <- readline("Plot a stacked barplot of the no. of citations (with percentage) across years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "No. of citations of each cluster across years", "Year", "Citations",1)
+    StackedBarplot(df_citation, palCol, "Citations of each cluster across years", "Year", "Number of citations",1)
   }
-  ANS <- readline("Plot a stacked Barplot of the percentage of No. of citations across different years?(y/n)")
+  ANS <- readline("Plot a stacked barplot of the no. of papers (with percentage) across years?(y/n)")
   if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "Percentage of citations of each cluster across years", "Year", "Citations[%]",2)
-  }
-  ANS <- readline("Plot a stacked Barplot of the No. of papers across different years?(y/n)")
-  if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "No. of papers of each cluster across years", "Year", "Amount of papers",3)
-  }
-  ANS <- readline("Plot a stacked Barplot of the percentage of no. of papers across different years?(y/n)")
-  if (substr(ANS, 1, 1) == "y") {
-    StackedBarplot(naFreeData, palCol, "Percentage of No. of papers of each cluster across years", "Year", "Amount of papers[%]",4)
+    StackedBarplot(df_PaperCount, palCol, "Scientific papers of each cluster across years", "Year", "Number of papers",2)
   }
 }
 
@@ -149,36 +137,21 @@ StackedBarplot <- function(data, palCol, title, xlabel, ylabel, plot=c(1,2,3,4))
     ggplot2::theme_classic(base_size = 16)
   # somehow if added ggplot2::labs(x = xlabel, y = ylabel) here doesn't work, add within ifelse
   
-  #citations per year - stacked bar plot
+  #citations count per year - stacked bar plot
   if(plot==1){
     plt <- plt + ggplot2::aes(
       x = .data$Year,
-      y = as.numeric(.data$CitedBy),
+      y = .data$CitedBy,
       fill = .data$ClusterString
-    ) + ggplot2::geom_bar(stat = "identity") + ggplot2::labs(x = xlabel, y = ylabel)
+    ) + ggplot2::geom_bar(stat = "identity") + ggplot2::labs(x = xlabel, y = ylabel) + ggplot2::geom_text(ggplot2::aes(label = .data$CitePercent), position = ggplot2::position_stack(vjust = 0.5))
   }
-  # citations per year - stacked bar plot, percentage
+  # papers count per year - stacked bar plot, percentage
   else if(plot==2){
     plt <- plt + ggplot2::aes(
       x = .data$Year,
-      y = as.numeric(.data$citePercent),
+      y = .data$Counts,
       fill = .data$ClusterString
-    ) + ggplot2::geom_bar(stat = "identity") + ggplot2::labs(x = xlabel, y = ylabel)  
-  }
-  # paper per cluster per year - stacked bar plot
-  else if(plot==3){
-    plt <- plt + ggplot2::aes(
-      x = .data$Year,
-      fill = .data$ClusterString
-    ) + ggplot2::geom_bar(width = .9) + ggplot2::labs(x = xlabel, y = ylabel) 
-  }
-  # paper per cluster per year - stacked bar plot, percentage
-  else if(plot==4){
-    plt <- plt + ggplot2::aes(
-      x = .data$Year,
-      y = as.numeric(.data$ClusterPercent),
-      fill = .data$ClusterString
-    ) + ggplot2::geom_bar(stat = "identity") +  ggplot2::labs(x = xlabel, y = ylabel) 
+    ) + ggplot2::geom_bar(stat = "identity") + ggplot2::labs(x = xlabel, y = ylabel) + ggplot2::geom_text(ggplot2::aes(label = .data$ClusterPercent), position = ggplot2::position_stack(vjust = 0.5))  
   }
   graphics::plot(plt)
 }
