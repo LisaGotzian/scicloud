@@ -13,7 +13,7 @@ communities by year and number of citations with barplots.
 The package also offers a network analysis approach for which
 Gephi or a different graphing software is required.
 }
-\section{Pre-requisites}{
+\section{Prerequisites}{
 
 Locate all the PDFs that you want to analyze in a folder called "PDFs" 
 in your working directory, otherwise please provide a specific path to the 

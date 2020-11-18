@@ -57,8 +57,7 @@ deleteRDS <- function(){
   if(length(files) == 0){
     stop("No RDS file(s) in the current working directory!")
   }
-  choices <- c("metaMatrix", "processedMetaDataMatrix", "scicloudAnalysis", "modeledNetwork", 
-               "metaDOInumbers", "Quit")
+  choices <- c("scicloudList", "runAnalysis", "Quit")
   repeat{
     menu_selection = c("Delete All RDS files", 
                        "Keep the latest of each data, delete all others",
@@ -87,26 +86,14 @@ deleteRDS <- function(){
     else if(pick == 3){ # Keep only a specific data, delete all other type
       pick <- utils::menu(choices, title = "Which RDS data to keep?")
       if(pick == 1){
-        to_delete <- matched_item("metaMatrix", files)
+        to_delete <- matched_item("scicloudList", files)
         return(delete_files(to_delete))
       }
       else if(pick == 2){
-        to_delete <- matched_item("processedMetaDataMatrix", files)
+        to_delete <- matched_item("runAnalysis", files)
         return(delete_files(to_delete))
       }
-      else if(pick == 3){
-        to_delete <- matched_item("modeledData", files)
-        return(delete_files(to_delete))
-      }
-      else if(pick == 4){
-        to_delete <- matched_item("modeledNetwork", files)
-        return(delete_files(to_delete))
-      }
-      else if(pick == 5){
-        to_delete <- matched_item("metaDOInumbers", files)
-        return(delete_files(to_delete))
-      }
-      else if(pick == 6 | pick == 0)
+      else if(pick == 3 | pick == 0)
         return(invisible())
     }
     else stop("Invalid option")

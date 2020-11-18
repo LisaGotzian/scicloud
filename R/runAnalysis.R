@@ -71,7 +71,7 @@ runAnalysis <- function(scicloudList,
                         exactPosition = FALSE,
                         dendrogram = TRUE,
                         dendroLabels = c("truncated", "break"), 
-                        saveToWd = TRUE,
+                        saveToWd = FALSE,
                         method = c("hclust", "network", "both"),
                         generateWordlist = FALSE) {
   
