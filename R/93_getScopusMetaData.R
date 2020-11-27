@@ -1,27 +1,16 @@
-# @title getScopusMetaData
-#
-# @description The second function to the word analysis with scicloud. This
+# the second function to the word analysis with scicloud. This
 #     function accepts a dataframe of DOI numbers and/or Scopus-IDs.
 #     It downloads article metadata like title, author and year and returns
 #     the input dataframe filled with that metadata. Make sure to be connected
 #     to your institution's network (e.g. via VPN).
 #
-# @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Prabesh Dhakal,
-#     \email{prabesh.dhakal@@stud.leuphana.de}
 # @param metaMatrix a dataframe generated
 #     either from PDFs with \code{\link{createTextMatrixFromPDF}} or by
 #     searching Scopus with \code{\link{searchScopus}}
 # @param myAPIKey your private Elsevier API key for communicating with the
 #     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
 # @param long_msg logical variable to whether print long message or not
-# @family scicloud functions
 # @return A dataframe with metadata of all articles provided to the function.
-# @seealso \itemize{
-#     \item \code{\link{createTextMatrixFromPDF}} or \code{\link{searchScopus}}
-#     for the preceding steps
-#     \item \code{\link{processMetaDataMatrix}} for the proceeding step
-#     }
 #
 getScopusMetaData <- function(metaMatrix,
                               myAPIKey = NA,
@@ -70,7 +59,7 @@ getScopusMetaData <- function(metaMatrix,
   end <- nrow(metaMatrix)
   
   # let users know what is happening at this stage
-  cat("Accessing Scopus to update the Metadata...\n")
+  cat("\nAccessing Scopus to update the Metadata...\n")
   # reset the progress bar (using new `end` value)
   pb <- utils::txtProgressBar(min = start, max = end, style = 3)
   

@@ -1,9 +1,6 @@
-# title createTfIdf
-#
-# description The third function to the word analysis with scicloud. This function
+# The third function to the word analysis with scicloud. This function
 #     accepts a \code{metaMatrix} filled with metadata and constructs a tf-idf matrix.
 #
-# author Jia Yan Ng, \email{jia.y.ng@@stud.leuphana.de}
 # param metaMatrix metaMatrix created through \code{\link{getScopusMetaData}}
 #     or \code{\link{createTextMatrixFromPDF}}. Equations, symbols, all words
 #     in parentheses and all references are removed.
@@ -18,22 +15,16 @@
 # param ignoreWords a vector of words to be ignored.
 # param keepWordsFile path to a .csv-file that specifies which words to keep
 #     during the analysis. Accepts 0/1 behind each word or takes the words
-#     as they are and disregards all other words of the analysis. A template
-#     for this can be generated with \code{generateWordlist} in
-#     \code{\link{ordinationCluster}} or \code{\link{calculateModels}}.
-# seealso \itemize{
-#     \item \code{\link{createTextMatrixFromPDF}} and \code{\link{getScopusMetaData}}
-#     for the preceding steps
-#     \item \code{\link{calculateModels}} for the proceeding step
-#     }
+#     as they are and disregards all other words of the analysis. 
+
 # return returns a list object with \code{[["Tf_idf"]]} as the tf-idf document
 #     term matrix, \code{[["metaMatrix"]]} as passed to the function and
 # \code{[["wordList"]]} is the list of all words found in the papers.
-# family scicloud functions
 
 createTfIdf <- function(metaMatrix, control = list(),
                                   ignoreWords = c(),
-                                  keepWordsFile = NA){
+                                  keepWordsFile = NA,
+                        generateWordlist = FALSE){
   
   ######## Argument checks
   #* Establish a new 'ArgCheck' object
@@ -197,6 +188,15 @@ createTfIdf <- function(metaMatrix, control = list(),
   scipusList <- list()
   scipusList$Tf_Idf <- tf_idf
   scipusList$wordList <- as.factor(sort(colnames(tf_idf)))
+  
+  if (generateWordlist == TRUE){
+    data.table::fwrite(as.data.frame(
+      scipusList$wordList), col.names =  FALSE,
+      file = "scicloudWordlist.csv")
+    cat(
+      paste0(
+        "\nThe scicloudWordlist is now in your working directory."))
+  }
   
   return(scipusList)
 }

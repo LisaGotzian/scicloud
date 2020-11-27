@@ -1,32 +1,13 @@
 ########################################################################
-# Workflow for folders containing PDF files
-# generates a matrix of name in col1 and text in row2 like the scopus function
-########################################################################
-# title createTextMatrixFromPDF
+# First function of the word analysis with scicloud. It takes all
+# scientific papers as PDF files from the "PDFs" folder in your working
+# directory. It then creates a DocumentTerm matrix of it.
 #
-# description First function of the word analysis with scicloud. It takes all
-#     scientific papers as PDF files from the "PDFs" folder in your working
-#     directory. It then creates a DocumentTerm matrix of it.
 #
-# param directory per default, the PDFs are expected to be in a folder named
-#     "PDFs", can be changed ad. lib.
-# family scicloud functions
-# seealso \itemize{
-#     \item \code{\link{ordinationCluster}} for the next step in scicloud
-#     \item or \code{\link{processMetaDataMatrix}} for the
-#     more granular next step if you intend to run it step by step
-#     \item \code{\link{getScopusMetaData}} to fill in paper metadata (needed for
-#     future plots) from Scopus
-#     }
-#
-# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
-# return A data frame containing the file name and full text of the pdf, 
+#  It returns a data frame containing the file name and full text of the pdf, 
 #     the DOI numbers from the text and some empty metadata columns to be
 #     filled by \code{\link{getScopusMetaData}}.
-#     It is analogous to what \code{\link{searchScopus}}
-#     returns.
+#     It is analogous to what \code{\link{searchScopus}} returns.
 #      
 
 createTextMatrixFromPDF <-

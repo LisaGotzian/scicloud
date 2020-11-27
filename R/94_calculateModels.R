@@ -31,12 +31,6 @@
 # param dendroLabels allows "truncated" or "break". This either truncates the
 #     labels of the dendrogram leaves or puts a line break. Line breaks are not
 #     recommended for a large number of PDFs.
-# param generateWordlist logical, if set to \code{TRUE}, it generates a wordlist
-#     called "scicloudWordlist.csv" in your working directory. The list
-#     contains all significant words from the indicator species analysis
-#     that are representative for the respective paper clusters. To work with the
-#     new wordlist, read it in using \code{keepWordsFile} as an argument
-#     to \code{\link{processMetaDataMatrix}} or \code{\link{ordinationCluster}}.
 # seealso \itemize{
 #     \item \code{\link{processMetaDataMatrix}} for the preceding step
 #     \item \code{\link{createOrdinationPlot}} for the next step and
@@ -61,8 +55,7 @@ calculateModels <- function(processedMetaDataMatrix,
                             maxWordsPerCluster = 10,
                             p = 0.05,
                             dendrogram = TRUE,
-                            dendroLabels = c("truncated", "break"),
-                            generateWordlist = FALSE) {
+                            dendroLabels = c("truncated", "break")) {
   
   dendroLabels <- match.arg(dendroLabels) #pick the argument input by user
   
@@ -184,17 +177,7 @@ calculateModels <- function(processedMetaDataMatrix,
   if(!dim(signIndSpeciesValues)[1]){
     stop("No cluster has p-value less than default value = 0.05, set a higher confidence level by defining the p argument e.g. p=0.1")
   }
-  if (generateWordlist == TRUE){
-    data.table::fwrite(as.data.frame(
-      signIndSpeciesValues$`names(indSpeciesValues$pval)`), col.names =  FALSE,
-      file = "scicloudWordlist.csv")
-    cat(
-      paste0(
-        "\nThe scicloudWordlist is now in your working directory. It ",
-        "contains all significant words that the indicator species ",
-        "analysis deemed significant to describe your paper clusters."))
-    readline("Proceed with calculation? Press ESC to work with wordlist first.")
-  }
+
   
   highestIndValPerCluster <- apply(signIndSpeciesValues[,c(1:numberOfClusters)], 2, max)
   

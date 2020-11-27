@@ -41,16 +41,6 @@
 #     \item \code{GlobalMeasures}: global measures of the network
 #     }
 
-# possible future avances:
-# 1) using
-#library(tnet)
-# 2) clustering in R and giving the user a matrix to do in Gephi (with a short
-# description?)
-# 3) @Julius! to be improved: check significant values of clusters? I just returned the
-# memberships.
-# 4) onemode matrices? Or do we not need them?
-# 5) networkMatrix[[5]] <- brokeragePoints
-# 6) which other global measures do we want?
 
 
 calculateNetwork <- function(processedMetaDataMatrix,

@@ -1,15 +1,23 @@
 #' @title Perform scicloud analysis
-#' @description The second function to be called to perform analysis with scicloud. 
-#' It output a list of 4 components: IndVal, metaMatrix, RepresentativePapers and 
-#' wordList. The function performs the analysis based on the method argument. 
-#' By default the method is set to 'hclust' which an indicator species analysis
-#' will be executed. Each word receives an indicator species value by 
-#' \code{\link[labdsv]{indval}} for each cluster, showing how representative 
-#' a word is for a cluster. The top representative words will be then visualize
-#' with several plots.
-#' @author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#'     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#'     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
+#' @description The second function to be called to perform the analysis with
+#'   scicloud. It outputs a list of 4 components: IndVal, metaMatrix,
+#'   RepresentativePapers and wordList.\cr 
+#'   The function performs the analysis based on the method argument. By default
+#'   the method is set to 'hclust' which an indicator species analysis will be
+#'   executed. Each word receives an indicator species value by
+#'   \code{\link[labdsv]{indval}} for each cluster, showing how representative a
+#'   word is for a cluster. The top representative words will be then visualize
+#'   with several plots.
+#' 
+#' @author Creator of the scicloud workflow: Henrik von Wehrden,
+#'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
+#'   Code by: Matthias Nachtmann,
+#'   \email{matthias.nachtmann@@stud.leuphana.de},
+#'   Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
+#'   Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de},
+#'   Johann Julius Beeck, \email{johann.j.beeck@@stud.leuphana.de} \cr \cr
+#'   First version of scicloud: Matthias Nachtmann,
+#'   \email{matthias.nachtmann@@stud.leuphana.de}
 #'          
 #' @param scicloudList output of \code{\link{createScicloudList}}
 #' @param numberOfClusters integer or NA; It must be an integer value \cr
@@ -32,12 +40,6 @@
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @param method takes "network", "hclust" or "both" as a method
-#' @param generateWordlist logical, if set to \code{TRUE}, it generates a wordlist in
-#'     your working directory. The list contains all significant words that the
-#'     indicator species analysis deemed significant to describe your paper
-#'     clusters. You can now add a 0/1 behind each word or delete rows you
-#'     don't consider important to the analysis. To re-run the analysis with
-#'     the new wordlist, read it in using \code{keepWordsFile} as an argument.
 #' @return Returns a list with the following components:
 #' \itemize{
 #'     \item \code{IndVal}: the results of the indicator species analysis.
@@ -72,8 +74,7 @@ runAnalysis <- function(scicloudList,
                         dendrogram = TRUE,
                         dendroLabels = c("truncated", "break"), 
                         saveToWd = FALSE,
-                        method = c("hclust", "network", "both"),
-                        generateWordlist = FALSE) {
+                        method = c("hclust", "network", "both")) {
   
   #pick the argument input by user, default = "hclust"
   method <- match.arg(method) 
@@ -102,8 +103,7 @@ runAnalysis <- function(scicloudList,
         maxWordsPerCluster = maxWordsPerCluster,
         p = p,
         dendrogram = dendrogram,
-        dendroLabels = dendroLabels,
-        generateWordlist = generateWordlist
+        dendroLabels = dendroLabels
       )
     
     # create plots for the analysis 

@@ -9,7 +9,12 @@
 #' cluster analysis.
 #' @param scicloudAnalysis the result of \code{scicloudAnalysis}
 #'
-#' @author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
+#' @author Creator of the scicloud workflow: Henrik von Wehrden,
+#'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
+#'   Code by: Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}\cr \cr
+#'   First version of scicloud: Matthias Nachtmann,
+#'   \email{matthias.nachtmann@@stud.leuphana.de}
+#'
 #' @return A summary of the analysis is printed into the console. It gives
 #'     insights into the total number of papers and words used.
 #'     The returned object contains:
