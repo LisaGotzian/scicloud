@@ -9,6 +9,16 @@
 3. Build and Reload (Cmd+Shift+B /Ctrl+Shift+B for Windows)
 4. Check Package (Cmd+Shift+E/Ctrl+Shift+E for Windows)
 5. Document Package (if any) - (Cmd+Shift+D/Ctrl+Shift+D for Windows). If you have written a new function, you need to use `#' @export` in the documentation of your function
+
+## Documentation
++ automatically do 80 characters per line: Ctrl/Cmd + Shift + / (or from the menu, code | re-flow comment)
++ you can document multiple parameters at once with ```@param x,y numeric vectors```
++ you can inherit parameters that have been documented somewhere else by using @inheritParams
++ formatting:
+  + \emph{italics}: italics
+  + \strong{bold}: bold
+  + \code{r_function_call(with = "arguments")}: r_function_call(with = "arguments") (format inline code)
+  + \preformatted{}: format text as-is, can be used for multi-line code
 + We can **document the usage of our function/provide examples to the users** by using **Vignettes**. You can find an example document under ./scientific-wordcloud/vignettes folder. The documents are in R markdown format which can be rendered into html with "knitr". We can create the .Rmd file under vignettes folder directly with the use of **use_vignette("file_name")**
 
 ## Before every commit
