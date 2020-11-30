@@ -1,47 +1,6 @@
-########################################################################
-# Workflow for working with networks
-########################################################################
-
-# title calculateNetwork
-#
-# description This function is an alternative to the fourth function
+#This function is an alternative to the fourth function
 #     \code{\link{calculateModels}} of the scicloud analysis. It uses
-#     a network clustering approach. When done, it returns a list of global
-#     and local measures and also generates a clustered matrix. This matrix
-#     can then be further processed in network programs like
-#     Gephi.
-# param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
-# param sortby the centrality measure to sort the words by,
-#     default is Eigenvector. Allows the following possible inputs: "Eigenvector", "Degree",
-#     "Closeness, "Betweenness". 
-# param keep numeric, keeps by default 0.33 of all the words, sorted
-#     by the argument given by \code{sortby}. A smaller amount of words to
-#     keep facilitates computations for later use.
-# seealso \itemize{
-#     \item \code{\link{processMetaDataMatrix}} for the preceding step
-#     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#     \item note that \code{\link{createOrdinationPlot}}, 
-#     \code{\link{mostImportantPaperPerCluster}} and \code{\link{inspectScicloud}}
-#     are part of the clustering with \code{\link{calculateModels}}
-#     and don't work with this function.
-#     }
-#
-# author Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}, Julius Rathgens,
-#     \email{julius.rathgens@@leuphana.de}
-# return   output:
-# \itemize{
-#     \item \code{LocalMeasures}: local measures
-#     for both papers and words
-#     \item \code{ReducedLocalMeasures}: 1/3 of the words (!) with their
-#     centrality measures & clustering according to three different clustering
-#     methods, arranged by default by eigenvector centrality using \code{sortby}
-#     \item \code{ReducedIncidenceMatrix}: 1/3 of the words arranged by
-#     eigenvector centrality, to be further processed e.g. in Gephi or with other
-#     clustering functions
-#     \item \code{GlobalMeasures}: global measures of the network
-#     }
-
-
+#     a network clustering approach. 
 
 calculateNetwork <- function(processedMetaDataMatrix,
                              sortby = c("Eigenvector","Degree",
@@ -58,7 +17,7 @@ calculateNetwork <- function(processedMetaDataMatrix,
     is.null(processedMetaDataMatrix[[3]])
   ))) {
     ArgumentCheck::addError(
-      msg = "Invalid processedMetaDataMatrix! Use value from processMetaDataMatrix()", 
+      msg = "Invalid object! Use value from runAnalysis()", 
       argcheck = Check
     )
   }
@@ -66,7 +25,7 @@ calculateNetwork <- function(processedMetaDataMatrix,
   # keep has to be numeric between 0 and 1
   if (any(c(!is.numeric(keep), keep > 1, keep < 0))) {
     ArgumentCheck::addError(
-      msg = "'Keep' argument value must be in between 0 and 1", 
+      msg = "'keep' argument value must be in between 0 and 1", 
       argcheck = Check
     )
   }

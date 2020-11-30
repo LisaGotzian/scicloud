@@ -1,21 +1,6 @@
-# title mostImportantPaperPerCluster
-#
-# description The sixth function to the word analysis with scicloud. It takes
+# The sixth function to the word analysis with scicloud. It takes
 #     \code{scicloudAnalysis} and outputs a list of the most cited papers per
 #     cluster into the console.
-#
-# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}
-# param scicloudAnalysis result of \code{\link{calculateModels}}
-# family scicloud functions
-# seealso \itemize{
-#     \item \code{\link{calculateModels}} for the preceding step
-#     \item \code{\link{createOrdinationPlot}} for the graphics
-#     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#     }
-# return This function returns a console output of the papers with the
-#     highest citation count per year per cluster. The citations were fetched
-#     from the Scopus API by \code{\link{getScopusMetaData}}.
 
 mostImportantPaperPerCluster <- function(scicloudAnalysis) {
   numberOfClusters <-

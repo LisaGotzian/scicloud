@@ -47,7 +47,7 @@ myAPIKey <- "YOUR_API_KEY"
 scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 
 # Run the analysis with a specified no. of cluster
-scicloudAnalysis <- runAnalysis(scipusList = scipusList, numberOfClusters = 4)
+scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
                            
 # Generate a summary of the analysis 
 scicloudSpecs <- inspectScicloud(scicloudAnalysis)

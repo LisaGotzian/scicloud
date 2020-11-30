@@ -1,27 +1,5 @@
-# title createOrdinationPlot
+# The fifth function to the word analysis with scicloud. 
 #
-# description The fifth function to the word analysis with scicloud. It takes
-#     the \code{scicloudAnalysis} and creates five different plots: a wordcloud of
-#     the publication communities and four visualizations of the communities
-#     by year and number of citations.
-#
-# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
-# param scicloudAnalysis result of \code{\link{calculateModels}}
-# param exactPosition logical, the plot function tries to avoid overlapping
-#     labels for the sake of visual simplicity over perfect
-#     precision. When set to \code{TRUE}, the words position will be marked by
-#     a dot and the label will be connected with a line to it.
-# family scicloud functions
-# seealso \itemize{
-#     \item \code{\link{calculateModels}} for the preceding step
-#     \item \code{\link{mostImportantPaperPerCluster}} for the proceeding step
-#     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#     }
-# return This function plots a graphic based on the clustered publication
-#     communities. The citation count and publication dates were fetched
-#     from the Scopus API by \code{\link{getScopusMetaData}}.
 #' @importFrom rlang .data
   
 createOrdinationPlot <- function(scicloudAnalysis,

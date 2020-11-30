@@ -1,54 +1,5 @@
-# title calculateModels
+# The fourth function to the word analysis with scicloud.
 #
-# description The fourth function to the word analysis with scicloud.
-#     It takes the cleaned data from \code{\link{processMetaDataMatrix}}
-#     and calculates clusters using \code{\link[stats]{hclust}}. The clusters
-#     are publication communities based on the words used in the papers.
-#     To then identify the words relevant to the communities, it runs an
-#     indicator species analysis.
-#     
-#     Each word receives an indicator species value by \code{\link[labdsv]{indval}}
-#     for each cluster, showing how representative a word is for a cluster. The top
-#     representative words will be used in the further process for \code{
-#     \link{createOrdinationPlot}}.
-#
-# author Matthias Nachtmann, \email{matthias.nachtmann@@stud.leuphana.de},
-#     Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#     Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de}
-# param processedMetaDataMatrix result of \code{\link{processMetaDataMatrix}}
-# param numberOfClusters integer or NA; It must be an integer value \cr
-#     not more than 14. An integer sets the number of clusters manually \cr
-#     for NA, the function automatically calculates results for 1 till 12 clusters
-# param minWordsPerCluster minimum number of words to be plotted per cluster
-#     in \code{\link{createOrdinationPlot}}.
-# param maxWordsPerCluster maximum number of words to be plotted per cluster
-#     in \code{\link{createOrdinationPlot}}.
-# param p the p-value that sets the significance level of individual words for
-#     the indicator species analysis. Only significant words will be plotted
-#     in \code{\link{createOrdinationPlot}}.
-# param dendrogram logical, whether or not to show a dendrogram of the calculated
-#     clusters.
-# param dendroLabels allows "truncated" or "break". This either truncates the
-#     labels of the dendrogram leaves or puts a line break. Line breaks are not
-#     recommended for a large number of PDFs.
-# seealso \itemize{
-#     \item \code{\link{processMetaDataMatrix}} for the preceding step
-#     \item \code{\link{createOrdinationPlot}} for the next step and
-#     \item \code{\link{mostImportantPaperPerCluster}} for the next step
-#     \item \code{\link{inspectScicloud}} for a summary of the analysis
-#     }
-#     
-# return Returns a list with the following components:
-# \itemize{
-#     \item \code{IndVal}: the results of the indicator species analysis.
-#     \item \code{metaMatrix}: the metaMatrix that has been processed by
-#     \code{\link{processMetaDataMatrix}} including a cluster column for each paper
-#     \item \code{RepresentativePapers}: a dataframe of the most representative
-#     papers of each publication community. Papers are representative if they contain
-#     the highest number of significant words.
-#     \item \code{wordList}: a list of all words that have been used in the analysis.
-#     }
-  
 calculateModels <- function(processedMetaDataMatrix,
                             numberOfClusters = NA,
                             minWordsPerCluster = 5,
