@@ -28,12 +28,12 @@ scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
 
 # Step 2a: with the option of running a network analysis
-scicloudAnalysis <- runAnalysis(scicloudList = scicloudList,
-                                sortby = "Eigenvector", keep = 0.3)
+#scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, method = "network",
+#                                sortby = "Eigenvector", keep = 0.3)
 
 # Step 3: generate a summary of the analysis
 scicloudSpecs <- inspectScicloud(scicloudAnalysis)
- 
+
 
 #----------------- Search Scopus by Abstracts ----------------
 DOInumbers <- searchScopus(searchString = "sustain", myAPIKey = myAPIKey)
