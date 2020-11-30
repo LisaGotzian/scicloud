@@ -94,7 +94,8 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 Other scicloud functions: 
 \code{\link{deleteRDS}()},
 \code{\link{inspectScicloud}()},
-\code{\link{runAnalysis}()}
+\code{\link{runAnalysis}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Creator of the scicloud workflow: Henrik von Wehrden,

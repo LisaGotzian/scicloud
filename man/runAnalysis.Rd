@@ -71,7 +71,7 @@ analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
     papers of each publication community. Papers are representative if they contain
     the highest number of significant words.
     \item \code{wordList}: a list of all words that have been used in the analysis.
-    }
+    } \cr
     'network' returns a list with the following components:
     \itemize{
         \item \code{LocalMeasures}: local measures for both papers and words
@@ -128,7 +128,8 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 Other scicloud functions: 
 \code{\link{createScicloudList}()},
 \code{\link{deleteRDS}()},
-\code{\link{inspectScicloud}()}
+\code{\link{inspectScicloud}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Creator of the scicloud workflow: Henrik von Wehrden,

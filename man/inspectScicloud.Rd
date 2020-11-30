@@ -12,7 +12,7 @@ inspectScicloud(scicloudAnalysis)
 \value{
 A summary of the analysis is printed into the console. It gives
     insights into the total number of papers and words used.
-    The returned object contains:
+    If the method was hclust, the returned object contains:
     \itemize{
     \item \code{paperCluster}: a paper-cluster table. Each paper
     belongs to one cluster. Use \code{View(scicloudSpecs$paperCluster)} to see
@@ -57,7 +57,8 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 Other scicloud functions: 
 \code{\link{createScicloudList}()},
 \code{\link{deleteRDS}()},
-\code{\link{runAnalysis}()}
+\code{\link{runAnalysis}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Creator of the scicloud workflow: Henrik von Wehrden,

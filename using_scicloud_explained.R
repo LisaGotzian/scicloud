@@ -37,7 +37,6 @@ scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 
 #----------------- Search Scopus by Abstracts ----------------
 DOInumbers <- searchScopus(searchString = "sustain", myAPIKey = myAPIKey)
-DOInumbersMetaData <- getScopusMetaData(DOInumbers, myAPIKey = myAPIKey)
 
 #-------------------- SUPPORT: Got Problems? -----------------
 # If there is papers that didn't get read in, you can fill the DOIs in by hand.

@@ -37,7 +37,8 @@ Done. Deleted All RDS files.
 Other scicloud functions: 
 \code{\link{createScicloudList}()},
 \code{\link{inspectScicloud}()},
-\code{\link{runAnalysis}()}
+\code{\link{runAnalysis}()},
+\code{\link{searchScopus}()}
 }
 \author{
 Jia Yan Ng, \email{jia.y.ng@stud.leuphana.de}
