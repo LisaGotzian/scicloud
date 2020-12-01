@@ -4,7 +4,7 @@ author: "Jia Yan Ng"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{How to perform word analysis for scientific papers with scicloud?}
+  %\VignetteIndexEntry{Introduction to the scicloud package}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
