@@ -21,10 +21,10 @@ A summary of the analysis is printed into the console. It gives
     belong to one single cluster. An indicator species analysis shows how
     representative each word is for each cluster. Use \code{View(scicloudSpecs$IndVal)}
     to view the results of the indicator species analysis.
-    \item \code{excludedPapers}: the excluded papers. Use 
+    \item \code{excludedPapers}: the excluded papers. Use
     \code{View(scicloudSpecs$excludedPapers)} to see which papers have
     been excluded, possibly because of a PDF error.
-    \item \code{representativePapers}: the most representative papers. Use 
+    \item \code{representativePapers}: the most representative papers. Use
     \code{View(scicloudSpecs$representativePapers)} to see which papers
     are the most representative ones, weighted with the indicator species
     values of the words in the paper.
@@ -35,7 +35,7 @@ A summary of the analysis is printed into the console. It gives
 }
 \description{
 The last function to be called to perform analysis in scicloud.
-It takes the result of \code{scicloudAnalysis} and returns a summary of the 
+It takes the result of \code{scicloudAnalysis} and returns a summary of the
 cluster analysis.
 }
 \examples{
@@ -43,13 +43,13 @@ cluster analysis.
 
 ### Workflow of performing analysis using scicloud
 myAPIKey <- "YOUR_API_KEY"
-# retrieving data from PDFs and Scorpus website using API  
+# retrieving data from PDFs and Scorpus website using API
 scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 
 # Run the analysis with a specified no. of cluster
 scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
-                           
-# Generate a summary of the analysis 
+
+# Generate a summary of the analysis
 scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 }

@@ -43,9 +43,9 @@ in the wordcloud.}
 \item{p}{the p-value that sets the significance level of individual words for
 the indicator species analysis. Only significant words will be plotted.}
 
-\item{exactPosition}{logical, the wordcloud tries to avoid overlapping 
-labels for the sake of visual simplicity over perfect precision. 
-When set to \code{TRUE}, the words position will be marked by a dot and the 
+\item{exactPosition}{logical, the wordcloud tries to avoid overlapping
+labels for the sake of visual simplicity over perfect precision.
+When set to \code{TRUE}, the words position will be marked by a dot and the
 label will be connected with a line to it.}
 
 \item{sortby}{for the network method: the centrality measure to sort the
@@ -103,7 +103,7 @@ The second function to be called to perform the analysis with
     \item four visualizations of the communities by year and number of citations
     (which have been fetched from the Scopus API)
     }
-  
+
   The 'network' method on the other hand also employs a clustering approach,
   but uses a network analysis. When done, it returns a list of global and
   local measures and also generates a clustered matrix. This matrix can then
@@ -114,13 +114,13 @@ The second function to be called to perform the analysis with
 
 ### Workflow of performing analysis using scicloud
 myAPIKey <- "YOUR_API_KEY"
-# retrieving data from PDFs and Scorpus website using API  
+# retrieving data from PDFs and Scorpus website using API
 scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 
 # Run the analysis with a specified no. of cluster
 scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
-                           
-# Generate a summary of the analysis 
+
+# Generate a summary of the analysis
 scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 }

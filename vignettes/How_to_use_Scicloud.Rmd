@@ -181,13 +181,13 @@ Show most influencial papers per cluster? (y/n)n
 ###################################################################################
 ```
 
-![Cluster dendrogram of papers](../dendrogram.png)
+![Cluster dendrogram of papers](../vignettes/plots/dendrogram.png)
 
-![Cluster Plot of Significant Words](../wordCloud.png)
+![Cluster Plot of Significant Words](../vignettes/plots/wordCloud.png)
 
-![Proportion of Citations per Cluster](../Citation.png)
+![Proportion of Citations per Cluster](../vignettes/plots/Citation.png)
 
-![Proportion of Papers per Cluster](../Paper.png)
+![Proportion of Papers per Cluster](../vignettes/plots/Paper.png)
 
 #### Other arguments of runAnalysis()
 _minWordsPerCluster_

@@ -57,7 +57,7 @@ Returns a list with the following components:
   \item \code{metaMatrix}: a matrix with 21 columns that contains
   information (DOI, Year, Authors, etc.) and each pdf's full text
   that has been pre-processed and filtered.
-  Information (Title, Abstract, Journal, etc.) are retrieved through the 
+  Information (Title, Abstract, Journal, etc.) are retrieved through the
   Scopus API. Please note that without a proper API and a valid connection to
   Scopus within a recognized network these information will not be retrieved
   successfully }
