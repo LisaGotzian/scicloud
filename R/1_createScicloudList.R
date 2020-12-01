@@ -52,7 +52,7 @@
 #'   \item \code{metaMatrix}: a matrix with 21 columns that contains
 #'   information (DOI, Year, Authors, etc.) and each pdf's full text
 #'   that has been pre-processed and filtered.
-#'   Information (Title, Abstract, Journal, etc.) are retrieved through the 
+#'   Information (Title, Abstract, Journal, etc.) are retrieved through the
 #'   Scopus API. Please note that without a proper API and a valid connection to
 #'   Scopus within a recognized network these information will not be retrieved
 #'   successfully }
@@ -73,48 +73,50 @@
 #' }
 #' @export
 createScicloudList <- function(directory = file.path(".", "PDFs"),
-                           myAPIKey = NA,
-                           language = "SMART",
-                           stemWords = TRUE,
-                           saveToWd = FALSE,
-                           ignoreWords = c(),
-                           keepWordsFile = NA,
-                           generateWordlist = FALSE) {
-  
+                               myAPIKey = NA,
+                               language = "SMART",
+                               stemWords = TRUE,
+                               saveToWd = FALSE,
+                               ignoreWords = c(),
+                               keepWordsFile = NA,
+                               generateWordlist = FALSE) {
+
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
-  
+
   # Check API Key
-  if(is.na(myAPIKey)){
+  if (is.na(myAPIKey)) {
     ArgumentCheck::addError(
       msg = "Please input your API key from Elsevier!",
       argcheck = Check
     )
   }
   ArgumentCheck::finishArgCheck(Check)
-  
-  # create matrix by reading PDFs 
+
+  # create matrix by reading PDFs
   metaMatrix <- createTextMatrixFromPDF(directory)
-  
+
   # preprocessing the corpus from the PDFs to create Tf-Idf and WordList
   scicloudList <-
     createTfIdf(
       metaMatrix = metaMatrix,
       control = list(
-        language = language, 
-        stemWords = stemWords),
+        language = language,
+        stemWords = stemWords
+      ),
       ignoreWords = ignoreWords,
       keepWordsFile = keepWordsFile,
       generateWordlist = generateWordlist
     )
-  
+
   # update info in the metaMatrix from Scopus using API
   scicloudList$metaMatrix <-
     getScopusMetaData(
-      metaMatrix = metaMatrix, 
-      myAPIKey = myAPIKey)
-  
-  if (saveToWd){
+      metaMatrix = metaMatrix,
+      myAPIKey = myAPIKey
+    )
+
+  if (saveToWd) {
     save_data(scicloudList, "scicloudList")
   }
   return(scicloudList)

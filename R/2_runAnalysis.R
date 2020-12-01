@@ -17,12 +17,12 @@
 #'     \item four visualizations of the communities by year and number of citations
 #'     (which have been fetched from the Scopus API)
 #'     }
-#'   
+#'
 #'   The 'network' method on the other hand also employs a clustering approach,
 #'   but uses a network analysis. When done, it returns a list of global and
 #'   local measures and also generates a clustered matrix. This matrix can then
 #'   be further processed in network programs like Gephi.
-#' 
+#'
 #' @author Creator of the scicloud workflow: Henrik von Wehrden,
 #'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
 #'   Code by: Matthias Nachtmann,
@@ -32,7 +32,7 @@
 #'   Johann Julius Beeck, \email{johann.j.beeck@@stud.leuphana.de} \cr \cr
 #'   First version of scicloud: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de}
-#'          
+#'
 #' @param scicloudList output of \code{\link{createScicloudList}}
 #' @param numberOfClusters integer or NA; must be an integer value not more
 #'   than 14 as more than 14 clusters are not recommended. An integer sets the
@@ -49,9 +49,9 @@
 #'     in the wordcloud.
 #' @param p the p-value that sets the significance level of individual words for
 #'     the indicator species analysis. Only significant words will be plotted.
-#' @param exactPosition logical, the wordcloud tries to avoid overlapping 
-#'     labels for the sake of visual simplicity over perfect precision. 
-#'     When set to \code{TRUE}, the words position will be marked by a dot and the 
+#' @param exactPosition logical, the wordcloud tries to avoid overlapping
+#'     labels for the sake of visual simplicity over perfect precision.
+#'     When set to \code{TRUE}, the words position will be marked by a dot and the
 #'     label will be connected with a line to it.
 #' @param sortby for the network method: the centrality measure to sort the
 #'     words by, default is Eigenvector. Allows the following possible inputs:
@@ -86,52 +86,53 @@
 #' @family scicloud functions
 #' @examples
 #' \dontrun{
-#' 
+#'
 #' ### Workflow of performing analysis using scicloud
 #' myAPIKey <- "YOUR_API_KEY"
-#' # retrieving data from PDFs and Scorpus website using API  
+#' # retrieving data from PDFs and Scorpus website using API
 #' scicloudList <- createScicloudList(myAPIKey = myAPIKey)
 #'
 #' # Run the analysis with a specified no. of cluster
 #' scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
-#'                            
-#' # Generate a summary of the analysis 
+#'
+#' # Generate a summary of the analysis
 #' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #' }
 #' @export
 runAnalysis <- function(scicloudList,
                         numberOfClusters = NA,
                         dendrogram = TRUE,
-                        dendroLabels = c("truncated", "break"), 
+                        dendroLabels = c("truncated", "break"),
                         minWordsPerCluster = 5,
                         maxWordsPerCluster = 10,
                         p = 0.05,
                         exactPosition = FALSE,
-                        sortby = c("Eigenvector","Degree",
-                                   "Closeness","Betweenness"),
+                        sortby = c(
+                          "Eigenvector", "Degree",
+                          "Closeness", "Betweenness"
+                        ),
                         keep = 0.33,
                         saveToWd = FALSE,
                         method = c("hclust", "network", "both")) {
-  
-  #pick the argument input by user, default = "hclust"
-  method <- match.arg(method) 
-  
+
+  # pick the argument input by user, default = "hclust"
+  method <- match.arg(method)
+
   # Argument Checks
   Check <- ArgumentCheck::newArgCheck()
-  
-  # ensure no of clusters defined is less than total number of papers available  
-  if(!is.na(numberOfClusters)){
-    if(numberOfClusters > nrow(scicloudList$metaMatrix)){
+
+  # ensure no of clusters defined is less than total number of papers available
+  if (!is.na(numberOfClusters)) {
+    if (numberOfClusters > nrow(scicloudList$metaMatrix)) {
       ArgumentCheck::addError(
-        msg = "Invalid input for numberOfClusters! It must be less than total no. of papers available!", 
+        msg = "Invalid input for numberOfClusters! It must be less than total no. of papers available!",
         argcheck = Check
-      ) 
+      )
     }
   }
   ArgumentCheck::finishArgCheck(Check)
-  
+
   if (method == "hclust" | method == "both") {
-    
     scicloudAnalysis <-
       calculateModels(
         scicloudList,
@@ -142,33 +143,36 @@ runAnalysis <- function(scicloudList,
         dendrogram = dendrogram,
         dendroLabels = dendroLabels
       )
-    
-    # create plots for the analysis 
+
+    # create plots for the analysis
     createOrdinationPlot(scicloudAnalysis,
-                         exactPosition = exactPosition)
-    
+      exactPosition = exactPosition
+    )
+
     ANSWER <- readline("Show most influencial papers per cluster? (y/n)")
     if (substr(ANSWER, 1, 1) == "y") {
-        mostImportantPaperPerCluster(scicloudAnalysis)
+      mostImportantPaperPerCluster(scicloudAnalysis)
     }
-    
   }
-  if(method == "network" | method == "both"){
+  if (method == "network" | method == "both") {
     modeledNetwork <-
       calculateNetwork(
-        scicloudList, sortby = sortby, keep = keep
+        scicloudList,
+        sortby = sortby, keep = keep
       )
   }
-  
+
   if (saveToWd == TRUE) {
     save_data(runAnalysis, "runAnalysis")
   }
-  
-  if (method == "hclust")
+
+  if (method == "hclust") {
     return(scicloudAnalysis)
-  if (method == "network")
+  }
+  if (method == "network") {
     return(modeledNetwork)
-  if (method == "both")
+  }
+  if (method == "both") {
     return(c(scicloudAnalysis, modeledNetwork))
-  
+  }
 }
