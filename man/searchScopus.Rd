@@ -42,9 +42,9 @@ This function accepts a search string in URL format and an
 }
 \examples{
 \dontrun{
-DOInumbers <- searchScopus('TITLE-ABS-KEY(sustainability) AND PUBYEAR > 2009',
+   DOInumbers <- searchScopus('TITLE-ABS-KEY(sustainability) AND PUBYEAR > 2009',
     '1234567890ABCDEF', maxResults = 160, countIncrement = 20)
-DOInumbers}
+   DOInumbers}
 }
 \seealso{
 Other scicloud functions: 

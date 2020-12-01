@@ -4,7 +4,7 @@
 #'   wordList for further use with \code{\link{runAnalysis}}. \cr
 #'   The function takes all scientific papers as PDF files from the
 #'   "PDFs" folder in your working directory or any other specified directory to
-#'   create a metaMatrix. It then further pre-processes the text (eg. by stemming
+#'   create a metaMatrix. It then further pre-processes the text (e.g. by stemming
 #'   words with stemWords) and outputs a tf-idf matrix. As a last step, it fetches the papers' metadata
 #'   from Scopus for which you'll need an Elsevier API key
 #'   (\url{https://dev.elsevier.com/index.jsp}). \cr

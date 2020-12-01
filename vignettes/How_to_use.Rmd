@@ -39,7 +39,7 @@ devtools:install_github("LisaGotzian/scicloud")
 
 ## Prerequisites
 + an API key from Elsevier
-+ an authorised connection to Elsevier (via your institution's network)
++ an authorized connection to Elsevier (via your institution's network)
 + scientific papers (in PDF format) that are stored in folder named PDFs in your working directory
 
 ---
@@ -54,7 +54,7 @@ The function `createScicloudList()` prepares the data needed to perform the word
 |:-------|:-------|:-------|:-------|:-------|:-------|:-------|
 |Title|Year|Month|Day|Authors|Journal|Volume|
 |Issue|Pages|CitedBy|CitationPerYear|DOI|Scopus-ID|Publisher|
-|Affiliation|Affiliation-City|Affiliation-Country|FileName|Abstrac|FullText|ID|     
+|Affiliation|Affiliation-City|Affiliation-Country|FileName|Abstract|FullText|ID|     
 
 #### Tf-Idf
 the tf-idf document term matrix created after the preprocessing of metaMatrix using methods defined by the arguments: _stemWords_, _language_, _ignoreWords_ and _keepWordsFile_. When these arguments are not defined specifically, default options will be executed. 
@@ -187,7 +187,7 @@ Show most influencial papers per cluster? (y/n)n
 
 ![Proportion of Citations per Cluster](../Citation.png)
 
-![Porportion of Papers per Cluster](../Paper.png)
+![Proportion of Papers per Cluster](../Paper.png)
 
 #### Other arguments of runAnalysis()
 _minWordsPerCluster_
