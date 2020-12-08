@@ -1,6 +1,6 @@
 Package: scicloud
 Title: Cluster and Network Word Analysis of Scientific Papers
-Version: 0.0.1
+Version: 0.0.0.9000
 Author: Matthias Nachtmann, Lisa Gotzian, Jia Yan Ng, Johann Julius Beeck, Henrik von Wehrden, Prabesh Dhakal
 Maintainer: Lisa Gotzian <lisa.gotzian@stud.leuphana.de>
 Description: Analyzes large amounts of (scientific) text, usually your own pdf
