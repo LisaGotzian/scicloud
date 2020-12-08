@@ -5,16 +5,18 @@
 #'     a vector for further processing.
 #'
 #' @author Creator of the scicloud workflow: Henrik von Wehrden,
-#'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
+#'   \email{henrik.von_wehrden@@leuphana.de} \cr
+#'   
 #'   Code by: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de},
 #'   Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#'   Prabesh Dhakal, \email{prabesh.dhakal@@stud.leuphana.de} \cr \cr
+#'   Prabesh Dhakal, \email{prabesh.dhakal@@stud.leuphana.de} \cr
+#'    
 #'   First version of scicloud: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de}
 #'
 #' @param searchString The search string you want to ask the server. See the
-#'     Scopus API (\url{https://dev.elsevier.com/index.jsp/}) for details.
+#'     Scopus API (\url{https://dev.elsevier.com/}) for details.
 #' @param maxResults The maximum amount of accepted search results. Usually,
 #'     Scopus does not provide more than 5000 results.
 #' @param countIncrement The number of results per GET request. A private user
@@ -22,7 +24,7 @@
 #'     you can use the maximum of 200 per request. Note, that the weekly quota
 #'     for requests is 20,000.
 #' @param myAPIKey your private Elsevier API key for communicating with the
-#'     API. You can request one at \url{https://dev.elsevier.com/index.jsp}.
+#'     API. You can request one at \url{https://dev.elsevier.com/}.
 #' @param saveToWd a logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.

@@ -209,7 +209,7 @@ _dendroLabels_
 = label setting of the dendrogram, allows to be "truncated" or "break". This either truncates the labels of the dendrogram leaves or puts a line break. Line breaks are not recommended for a large number of PDFs. The default value is set to "truncated".
 
 _generateWordlist_
-: logical, if set to TRUE, it generates a wordlist called "scicloudWordlist.csv" in your working directory. The list contains all significant words from the indicator species analysis that are representative for the respective paper clusters. To work with the new wordlist, read it in using _keepWordsFile_ as an argument to `createScicloudList()` function. The default value is set to FALS.E
+: logical, if set to TRUE, it generates a wordlist called "scicloudWordlist.csv" in your working directory. The list contains all significant words from the indicator species analysis that are representative for the respective paper clusters. To work with the new wordlist, read it in using _keepWordsFile_ as an argument to `createScicloudList()` function. The default value is set to FALSE.
 
 ## Other functions in the package
 inspectScicloud()

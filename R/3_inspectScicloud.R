@@ -6,8 +6,10 @@
 #' @param scicloudAnalysis the result of \code{scicloudAnalysis}
 #'
 #' @author Creator of the scicloud workflow: Henrik von Wehrden,
-#'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
-#'   Code by: Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}\cr \cr
+#'   \email{henrik.von_wehrden@@leuphana.de} \cr
+#'   
+#'   Code by: Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de}\cr
+#'   
 #'   First version of scicloud: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de}
 #'

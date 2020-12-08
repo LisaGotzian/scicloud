@@ -12,21 +12,23 @@
 #'   argument 'keepWordsFile'.
 #'
 #' @author Creator of the scicloud workflow: Henrik von Wehrden,
-#'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
+#'   \email{henrik.von_wehrden@@leuphana.de} \cr
+#'   
 #'   Code by: Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de},
 #'   Johann Julius Beeck, \email{johann.j.beeck@@stud.leuphana.de},
 #'   Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
-#'   Prabesh Dhakal, \email{prabesh.dhakal@@stud.leuphana.de} \cr \cr
+#'   Prabesh Dhakal, \email{prabesh.dhakal@@stud.leuphana.de} \cr
+#'   
 #'   First version of scicloud: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de}
 #'
 #' @param directory per default, the PDFs are expected to be in a folder named
 #'   "PDFs", can be changed ad. lib.
 #' @param myAPIKey your private API key for communicating with the Scopus API.
-#'   You can request one at \url{https://dev.elsevier.com/index.jsp}.
+#'   You can request one at \url{https://dev.elsevier.com/}.
 #' @param language this defines the language of the stopwords to be filtered.
 #'   The default is "SMART". Look at \code{\link[tm]{stopwords}} for more
-#'   information.\cr
+#'   information.
 #' @param stemWords logical variable which is passed to processMetaDataMatrix.
 #' @param saveToWd  a logical parameter whether or not to save the output of the
 #'   function to the working directory. This is especially useful for later

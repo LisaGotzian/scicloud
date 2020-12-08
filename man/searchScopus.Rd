@@ -14,10 +14,10 @@ searchScopus(
 }
 \arguments{
 \item{searchString}{The search string you want to ask the server. See the
-Scopus API (\url{https://dev.elsevier.com/index.jsp/}) for details.}
+Scopus API (\url{https://dev.elsevier.com/}) for details.}
 
 \item{myAPIKey}{your private Elsevier API key for communicating with the
-API. You can request one at \url{https://dev.elsevier.com/index.jsp}.}
+API. You can request one at \url{https://dev.elsevier.com/}.}
 
 \item{maxResults}{The maximum amount of accepted search results. Usually,
 Scopus does not provide more than 5000 results.}
@@ -59,11 +59,13 @@ Other scicloud functions:
 }
 \author{
 Creator of the scicloud workflow: Henrik von Wehrden,
-  \email{henrik.von_wehrden@leuphana.de} \cr \cr
+  \email{henrik.von_wehrden@leuphana.de} \cr
+  
   Code by: Matthias Nachtmann,
   \email{matthias.nachtmann@stud.leuphana.de},
   Lisa Gotzian, \email{lisa.gotzian@stud.leuphana.de},
-  Prabesh Dhakal, \email{prabesh.dhakal@stud.leuphana.de} \cr \cr
+  Prabesh Dhakal, \email{prabesh.dhakal@stud.leuphana.de} \cr
+   
   First version of scicloud: Matthias Nachtmann,
   \email{matthias.nachtmann@stud.leuphana.de}
 }

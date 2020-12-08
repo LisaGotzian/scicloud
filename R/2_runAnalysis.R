@@ -2,7 +2,8 @@
 #' @description The second function to be called to perform the analysis with
 #'   scicloud after \code{\link{createScicloudList}}. It outputs a list of 4
 #'   components: IndVal, metaMatrix, RepresentativePapers and wordList for
-#'   further use with \code{\link{inspectScicloud}}.\cr\cr
+#'   further use with \code{\link{inspectScicloud}}.\cr
+#'   
 #'   The function performs the analysis depending on the method argument. By
 #'   default, the method is set to 'hclust' that identifies clusters using
 #'   \code{\link[stats]{hclust}}. The clusters are publication communities based
@@ -10,7 +11,7 @@
 #'   communities, it runs an indicator species analysis. Each word receives an
 #'   indicator species value by \code{\link[labdsv]{indval}} for each cluster,
 #'   showing how representative each word is within a cluster. The top representative
-#'   words will then be visualized with the following plots:\cr
+#'   words will then be visualized with the following plots:
 #'   \itemize{
 #'     \item a dendrogram of the clusters
 #'     \item a wordcloud of the publication communities
@@ -24,12 +25,14 @@
 #'   be further processed in network programs like Gephi.
 #'
 #' @author Creator of the scicloud workflow: Henrik von Wehrden,
-#'   \email{henrik.von_wehrden@@leuphana.de} \cr \cr
+#'   \email{henrik.von_wehrden@@leuphana.de} \cr
+#'   
 #'   Code by: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de},
 #'   Lisa Gotzian, \email{lisa.gotzian@@stud.leuphana.de},
 #'   Jia Yan Ng, \email{Jia.Y.Ng@@stud.leuphana.de},
-#'   Johann Julius Beeck, \email{johann.j.beeck@@stud.leuphana.de} \cr \cr
+#'   Johann Julius Beeck, \email{johann.j.beeck@@stud.leuphana.de} \cr
+#'   
 #'   First version of scicloud: Matthias Nachtmann,
 #'   \email{matthias.nachtmann@@stud.leuphana.de}
 #'

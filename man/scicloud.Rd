@@ -23,7 +23,7 @@ directory of your PDFs when calling \code{\link{createScicloudList}} function.
     information needed from Scopus. All papers and their abstracts that match
     in the search are then used for the analysis.
 
-    To acquire your API key, go to \url{https://dev.elsevier.com/index.jsp}.
+    To acquire your API key, go to \url{https://dev.elsevier.com/}.
     In addition, make sure that you are connected to your institution's
     network (e.g. via VPN) when executing \code{\link{createScicloudList}} function.
 
