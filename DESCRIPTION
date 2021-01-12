@@ -8,7 +8,7 @@ Authors@R:
       person(given = "Lisa",
              family = "Gotzian",
              role = "cre",
-             email = "lisa.gotzian@stud.leuphana.de"),
+             email = "lisa@lisagotzian.com"),
       person(given = "Henrik",
              family = "von Wehrden",
              role = "cph"),
@@ -21,11 +21,8 @@ Authors@R:
       person(given = "Prabesh",
              family = "Dhakal",
              role = "aut"))
-Maintainer: Lisa Gotzian <lisa.gotzian@stud.leuphana.de>
-Description: Analyzes large amounts of (scientific) text,
-    usually your own pdf files or automatically downloaded abstracts from
-    Scopus.com. Analyzes them using indicator values and clustering or
-    network analysis. Includes easy-to-grasp graphics.
+Maintainer: Lisa Gotzian <lisa@lisagotzian.cocm>
+Description: The scicloud package provides a word analysis for scientific papers which saved as PDFs. It clusters publication communities based on the words used in the papers. To identify the words relevant to the communities, it uses an indicator species analysis. In the end, it produces a wordcloud and visualizes the communities by year and number of citations with barplots. The package also offers a network analysis approach for which Gephi or a different graphing software is required.
 License: GPL-3
 BugReports: https://github.com/LisaGotzian/scicloud/issues
 Imports:

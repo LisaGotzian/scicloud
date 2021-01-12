@@ -264,32 +264,39 @@ calculateModels <- function(processedMetaDataMatrix,
   ## save each paper into one new folder
   PdfsPerCluster <- file.path(getwd(), "PdfsPerCluster")
   # PdfsPerCluster <- file.path(do.call(file.path, as.list(strsplit(getwd(), "/")[[1]])), "PdfsPerCluster")
-  if (dir.exists(PdfsPerCluster)) {
-    message("The existing paper-cluster folders have been overwritten")
-    nestedFolders <- list.files(PdfsPerCluster, full.names = TRUE)
-    do.call(function(x)
-      unlink(x, recursive = TRUE), list(nestedFolders))
-  } else {
-    dir.create(PdfsPerCluster)
-    cat("PdfsPerCluster folder is created in your working directory")
-  }
-  # file.copy function does not support file copying of list of file to list of different directory
-  # manage the files copying in a loop
-  for (i in 1:numberOfClusters) {
-    clusterFolder <- file.path(PdfsPerCluster, paste("Cluster", i))
-    dir.create(clusterFolder)
-    file.copy(
-      from = rownames(representativePapersEasyToOpen[representativePapersEasyToOpen$Cluster == i,]),
-      to = clusterFolder,
-      copy.mode = TRUE
-    )
-  }
-  cat(
-    paste0(
-      "\nAll PDFs have been copied to different subfolders in the new folder 'PdfsPerCluster'
+  ANS <- readline("Would you like to save the PDF duplicates in folders corresponding to the calculated clusters? (y/n)\n")
+ 
+   if (substr(ANS, 1, 1) == "y") {
+    if (dir.exists(PdfsPerCluster)) {
+      message("The existing paper-cluster folders have been overwritten")
+      nestedFolders <- list.files(PdfsPerCluster, full.names = TRUE)
+      do.call(function(x)
+        unlink(x, recursive = TRUE), list(nestedFolders))
+    } else {
+      dir.create(PdfsPerCluster)
+      cat("PdfsPerCluster folder is created in your working directory")
+    }
+    
+    # file.copy function does not support file copying of list of file to list of different directory
+    # manage the files copying in a loop
+    for (i in 1:numberOfClusters) {
+      clusterFolder <- file.path(PdfsPerCluster, paste("Cluster", i))
+      dir.create(clusterFolder)
+      file.copy(
+        from = rownames(representativePapersEasyToOpen[representativePapersEasyToOpen$Cluster == i,]),
+        to = clusterFolder,
+        copy.mode = TRUE
+      )
+    }
+    cat(
+      paste0(
+        "\nAll PDFs have been copied to different subfolders in the new folder 'PdfsPerCluster'
       according to the cluster they belong to.\n"
+      )
     )
-  )
+  }
+  
+  
   
   return(scicloudAnalysis)
 }

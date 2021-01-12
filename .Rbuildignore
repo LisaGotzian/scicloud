@@ -2,14 +2,8 @@
 ^\.Rproj\.user$
 ^README\.md$
 using_scicloud_explained.R
-Methods_Julius.pdf
 PDFs
+cran-comments.md
 ^LICENSE\.md$
-^UsefulDevCmd\.md$
-^abson2014\.pdf$
-^Methods_Julius\.pdf$
-^Blei2012 probabilistic topic models\.pdf$
-^Methodensection Hanna\.docx$
-^Vignette Workflow\.md$
 ^keepWord.csv
 ^PdfsPerCluster
