@@ -61,7 +61,7 @@ getScopusMetaData <- function(metaMatrix,
   end <- nrow(metaMatrix)
 
   # let users know what is happening at this stage
-  cat("\nAccessing Scopus to update the Metadata...\n")
+  cat("\nAccessing Scopus to update the metadata...\n")
   # reset the progress bar (using new `end` value)
   pb <- utils::txtProgressBar(min = start, max = end, style = 3)
 
