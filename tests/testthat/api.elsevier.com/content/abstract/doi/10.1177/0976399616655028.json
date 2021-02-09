@@ -1,0 +1,74 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": {
+            "affiliation-city": "Ahmedabad",
+            "affilname": "Indian Institute of Management Ahmedabad",
+            "affiliation-country": "India"
+        },
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "2",
+            "eid": "2-s2.0-85025811008",
+            "prism:coverDate": "2016-10-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85025811008",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Aashish",
+                        "preferred-name": {
+                            "ce:given-name": "Aashish",
+                            "ce:initials": "A.",
+                            "ce:surname": "Argade",
+                            "ce:indexed-name": "Argade A."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60033308",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60033308"
+                        },
+                        "ce:surname": "Argade",
+                        "@auid": "57195149952",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/57195149952",
+                        "ce:indexed-name": "Argade A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/85025811008"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=85025811008&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=85025811008&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Millennial Asia",
+            "source-id": "21100814050",
+            "citedby-count": "0",
+            "prism:volume": "7",
+            "subtype": "ar",
+            "prism:pageRange": "131-152",
+            "dc:title": "Seeking markets in production fields: An assessment of the potential for fair trade in India",
+            "prism:endingPage": "152",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1177/0976399616655028",
+            "prism:issn": "23217081 09763996",
+            "prism:startingPage": "131",
+            "dc:identifier": "SCOPUS_ID:85025811008",
+            "dc:publisher": "SAGE Publications Ltd"
+        }
+    }
+}

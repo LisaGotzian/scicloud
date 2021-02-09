@@ -1,0 +1,80 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Gottingen",
+                "affilname": "Universität Göttingen",
+                "affiliation-country": "Germany"
+            },
+            {
+                "affiliation-city": "Kassel",
+                "affilname": "Universität Kassel",
+                "affiliation-country": "Germany"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "6",
+            "eid": "2-s2.0-84890597673",
+            "prism:coverDate": "2013-12-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84890597673",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Veronika A.",
+                        "preferred-name": {
+                            "ce:given-name": "Veronika A.",
+                            "ce:initials": "V.A.",
+                            "ce:surname": "Andorfer",
+                            "ce:indexed-name": "Andorfer V."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "V.A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60018123",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60018123"
+                        },
+                        "ce:surname": "Andorfer",
+                        "@auid": "48461091600",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/48461091600",
+                        "ce:indexed-name": "Andorfer V.A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84890597673"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84890597673&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84890597673&origin=inward"
+                }
+            ],
+            "prism:publicationName": "European Sociological Review",
+            "source-id": "14427",
+            "citedby-count": "29",
+            "prism:volume": "29",
+            "subtype": "ar",
+            "prism:pageRange": "1251-1265",
+            "dc:title": "Consumer behavior in moral markets. On the relevance of identity, justice beliefs, social norms, status, and trust in ethical consumption",
+            "prism:endingPage": "1265",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1093/esr/jct014",
+            "prism:issn": "02667215 14682672",
+            "prism:startingPage": "1251",
+            "dc:identifier": "SCOPUS_ID:84890597673"
+        }
+    }
+}

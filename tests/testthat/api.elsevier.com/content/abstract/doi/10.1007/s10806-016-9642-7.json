@@ -1,0 +1,86 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Edinburgh",
+                "affilname": "Scotland's Rural College",
+                "affiliation-country": "United Kingdom"
+            },
+            {
+                "affiliation-city": "Marcy-l'Etoile",
+                "affilname": "VetAgro Sup",
+                "affiliation-country": "France"
+            },
+            {
+                "affiliation-city": "Groningen",
+                "affilname": "University of Groningen",
+                "affiliation-country": "Netherlands"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "6",
+            "eid": "2-s2.0-84991358609",
+            "prism:coverDate": "2016-12-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84991358609",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Faical",
+                        "preferred-name": {
+                            "ce:given-name": "Faical",
+                            "ce:initials": "F.",
+                            "ce:surname": "Akaichi",
+                            "ce:indexed-name": "Akaichi F."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "F.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60107757",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60107757"
+                        },
+                        "ce:surname": "Akaichi",
+                        "@auid": "47960945100",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/47960945100",
+                        "ce:indexed-name": "Akaichi F."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84991358609"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84991358609&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84991358609&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of Agricultural and Environmental Ethics",
+            "source-id": "24778",
+            "citedby-count": "11",
+            "prism:volume": "29",
+            "subtype": "ar",
+            "prism:pageRange": "969-984",
+            "dc:title": "Does Fair Trade Compete with Carbon Footprint and Organic Attributes in the Eyes of Consumers? Results from a Pilot Study in Scotland, The Netherlands and France",
+            "prism:endingPage": "984",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1007/s10806-016-9642-7",
+            "prism:issn": "1573322X 11877863",
+            "prism:startingPage": "969",
+            "dc:identifier": "SCOPUS_ID:84991358609",
+            "dc:publisher": "Springer Netherlands"
+        }
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Cordoba",
+                "affilname": "Universidad Loyola Andalucia",
+                "affiliation-country": "Spain"
+            },
+            {
+                "affiliation-city": "Zaragoza",
+                "affilname": "Universidad de Zaragoza",
+                "affiliation-country": "Spain"
+            },
+            {
+                "affiliation-city": "Cholula",
+                "affilname": "Colegio de Postgraduados, Campus Puebla",
+                "affiliation-country": "Mexico"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "2",
+            "eid": "2-s2.0-84925511631",
+            "prism:coverDate": "2015-04-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84925511631",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Rafael A.",
+                        "preferred-name": {
+                            "ce:given-name": "Rafael A.",
+                            "ce:initials": "R.A.",
+                            "ce:surname": "Araque-Padilla",
+                            "ce:indexed-name": "Araque-Padilla R.A."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "R.A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60086940",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60086940"
+                        },
+                        "ce:surname": "Araque-Padilla",
+                        "@auid": "55321983900",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/55321983900",
+                        "ce:indexed-name": "Araque-Padilla R.A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84925511631"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84925511631&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84925511631&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of Agricultural and Environmental Ethics",
+            "source-id": "24778",
+            "citedby-count": "3",
+            "prism:volume": "28",
+            "subtype": "ar",
+            "prism:pageRange": "217-230",
+            "dc:title": "Moderating the Relationship Between Price and Perceived Value of Ethical Products",
+            "prism:endingPage": "230",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1007/s10806-014-9528-5",
+            "prism:issn": "1573322X 11877863",
+            "prism:startingPage": "217",
+            "dc:identifier": "SCOPUS_ID:84925511631",
+            "dc:publisher": "Kluwer Academic Publishers"
+        }
+    }
+}

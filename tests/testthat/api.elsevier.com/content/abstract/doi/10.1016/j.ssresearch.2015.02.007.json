@@ -1,0 +1,82 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Bern",
+                "affilname": "University of Bern",
+                "affiliation-country": "Switzerland"
+            },
+            {
+                "affiliation-city": "Kassel",
+                "affilname": "Universität Kassel",
+                "affiliation-country": "Germany"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "eid": "2-s2.0-84925357708",
+            "pubmed-id": "26004466",
+            "prism:coverDate": "2015-07-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84925357708",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Veronika A.",
+                        "preferred-name": {
+                            "ce:given-name": "Veronika A.",
+                            "ce:initials": "V.A.",
+                            "ce:surname": "Andorfer",
+                            "ce:indexed-name": "Andorfer V."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "V.A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60018123",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60018123"
+                        },
+                        "ce:surname": "Andorfer",
+                        "@auid": "48461091600",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/48461091600",
+                        "ce:indexed-name": "Andorfer V.A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84925357708"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84925357708&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84925357708&origin=inward"
+                }
+            ],
+            "source-id": "26441",
+            "pii": "S0049089X15000587",
+            "citedby-count": "34",
+            "prism:volume": "52",
+            "subtype": "ar",
+            "dc:title": "Do information, price, or morals influence ethical consumption? A natural field experiment and customer survey on the purchase of Fair Trade coffee",
+            "openaccess": "2",
+            "prism:issn": "0049089X",
+            "subtypeDescription": "Article",
+            "prism:publicationName": "Social Science Research",
+            "prism:pageRange": "330-350",
+            "prism:endingPage": "350",
+            "openaccessFlag": null,
+            "prism:doi": "10.1016/j.ssresearch.2015.02.007",
+            "prism:startingPage": "330",
+            "dc:identifier": "SCOPUS_ID:84925357708",
+            "dc:publisher": "Academic Press Inc.apjcs@harcourt.com"
+        }
+    }
+}
