@@ -1,5 +1,11 @@
 # Test the output of getScopusMetaData
 
+# 1) use start_capturing() in order to capture new API request
+# 2) run getScopusMetaData()
+# 3) use stop_capturing() to stop the recording
+# 4) use this tests
+# 5) if tests fail: check for changes of the API
+
 if (!require(testthat))
   install.packages("testthat")
 
@@ -66,6 +72,8 @@ with_mock_API({
     ))
   })
   
+  #  failed tests are due to changes of the API
+  #
   #  test_that("check Publisher retrieval", {
   #    expect_true(!is.na(
   #      JSON$`abstracts-retrieval-response`$coredata$`dc:publisher`
