@@ -1,6 +1,6 @@
 Package: scicloud
 Title: Cluster and Network Word Analysis of Scientific Papers
-Version: 0.0.0.9001
+Version: 1.0.0
 Authors@R: 
     c(person(given = "Matthias",
              family = "Nachtmann",
