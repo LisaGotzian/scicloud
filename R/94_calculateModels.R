@@ -224,13 +224,24 @@ calculateModels <- function(processedMetaDataMatrix,
   # only the papers from signIndSpeciesValues from processed data
   ClusterContent <-
     signIndSpeciesValues[, "names(indSpeciesValues$pval)"]
+  # replace all non alphanumeric values
+  ClusterContent <- sapply(ClusterContent, gsub,
+                           pattern = "[^[:alnum:]]", replacement ="",
+                           USE.NAMES = FALSE)
   ClusterContent <- as.data.frame(ClusterContent)
   
   # select said columns (words) from processedMetaDataMatrix which is a tf_idf matrix of papers and words
   representativePapers <-
     as.data.frame(processedMetaDataMatrix$Tf_Idf[, ClusterContent[, 1]])
-  rownames(representativePapers) <-
-    processedMetaDataMatrix$metaMatrix[, "FileName"] # take the filenames as row names
+  if(is.na(processedMetaDataMatrix$metaMatrix[1, "FileName"])){
+    rownames(representativePapers) <-
+      processedMetaDataMatrix$metaMatrix[, "ID"] # take the IDs as row names
+    
+  }else{
+    rownames(representativePapers) <-
+      processedMetaDataMatrix$metaMatrix[, "FileName"] # take the filenames as row names
+    
+  }
   
   # Extracting the percentage
   # give each paper a percentage value and call the column percentageOfSignWordsInPaper
@@ -264,7 +275,7 @@ calculateModels <- function(processedMetaDataMatrix,
   ## save each paper into one new folder
   PdfsPerCluster <- file.path(getwd(), "PdfsPerCluster")
   # PdfsPerCluster <- file.path(do.call(file.path, as.list(strsplit(getwd(), "/")[[1]])), "PdfsPerCluster")
-  ANS <- readline("Would you like to save the PDF duplicates in folders corresponding to the calculated clusters? (y/n)\n")
+  ANS <- readline("Would you like to save the PDF duplicates in folders corresponding\nto the calculated clusters? (y/n)\n")
  
    if (substr(ANS, 1, 1) == "y") {
     if (dir.exists(PdfsPerCluster)) {
