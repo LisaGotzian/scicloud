@@ -7,16 +7,16 @@
 searchScopus(
   searchString,
   myAPIKey,
-  maxResults = 10,
+  maxResults = 500,
   countIncrement = 200,
-  saveToWd = TRUE
+  saveToWd = FALSE
 )
 }
 \arguments{
 \item{searchString}{The search string you want to ask the server. See the
 Scopus API (\url{https://dev.elsevier.com/}) for details.}
 
-\item{myAPIKey}{your private Elsevier API key for communicating with the
+\item{myAPIKey}{Your private Elsevier API key for communicating with the
 API. You can request one at \url{https://dev.elsevier.com/}.}
 
 \item{maxResults}{The maximum amount of accepted search results. Usually,
@@ -24,10 +24,10 @@ Scopus does not provide more than 5000 results.}
 
 \item{countIncrement}{The number of results per GET request. A private user
 can't exceed 25 per request. If you are inside a subscribed IP range,
-you can use the maximum of 200 per request. Note, that the weekly quota
+you can use the maximum of 200 per request. Note that the weekly quota
 for requests is 20,000.}
 
-\item{saveToWd}{a logical parameter whether or not to save the output of the
+\item{saveToWd}{A logical parameter whether or not to save the output of the
 function to the working directory. This is especially useful for later
 analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.}
 }
@@ -46,7 +46,17 @@ DOInumbers <- searchScopus("TITLE-ABS-KEY(sustainability) AND PUBYEAR > 2009",
   "1234567890ABCDEF",
   maxResults = 160, countIncrement = 20
 )
-DOInumbers
+View(DOInumbers)
+
+## Run the analysis with the acquired dataframe using scicloud
+# Create a tfidf wordlist
+scicloudList <- createScicloudList(scopusList = DOInumbers, myAPIKey = myAPIKey)
+
+# Run the analysis with a specified no. of cluster
+scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
+
+# Generate a summary of the analysis
+scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 }
 
 }

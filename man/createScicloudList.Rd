@@ -6,6 +6,7 @@
 \usage{
 createScicloudList(
   directory = file.path(".", "PDFs"),
+  scopusList = NA,
   myAPIKey = NA,
   language = "SMART",
   stemWords = TRUE,
@@ -18,6 +19,8 @@ createScicloudList(
 \arguments{
 \item{directory}{per default, the PDFs are expected to be in a folder named
 "PDFs", can be changed ad. lib.}
+
+\item{scopusList}{a finished metaMatrix from \code{\link{searchScopus}}}
 
 \item{myAPIKey}{your private API key for communicating with the Scopus API.
 You can request one at \url{https://dev.elsevier.com/}.}
