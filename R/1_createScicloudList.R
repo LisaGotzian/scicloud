@@ -24,6 +24,7 @@
 #'
 #' @param directory per default, the PDFs are expected to be in a folder named
 #'   "PDFs", can be changed ad. lib.
+#' @param scopusList a finished metaMatrix from \code{\link{searchScopus}}
 #' @param myAPIKey your private API key for communicating with the Scopus API.
 #'   You can request one at \url{https://dev.elsevier.com/}.
 #' @param language this defines the language of the stopwords to be filtered.
@@ -75,6 +76,7 @@
 #' }
 #' @export
 createScicloudList <- function(directory = file.path(".", "PDFs"),
+                               scopusList = NA,
                                myAPIKey = NA,
                                language = "SMART",
                                stemWords = TRUE,
@@ -95,8 +97,12 @@ createScicloudList <- function(directory = file.path(".", "PDFs"),
   }
   ArgumentCheck::finishArgCheck(Check)
 
-  # create matrix by reading PDFs
-  metaMatrix <- createTextMatrixFromPDF(directory)
+  if(is.na(scopusList[[1]])){ 
+    # create matrix by reading PDFs
+    metaMatrix <- createTextMatrixFromPDF(directory)
+  }else{ # if scopusList is provided
+    metaMatrix <- scopusList
+  }
 
   # preprocessing the corpus from the PDFs to create Tf-Idf and WordList
   scicloudList <-
@@ -111,12 +117,16 @@ createScicloudList <- function(directory = file.path(".", "PDFs"),
       generateWordlist = generateWordlist
     )
 
-  # update info in the metaMatrix from Scopus using API
-  scicloudList$metaMatrix <-
-    getScopusMetaData(
-      metaMatrix = metaMatrix,
-      myAPIKey = myAPIKey
-    )
+  if(is.na(scopusList[[1]])){ 
+    # update info in the metaMatrix from Scopus using API
+    scicloudList$metaMatrix <-
+      getScopusMetaData(
+        metaMatrix = metaMatrix,
+        myAPIKey = myAPIKey
+      )
+  }else{ # if scopusList is provided
+    scicloudList$metaMatrix <- metaMatrix
+  }
 
   if (saveToWd) {
     save_data(scicloudList, "scicloudList")

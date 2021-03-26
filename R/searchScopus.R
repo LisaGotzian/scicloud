@@ -21,11 +21,11 @@
 #'     Scopus does not provide more than 5000 results.
 #' @param countIncrement The number of results per GET request. A private user
 #'     can't exceed 25 per request. If you are inside a subscribed IP range,
-#'     you can use the maximum of 200 per request. Note, that the weekly quota
+#'     you can use the maximum of 200 per request. Note that the weekly quota
 #'     for requests is 20,000.
-#' @param myAPIKey your private Elsevier API key for communicating with the
+#' @param myAPIKey Your private Elsevier API key for communicating with the
 #'     API. You can request one at \url{https://dev.elsevier.com/}.
-#' @param saveToWd a logical parameter whether or not to save the output of the
+#' @param saveToWd A logical parameter whether or not to save the output of the
 #'     function to the working directory. This is especially useful for later
 #'     analysis steps. The file can be read in by using \code{\link[base]{readRDS}}.
 #' @family scicloud functions
@@ -38,14 +38,24 @@
 #'   "1234567890ABCDEF",
 #'   maxResults = 160, countIncrement = 20
 #' )
-#' DOInumbers
+#' View(DOInumbers)
+#' 
+#' ## Run the analysis with the acquired dataframe using scicloud
+#' # Create a tfidf wordlist
+#' scicloudList <- createScicloudList(scopusList = DOInumbers, myAPIKey = myAPIKey)
+#'
+#' # Run the analysis with a specified no. of cluster
+#' scicloudAnalysis <- runAnalysis(scicloudList = scicloudList, numberOfClusters = 4)
+#'
+#' # Generate a summary of the analysis
+#' scicloudSpecs <- inspectScicloud(scicloudAnalysis)
 #' }
 #'
 searchScopus <- function(searchString,
                          myAPIKey,
-                         maxResults = 10,
+                         maxResults = 500,
                          countIncrement = 200,
-                         saveToWd = TRUE) {
+                         saveToWd = FALSE) {
   #### PHASE I: GET THE DOIs and SCOPUS IDs OF THE SEARCH RESULT ####
 
   # percent-encode the search string
@@ -57,9 +67,6 @@ searchScopus <- function(searchString,
   # initialize start parameter for API call
   start <- 0
 
-  # initialize the progress bar utility
-  pb <-
-    utils::txtProgressBar(min = start, max = maxResults, style = 3)
 
   # a function that returns a custom error message
   errorMessage <- function(cond) {
@@ -134,8 +141,6 @@ searchScopus <- function(searchString,
     # update the current number of results ensuring the progress bar always ends with 100%
     start <- min(start + countIncrement, maxResults)
 
-    # show progress Bar
-    utils::setTxtProgressBar(pb, start)
 
     # API allows 9 requests per second
     if (i %% 9 == 0) {
@@ -215,19 +220,19 @@ searchScopus <- function(searchString,
         NA
       }
   }
-
-  # save metaDOInumbers dataFrame to R object file to working directory & global env
-  if (saveToWd == TRUE) {
-    save_data(searchResults, "metaDOInumbers")
-  }
-
   # check for redundant entries
   searchResults <- unique(searchResults)
   # assign unique ID to the rows to avoid any collisions along the way
   searchResults <- cbind(searchResults, ID = 1:nrow(searchResults))
 
-  close(pb) # close progress bar
-
   DOInumbersMetaData <- getScopusMetaData(searchResults, myAPIKey = myAPIKey)
+  # check for empty abstracts
+  DOInumbersMetaData <- DOInumbersMetaData[-which(is.na(DOInumbersMetaData[,"Abstract"])),]
+  
+  # save metaDOInumbers dataFrame to R object file to working directory & global env
+  if (saveToWd == TRUE) {
+    save_data(DOInumbersMetaData, "metaDOInumbers")
+  }
+ 
   return(DOInumbersMetaData)
 }
