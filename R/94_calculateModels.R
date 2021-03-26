@@ -7,6 +7,14 @@ calculateModels <- function(processedMetaDataMatrix,
                             p = 0.05,
                             dendrogram = TRUE,
                             dendroLabels = c("truncated", "break")) {
+  
+  if(is.na(processedMetaDataMatrix$metaMatrix[1, "FileName"])){
+    namecolumn <- "ID" # take the IDs as names throughout (for searchScopus())
+  }else{
+    namecolumn <- "FileName" # take the filenames as row names
+  }
+
+  
   dendroLabels <-
     match.arg(dendroLabels) # pick the argument input by user
   
@@ -193,14 +201,14 @@ calculateModels <- function(processedMetaDataMatrix,
         )
       # when author is not available, use pdf file name instead
       label[which(grepl("NA", label))] <-
-        sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, "FileName"][which(grepl("NA", label))])
+        sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, namecolumn][which(grepl("NA", label))])
       plotDendrogram(modelclust, label, numberOfClusters)
     }
     else {
       if (dendroLabels == "truncated") {
         # exclude the file extension as part of the label
         label <-
-          tools::file_path_sans_ext(sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, "FileName"]))
+          tools::file_path_sans_ext(sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, namecolumn]))
         # for labels with length > 20:
         # replaced a truncated labels of characters from 1:18 followed by ...
         label[nchar(label) > 20] <-
@@ -209,7 +217,7 @@ calculateModels <- function(processedMetaDataMatrix,
       }
       else if (dendroLabels == "break") {
         label <-
-          sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[, "FileName"])
+          sub(".*[/]", "", processedMetaDataMatrix$metaMatrix[,namecolumn])
         plotDendrogram(modelclust, label, numberOfClusters)
       }
     }
@@ -233,15 +241,9 @@ calculateModels <- function(processedMetaDataMatrix,
   # select said columns (words) from processedMetaDataMatrix which is a tf_idf matrix of papers and words
   representativePapers <-
     as.data.frame(processedMetaDataMatrix$Tf_Idf[, ClusterContent[, 1]])
-  if(is.na(processedMetaDataMatrix$metaMatrix[1, "FileName"])){
-    rownames(representativePapers) <-
-      processedMetaDataMatrix$metaMatrix[, "ID"] # take the IDs as row names
-    
-  }else{
-    rownames(representativePapers) <-
-      processedMetaDataMatrix$metaMatrix[, "FileName"] # take the filenames as row names
-    
-  }
+  rownames(representativePapers) <-
+      processedMetaDataMatrix$metaMatrix[, namecolumn] # take the IDs (for searchScopus())/Filename as rowname
+
   
   # Extracting the percentage
   # give each paper a percentage value and call the column percentageOfSignWordsInPaper
@@ -257,9 +259,11 @@ calculateModels <- function(processedMetaDataMatrix,
           Cluster)
   representativePapersEasyToOpen <-
     as.data.frame(representativePapersEasyToOpen)
+  
   rownames(representativePapersEasyToOpen) <-
-    trimws(processedMetaDataMatrix$metaMatrix[, "FileName"]) # take the filenames as row names
-  colnames(representativePapersEasyToOpen) <-
+      trimws(processedMetaDataMatrix$metaMatrix[, namecolumn]) # take the IDs (for searchScopus())/Filename as rowname
+
+colnames(representativePapersEasyToOpen) <-
     c("percentageOfSignWordsInPaper", "Cluster")
   
   scicloudAnalysis[[3]] <- representativePapersEasyToOpen
