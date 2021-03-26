@@ -1,0 +1,81 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Canterbury",
+                "affilname": "Kent Business School",
+                "affiliation-country": "United Kingdom"
+            },
+            {
+                "affiliation-city": "College Park",
+                "affilname": "University of Maryland",
+                "affiliation-country": "United States"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "eid": "2-s2.0-84927970397",
+            "prism:coverDate": "2015-01-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84927970397",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Adolf A.",
+                        "preferred-name": {
+                            "ce:given-name": "Adolf A.",
+                            "ce:initials": "A.A.",
+                            "ce:surname": "Acquaye",
+                            "ce:indexed-name": "Acquaye A.A."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "A.A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60162124",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60162124"
+                        },
+                        "ce:surname": "Acquaye",
+                        "@auid": "34879448200",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/34879448200",
+                        "ce:indexed-name": "Acquaye A.A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84927970397"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84927970397&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84927970397&origin=inward"
+                }
+            ],
+            "prism:publicationName": "International Journal of Production Economics",
+            "source-id": "19165",
+            "pii": "S0925527314003971",
+            "citedby-count": "14",
+            "prism:volume": "164",
+            "subtype": "ar",
+            "prism:pageRange": "472-483",
+            "dc:title": "An integrated environmental and fairtrade labelling scheme for product supply chains",
+            "prism:endingPage": "483",
+            "openaccess": "2",
+            "openaccessFlag": null,
+            "prism:doi": "10.1016/j.ijpe.2014.12.014",
+            "prism:issn": "09255273",
+            "prism:startingPage": "472",
+            "dc:identifier": "SCOPUS_ID:84927970397",
+            "dc:publisher": "Elsevier"
+        }
+    }
+}

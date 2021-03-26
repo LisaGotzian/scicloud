@@ -1,0 +1,73 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": {
+            "affiliation-city": "Wageningen",
+            "affilname": "Rural Sociology Group",
+            "affiliation-country": "Netherlands"
+        },
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "7",
+            "eid": "2-s2.0-70349895102",
+            "prism:coverDate": "2009-10-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/70349895102",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Arce",
+                        "preferred-name": {
+                            "ce:given-name": "Arce",
+                            "ce:initials": "A.",
+                            "ce:surname": "Alberto",
+                            "ce:indexed-name": "Alberto A."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "100412579",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/100412579"
+                        },
+                        "ce:surname": "Alberto",
+                        "@auid": "35092269200",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/35092269200",
+                        "ce:indexed-name": "Alberto A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/70349895102"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=70349895102&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=70349895102&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of International Development",
+            "source-id": "14850",
+            "citedby-count": "28",
+            "prism:volume": "21",
+            "subtype": "ar",
+            "prism:pageRange": "1031-1041",
+            "dc:title": "Living in times of solidarity: Fair trade and the fractured life worlds of guatemalan coffee farmers",
+            "prism:endingPage": "1041",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1002/jid.1634",
+            "prism:issn": "09541748 10991328",
+            "prism:startingPage": "1031",
+            "dc:identifier": "SCOPUS_ID:70349895102"
+        }
+    }
+}

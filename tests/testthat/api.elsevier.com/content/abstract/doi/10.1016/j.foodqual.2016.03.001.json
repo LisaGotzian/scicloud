@@ -1,0 +1,86 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Tokyo",
+                "affilname": "The University of Tokyo",
+                "affiliation-country": "Japan"
+            },
+            {
+                "affiliation-city": "Yokohama",
+                "affilname": "Yokohama National University",
+                "affiliation-country": "Japan"
+            },
+            {
+                "affiliation-city": "Tsukuba",
+                "affilname": "University of Tsukuba",
+                "affiliation-country": "Japan"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "eid": "2-s2.0-84960192256",
+            "prism:coverDate": "2017-03-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84960192256",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Keiko",
+                        "preferred-name": {
+                            "ce:given-name": "Keiko",
+                            "ce:initials": "K.",
+                            "ce:surname": "Aoki",
+                            "ce:indexed-name": "Aoki K."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "K.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60018279",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60018279"
+                        },
+                        "ce:surname": "Aoki",
+                        "@auid": "35228767500",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/35228767500",
+                        "ce:indexed-name": "Aoki K."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84960192256"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84960192256&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84960192256&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Food Quality and Preference",
+            "source-id": "23161",
+            "pii": "S0950329316300453",
+            "citedby-count": "25",
+            "prism:volume": "56",
+            "subtype": "ar",
+            "prism:pageRange": "274-284",
+            "dc:title": "A choice experiment to compare preferences for rice in Thailand and Japan: The impact of origin, sustainability, and taste",
+            "prism:endingPage": "284",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1016/j.foodqual.2016.03.001",
+            "prism:issn": "09503293",
+            "prism:startingPage": "274",
+            "dc:identifier": "SCOPUS_ID:84960192256",
+            "dc:publisher": "Elsevier Ltd"
+        }
+    }
+}

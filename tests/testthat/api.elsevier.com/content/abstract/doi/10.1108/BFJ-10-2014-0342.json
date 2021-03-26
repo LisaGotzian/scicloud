@@ -1,0 +1,86 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "As",
+                "affilname": "NOFIMA",
+                "affiliation-country": "Norway"
+            },
+            {
+                "affiliation-city": "Morogoro",
+                "affilname": "Sokoine University of Agriculture",
+                "affiliation-country": "Tanzania"
+            },
+            {
+                "affiliation-city": "As",
+                "affilname": "Universitetet for miljø- og biovitenskap",
+                "affiliation-country": "Norway"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "7",
+            "eid": "2-s2.0-84931474476",
+            "prism:coverDate": "2015-01-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84931474476",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Roselyne",
+                        "preferred-name": {
+                            "ce:given-name": "Roselyne",
+                            "ce:initials": "R.",
+                            "ce:surname": "Alphonce",
+                            "ce:indexed-name": "Alphonce R."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "R.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60007008",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60007008"
+                        },
+                        "ce:surname": "Alphonce",
+                        "@auid": "55386903300",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/55386903300",
+                        "ce:indexed-name": "Alphonce R."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84931474476"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84931474476&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84931474476&origin=inward"
+                }
+            ],
+            "prism:publicationName": "British Food Journal",
+            "source-id": "144664",
+            "citedby-count": "8",
+            "prism:volume": "117",
+            "subtype": "ar",
+            "prism:pageRange": "1886-1902",
+            "dc:title": "European consumer preference for African dried fruits",
+            "prism:endingPage": "1902",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1108/BFJ-10-2014-0342",
+            "prism:issn": "0007070X",
+            "prism:startingPage": "1886",
+            "dc:identifier": "SCOPUS_ID:84931474476",
+            "dc:publisher": "Emerald Group Publishing Ltd.Howard HouseWagon Lane, BingleyBD16 1WA"
+        }
+    }
+}

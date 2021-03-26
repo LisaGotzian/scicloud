@@ -1,0 +1,79 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": {
+            "affiliation-city": "Brighton",
+            "affilname": "University of Brighton",
+            "affiliation-country": "United Kingdom"
+        },
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "6",
+            "eid": "2-s2.0-57349090220",
+            "prism:coverDate": "2008-12-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/57349090220",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Matthew",
+                        "preferred-name": {
+                            "ce:given-name": "Matthew",
+                            "ce:initials": "M.",
+                            "ce:surname": "Adams",
+                            "ce:indexed-name": "Adams M."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "M.",
+                        "@_fa": "true",
+                        "affiliation": [
+                            {
+                                "@id": "60007919",
+                                "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60007919"
+                            },
+                            {
+                                "@id": "60007919",
+                                "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60007919"
+                            }
+                        ],
+                        "ce:surname": "Adams",
+                        "@auid": "57199234111",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/57199234111",
+                        "ce:indexed-name": "Adams M."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/57349090220"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=57349090220&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=57349090220&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Sociology",
+            "source-id": "18130",
+            "citedby-count": "65",
+            "prism:volume": "42",
+            "subtype": "ar",
+            "prism:pageRange": "1165-1182",
+            "dc:title": "What can sociology say about FairTrade?: Class, reflexivity and ethical consumption",
+            "prism:endingPage": "1182",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1177/0038038508096939",
+            "prism:issn": "00380385",
+            "prism:startingPage": "1165",
+            "dc:identifier": "SCOPUS_ID:57349090220"
+        }
+    }
+}

@@ -1,0 +1,86 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Oxford",
+                "affilname": "University of Oxford",
+                "affiliation-country": "United Kingdom"
+            },
+            {
+                "affiliation-city": "Jerusalem",
+                "affilname": "Hebrew University of Jerusalem",
+                "affiliation-country": "Israel"
+            },
+            {
+                "affiliation-city": "Tempe",
+                "affilname": "Arizona State University",
+                "affiliation-country": "United States"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "1",
+            "eid": "2-s2.0-85018240799",
+            "prism:coverDate": "2017-03-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/85018240799",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Kenneth W.",
+                        "preferred-name": {
+                            "ce:given-name": "Kenneth W.",
+                            "ce:initials": "K.W.",
+                            "ce:surname": "Abbott",
+                            "ce:indexed-name": "Abbott K.W."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "K.W.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60003892",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60003892"
+                        },
+                        "ce:surname": "Abbott",
+                        "@auid": "7101646393",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/7101646393",
+                        "ce:indexed-name": "Abbott K.W."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/85018240799"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=85018240799&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=85018240799&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Annals of the American Academy of Political and Social Science",
+            "source-id": "15528",
+            "citedby-count": "62",
+            "prism:volume": "670",
+            "subtype": "ar",
+            "prism:pageRange": "6-13",
+            "dc:title": "Introducing regulatory intermediaries",
+            "prism:endingPage": "13",
+            "openaccess": "2",
+            "openaccessFlag": null,
+            "prism:doi": "10.1177/0002716217695519",
+            "prism:issn": "15523349 00027162",
+            "prism:startingPage": "6",
+            "dc:identifier": "SCOPUS_ID:85018240799",
+            "dc:publisher": "SAGE Publications Inc."
+        }
+    }
+}

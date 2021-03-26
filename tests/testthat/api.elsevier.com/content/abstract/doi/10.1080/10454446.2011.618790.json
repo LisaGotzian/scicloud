@@ -1,0 +1,73 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": {
+            "affiliation-city": "Naples",
+            "affilname": "Parthenope University of Naples",
+            "affiliation-country": "Italy"
+        },
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "5",
+            "eid": "2-s2.0-84859043984",
+            "prism:coverDate": "2011-10-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84859043984",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Azzurra",
+                        "preferred-name": {
+                            "ce:given-name": "Azzurra",
+                            "ce:initials": "A.",
+                            "ce:surname": "Annunziata",
+                            "ce:indexed-name": "Annunziata A."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60025235",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60025235"
+                        },
+                        "ce:surname": "Annunziata",
+                        "@auid": "36551038700",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/36551038700",
+                        "ce:indexed-name": "Annunziata A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84859043984"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84859043984&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84859043984&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of Food Products Marketing",
+            "source-id": "20607",
+            "citedby-count": "36",
+            "prism:volume": "17",
+            "subtype": "ar",
+            "prism:pageRange": "518-535",
+            "dc:title": "Consumers' attitudes toward labelling of ethical products: The case of organic and fair trade products",
+            "prism:endingPage": "535",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1080/10454446.2011.618790",
+            "prism:issn": "10454446 15404102",
+            "prism:startingPage": "518",
+            "dc:identifier": "SCOPUS_ID:84859043984"
+        }
+    }
+}

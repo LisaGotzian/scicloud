@@ -1,0 +1,80 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": [
+            {
+                "affiliation-city": "Gottingen",
+                "affilname": "Universität Göttingen",
+                "affiliation-country": "Germany"
+            },
+            {
+                "affiliation-city": "Kassel",
+                "affilname": "Universität Kassel",
+                "affiliation-country": "Germany"
+            }
+        ],
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "4",
+            "eid": "2-s2.0-84859218775",
+            "prism:coverDate": "2012-04-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84859218775",
+            "subtypeDescription": "Review",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Veronika A.",
+                        "preferred-name": {
+                            "ce:given-name": "Veronika A.",
+                            "ce:initials": "V.A.",
+                            "ce:surname": "Andorfer",
+                            "ce:indexed-name": "Andorfer V."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "V.A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60018123",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60018123"
+                        },
+                        "ce:surname": "Andorfer",
+                        "@auid": "48461091600",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/48461091600",
+                        "ce:indexed-name": "Andorfer V.A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84859218775"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84859218775&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84859218775&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of Business Ethics",
+            "source-id": "23859",
+            "citedby-count": "129",
+            "prism:volume": "106",
+            "subtype": "re",
+            "prism:pageRange": "415-435",
+            "dc:title": "Research on Fair Trade Consumption-A Review",
+            "prism:endingPage": "435",
+            "openaccess": "1",
+            "openaccessFlag": "true",
+            "prism:doi": "10.1007/s10551-011-1008-5",
+            "prism:issn": "01674544 15730697",
+            "prism:startingPage": "415",
+            "dc:identifier": "SCOPUS_ID:84859218775"
+        }
+    }
+}

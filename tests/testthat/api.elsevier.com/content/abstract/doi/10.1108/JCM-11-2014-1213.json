@@ -1,0 +1,74 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": {
+            "affiliation-city": "Wageningen",
+            "affilname": "Wageningen University &amp; Research",
+            "affiliation-country": "Netherlands"
+        },
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "6",
+            "eid": "2-s2.0-84941086921",
+            "prism:coverDate": "2015-01-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/84941086921",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Angela",
+                        "preferred-name": {
+                            "ce:given-name": "Angela",
+                            "ce:initials": "A.",
+                            "ce:surname": "Anagnostou",
+                            "ce:indexed-name": "Anagnostou A."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "A.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60004156",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60004156"
+                        },
+                        "ce:surname": "Anagnostou",
+                        "@auid": "56825676900",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/56825676900",
+                        "ce:indexed-name": "Anagnostou A."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/84941086921"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=84941086921&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=84941086921&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of Consumer Marketing",
+            "source-id": "22897",
+            "citedby-count": "7",
+            "prism:volume": "32",
+            "subtype": "ar",
+            "prism:pageRange": "422-431",
+            "dc:title": "Sustainability labelling as a challenge to legitimacy: spillover effects of organic Fairtrade coffee on consumer perceptions of mainstream products and retailers",
+            "prism:endingPage": "431",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1108/JCM-11-2014-1213",
+            "prism:issn": "07363761",
+            "prism:startingPage": "422",
+            "dc:identifier": "SCOPUS_ID:84941086921",
+            "dc:publisher": "Emerald Group Publishing Ltd.Howard HouseWagon Lane, BingleyBD16 1WA"
+        }
+    }
+}

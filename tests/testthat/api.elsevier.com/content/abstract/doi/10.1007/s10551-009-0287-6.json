@@ -1,0 +1,73 @@
+{
+    "abstracts-retrieval-response": {
+        "affiliation": {
+            "affiliation-city": "Mexico City",
+            "affilname": "Instituto Politécnico Nacional",
+            "affiliation-country": "Mexico"
+        },
+        "coredata": {
+            "srctype": "j",
+            "prism:issueIdentifier": "SUPPL. 2",
+            "eid": "2-s2.0-74249118037",
+            "prism:coverDate": "2009-09-01",
+            "prism:aggregationType": "Journal",
+            "prism:url": "https://api.elsevier.com/content/abstract/scopus_id/74249118037",
+            "subtypeDescription": "Article",
+            "dc:creator": {
+                "author": [
+                    {
+                        "ce:given-name": "Jesús",
+                        "preferred-name": {
+                            "ce:given-name": "Jesús",
+                            "ce:initials": "J.",
+                            "ce:surname": "Alvarado",
+                            "ce:indexed-name": "Alvarado J."
+                        },
+                        "@seq": "1",
+                        "ce:initials": "J.",
+                        "@_fa": "true",
+                        "affiliation": {
+                            "@id": "60019176",
+                            "@href": "https://api.elsevier.com/content/affiliation/affiliation_id/60019176"
+                        },
+                        "ce:surname": "Alvarado",
+                        "@auid": "35224516000",
+                        "author-url": "https://api.elsevier.com/content/author/author_id/35224516000",
+                        "ce:indexed-name": "Alvarado J."
+                    }
+                ]
+            },
+            "link": [
+                {
+                    "@_fa": "true",
+                    "@rel": "self",
+                    "@href": "https://api.elsevier.com/content/abstract/scopus_id/74249118037"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus",
+                    "@href": "https://www.scopus.com/inward/record.uri?partnerID=HzOxMe3b&scp=74249118037&origin=inward"
+                },
+                {
+                    "@_fa": "true",
+                    "@rel": "scopus-citedby",
+                    "@href": "https://www.scopus.com/inward/citedby.uri?partnerID=HzOxMe3b&scp=74249118037&origin=inward"
+                }
+            ],
+            "prism:publicationName": "Journal of Business Ethics",
+            "source-id": "23859",
+            "citedby-count": "6",
+            "prism:volume": "88",
+            "subtype": "ar",
+            "prism:pageRange": "301-317",
+            "dc:title": "Fair trade in Mexico and abroad: An alternative to the Walmartopia?",
+            "prism:endingPage": "317",
+            "openaccess": "0",
+            "openaccessFlag": "false",
+            "prism:doi": "10.1007/s10551-009-0287-6",
+            "prism:issn": "01674544 15730697",
+            "prism:startingPage": "301",
+            "dc:identifier": "SCOPUS_ID:74249118037"
+        }
+    }
+}
